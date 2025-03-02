@@ -33,7 +33,7 @@ body {
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    background: linear-gradient(to bottom, #ff8c42, #ff6b6b); /* Same gradient as index.html */
+    background: linear-gradient(to bottom, #555, #222); /* Smooth dark transition */
     color: white;
 }
 

@@ -28,7 +28,7 @@ body {
 /* Left Panel */
 .left-panel {
     flex: 1;
-    background: linear-gradient(to bottom, #ff8c42, #ff6b6b);
+    background: linear-gradient(to bottom, #555, #222); /* Smooth dark transition */
     color: white;
     padding: 40px;
     text-align: center;

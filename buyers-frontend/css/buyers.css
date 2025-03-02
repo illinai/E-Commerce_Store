@@ -13,7 +13,7 @@ body {
 
 /* Header Section */
 .header1 {
-    background: #ff8c42;
+    background: #333;
     color: white;
     padding: 15px;
     text-align: center;
@@ -25,7 +25,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #ff8c42;
+    background: #333;
     padding: 10px 15px;
     color: white;
 }
@@ -37,7 +37,7 @@ body {
     top: 0;
     width: 250px;
     height: 100vh;
-    background: #ff6b6b;
+    background: #333;
     color: white;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
     transition: left 0.3s ease-in-out;

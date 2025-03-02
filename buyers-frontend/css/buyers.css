@@ -466,3 +466,89 @@ body {
     text-decoration: underline;
     background: #e0f0ff;
 }
+
+
+
+
+/* Review Section */
+.reviews {
+    margin: 30px auto;
+    padding: 20px;
+    max-width: 600px;
+    background: linear-gradient(to bottom, #444, #222); /* Dark background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: white;
+    text-align: center;
+}
+
+.reviews h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+/* Review Form */
+.reviews form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.reviews label {
+    font-weight: bold;
+    text-align: left;
+}
+
+.reviews select,
+.reviews textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+    background: #555;
+    color: white;
+}
+
+/* Star Rating */
+.rating {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 2em;
+    cursor: pointer;
+    color: gold;
+}
+
+.rating input:checked ~ label {
+    color: orange;
+}
+
+/* Submit Button */
+.reviews button {
+    background: #ff6b6b;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.reviews button:hover {
+    background: #ff4f4f;
+}
+
+/* Previous Reviews */
+#review-list {
+    margin-top: 20px;
+    text-align: left;
+    background: #555;
+    padding: 10px;
+    border-radius: 5px;
+}

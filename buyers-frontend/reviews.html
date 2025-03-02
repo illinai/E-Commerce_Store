@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Write a Review</title>
     <link rel="stylesheet" href="css/buyers.css">
 </head>
 <body>
@@ -25,9 +25,9 @@
                 <a href="wishlist.html">Wishlist</a>
                 <a href="cart.html">Cart</a>
                 <a href="orders.html">Orders</a>
-                <a href="profile.html" class="active">Profile</a>
+                <a href="reviews.html">Reviews</a> 
+                <a href="profile.html">Profile</a>
                 <a href="logout.html">Logout</a>
-                <a href="reviews.html">Reviews</a>
             </div>
         </div>
 
@@ -50,32 +50,37 @@
         </div>
     </header>
 
-    <!-- Profile Section -->
-    <section class="profile">
-        <h2>My Profile</h2>
-        <div class="profile-container">
-            <img id="profile-pic" class="profile-pic" src="images/default-profile.png" alt="Profile Picture">
-            <input type="file" id="profile-upload" accept="image/*">
-            <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
-        </div>
+    <!-- Review Section -->
+    <section class="reviews">
+        <h2>Write a Review</h2>
+        <form id="review-form">
+            <label for="product">Select Product:</label>
+            <select id="product" required>
+                <option value="">Choose a product</option>
+                <!-- Options will be populated dynamically -->
+            </select>
 
-        <div class="profile-details">
-            <label for="name">Name:</label>
-            <input type="text" id="name" value="John Doe" disabled>
+            <label for="rating">Rating:</label>
+            <div class="rating">
+                <input type="radio" name="stars" id="star5" value="5"><label for="star5">⭐</label>
+                <input type="radio" name="stars" id="star4" value="4"><label for="star4">⭐</label>
+                <input type="radio" name="stars" id="star3" value="3"><label for="star3">⭐</label>
+                <input type="radio" name="stars" id="star2" value="2"><label for="star2">⭐</label>
+                <input type="radio" name="stars" id="star1" value="1"><label for="star1">⭐</label>
+            </div>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" value="johndoe@example.com" disabled>
+            <label for="review-text">Your Review:</label>
+            <textarea id="review-text" required placeholder="Write your review here..."></textarea>
 
-            <label for="phone">Phone:</label>
-            <input type="text" id="phone" value="+1 234 567 8901" disabled>
+            <button type="submit">Submit Review</button>
+        </form>
 
-            <label for="address">Address:</label>
-            <textarea id="address" disabled>123 Handmade St, Artisan City, CA</textarea>
-
-            <button class="save-btn" onclick="saveProfile()" disabled>Save Changes</button>
+        <h2>Previous Reviews</h2>
+        <div id="review-list">
+            <p>No reviews yet.</p>
         </div>
     </section>
 
-    <script src="js/profile.js"></script>
+    <script src="js/reviews.js"></script>
 </body>
 </html>

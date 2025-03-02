@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Arial', sans-serif;
 }
 
 body {
@@ -10,17 +10,17 @@ body {
 }
 /* Headers */
 .header1 {
-    background-color: #1f502d;
+    background-color: #333;
     padding: 10px 20px;
     text-align: center;
-    color: white;
+    color: #ff6b6b;
 }
 
 .header2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #587a62;
+    background-color: #333;
     padding: 10px 15px;
     color: white;
 }
@@ -62,19 +62,20 @@ body {
 .menu-content {
     display: none;
     position: absolute;
-    background-color: #c8e5ce;
+    background-color: #555;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
 .menu-content a {
-    color: #1f502d;
+    color: white;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
 .menu-content a:hover {
-    background-color: lightskyblue;
+    background-color: #e2e1e1;
+    color: #ff6b6b;
 }
 .menuTab:hover .menu-content {
     display: block;
@@ -96,22 +97,49 @@ body {
     display: flex;
     gap: 10px;
 }
+.profileTab {
+    position: relative;
+    display: inline-block;
+}
+.profile-content {
+    display: none;
+    position: absolute;
+    background-color: #555;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.profile-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.profile a:hover {
+    background-color: #e2e1e1;
+    color: #ff6b6b;
+}
+.profileTab:hover .profile-content {
+    display: block;
+}
 /* -- */
 
 /* Slider */
 .containerSlider {
-    background-color: #c8e5ce;
+    background-color: #cfcece;
     margin: auto;
-    width: 90%;
+    width: 95%;
+    height: 400px;
     text-align: center;
-    padding-top: 40px;
+    padding-top: 20px;
     box-sizing: border-box;
 }
 .containerSlider img {
     width: 100%;
-    height: 140%;
+    height: 90%;
     text-align: center;
     align-content: center;
+    align-self: center;
 }
 /* -- */
 
@@ -126,15 +154,16 @@ body {
 
 /*Top Shops*/
 h3 {
-    color: #1f502d;
+    color: white;
 }
 .shops{
-    background-color: #a0bba6;
+    background-color: #868585;
     margin-left: 30px;
     margin-right: 10px;
     text-align: center;
     padding-top: 40px;
     padding-bottom: 10px;
+    color: white;
 }
 .shops img{
     padding-top: 20px;
@@ -147,7 +176,7 @@ h3 {
 /*Categories*/
 .categories {
     text-align: center;
-    background-color: #a0bba6;
+    background-color: white;
     margin-left: 10px;
     margin-right: 30px;
     height: 50%;
@@ -170,7 +199,7 @@ h3 {
 }
 .explore button {
     padding: 9px 20px;
-    background-color: #1f502d;
+    background-color: #ff6b6b;
     color: white;
     cursor: pointer;
     border-radius: 10px;
@@ -183,24 +212,26 @@ h3 {
 
 .smallBus {
     text-align: center;
-    background-color: #cfe8d4;
+    background-color: #aeaeae;
     margin-left: 10px;
     margin-right: 30px;
     margin-top: 22px;
     height: 45%;
 }
 .smallBus h2{
-    padding-top: 15px;
-    font-size: 250%
+    padding-top: 25px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 200%
 }
 
 .smallBus h3{
     padding-top: 15px;
-    font-size: 200%
+    font-size: 160%
 }
 .smallBus button {
     padding: 9px 20px;
-    background-color: #1f502d;
+    background-color: #ff6b6b;
     color: white;
     cursor: pointer;
     border-radius: 10px;
@@ -213,7 +244,7 @@ h3 {
 
 /*Footer*/
 footer {
-    background-color: #1f502d;
+    background-color: #333;
     color: white;
     padding: 1.25em;
     text-align: center;

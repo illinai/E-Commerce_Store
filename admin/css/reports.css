@@ -84,7 +84,10 @@ body {
     display: flex;
     gap: 10px;
 }
-.dashCards{
+h2{
+    text-align: center;
+}
+.repCards{
     display: flex;
     gap: 30px;
     margin-bottom: 30px;
@@ -92,7 +95,7 @@ body {
     margin-right: 20px;
     margin-left: 20px;
 }
-.dashCards div{
+.repCards .card{
     background-color: #cecccc;
     padding: 20px;
     border-radius: 8px;
@@ -100,34 +103,21 @@ body {
     flex: 1;
     text-align: center;
 }
-.dashCards div h3 {
+.dashCards .card h3 {
     margin: 0;
     font-size: 1.2rem;
     color: #555;
 }
-.dashCards div p {
+.dashCards .card p {
     font-size: 1.5rem;
     font-weight: bold;
     margin: 10px 0 0;
 }
-.stats{
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-    margin-top: 30px;
-    margin-right: 20px;
-    margin-left: 20px;
-}
-.stats div{
+.repList{
     background-color: #cecccc;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     flex: 1;
     text-align: center;
-}
-.stats div h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: #555;
 }

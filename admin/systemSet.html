@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin Dashboard</title>
+        <link rel="stylesheet" href="css/systemSet.css">
     </head>
     <body>
         <!--Title Header Section-->
@@ -21,7 +22,7 @@
             <!--Menu-->
             <div class="menuTab">
                 <button class="menu-button" onclick="toggleMenu">
-                    <img src="icons/menu.png" alt="Menu">
+                    <img src="../icons/menu.png" alt="Menu">
                 </button>
                 <div class="menu-content">
                     <a href="adminDash.html">Dashboard</a>
@@ -38,25 +39,33 @@
             <div class="right-buttons">
                 <!--Profile-->
                 <button class="profile-button">
-                   <img src="icons/profile.png" alt="Profile">
+                   <img src="../icons/profile.png" alt="Profile">
                 </button>
             </div> 
         </header>
 
-        <h2>System Settings</h2>
+        
 
         <div class="main">
-            <div class="navigation">
-                    <a href="#">Alerts</a>
-                    <a href="#">Notifications</a>
-                    <a href="#">Messaging</a>
-                    <a href="#">Shops</a>
-                    <a href="#">Buyers</a>
-                    <a href="#">Wishlists</a>
-                    <a href="#">Carts</a>
-                    <a href="#">Orders</a>
-                    <a href="#site-settings">Site Settings</a>
-            </div>
+                <div class="navigation">
+                    
+                    <nav>
+                        <div>
+                            <h2>System Settings</h2>
+                        </div>     
+                        <ul>                 
+                            <li><a href="#">Alerts</a></li>                   
+                            <li><a href="#">Notifications</a></li>
+                            <li><a href="#">Messaging</a></li>
+                            <li><a href="#">Shops</a></li>
+                            <li><a href="#">Buyers</a></li>
+                            <li><a href="#">Wishlists</a></li>
+                            <li><a href="#">Carts</a></li>
+                            <li><a href="#">Orders</a></li>
+                            <li><a href="#site-settings">Site Settings</a></li>
+                        </ul> 
+                    </nav>
+                </div>
 
             <div class="site">
                 <section id="site-settings">
@@ -67,8 +76,5 @@
                 </section>
             </div>
         </div>
-
-
-        
     </body>
 </html>

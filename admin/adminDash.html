@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin Dashboard</title>
+        <link rel="stylesheet" href="css/adminDash.css">
     </head>
     <body>
 
@@ -22,7 +23,7 @@
             <!--Menu-->
             <div class="menuTab">
                 <button class="menu-button" onclick="toggleMenu">
-                    <img src="icons/menu.png" alt="Menu">
+                    <img src="../icons/menu.png" alt="Menu">
                 </button>
                 <div class="menu-content">
                     <a href="adminDash.html">Dashboard</a>
@@ -39,32 +40,47 @@
             <div class="right-buttons">
                 <!--Profile-->
                 <button class="profile-button">
-                   <img src="icons/profile.png" alt="Profile">
+                   <img src="../icons/profile.png" alt="Profile">
                 </button>
             </div> 
         </header>
 
         <div class="main">
-            <div class="numUsers">      
-                <p>Total Users: 0</p> <!--number should be actual number after database creation-->
-                <p>Total Shops: 0</p> <!--number should be actual number after database creation-->
+            <div class="dashCards">
+                <div class="numUsers">   
+                    <h3>Total Users:</h3>   
+                    <p>0</p> <!--number should be actual number after database creation-->
+                </div>
+                <div class="numShops">   
+                    <h3>Number of Shops:</h3>   
+                    <p>0</p> <!--number should be actual number after database creation-->
+                </div>
+                <div class="Orders">
+                    <h3>Total Orders:</h3>
+                    <p>0</p> <!--number should be actual number after database creation-->
+                </div>
+                <div class="alerts">
+                    <h3>Alerts:</h3>
+                    <p>0</p> <!--number should be actual number after database creation-->
+                </div>
             </div>
-            <div class="Orders">
-                <p>Orders Place: 0</p> <!--number should be actual number after database creation-->
-            </div>
-            <div class="alerts">
-                <p>Alerts: 0</p> <!--number should be actual number after database creation-->
-            </div>
-            <div>
-                <p>User Activity Stats</p>
-                <!--Insert user activity stats graph(continuous line chart)-->
-                <!--Must update based on day-->
-            </div>
-            <div>
-                <p>User Report Stats</p>
-                <!--Insert report stats graph(continuous line chart)-->
-                <!--Must update based on day-->
+            <div class="stats">
+                <div class="activeStats">
+                    <h3>User Activity Stats</h3>
+                    <!--Insert user activity stats graph(continuous line chart)-->
+                    <!--Must update based on day-->
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+                    <canvas id="activeChart" style="width:100%;max-width:700px"></canvas>
+                </div>
+                <div class="reportStats">
+                    <h3>User Report Stats</h3>
+                    <!--Insert report stats graph(continuous line chart)-->
+                    <!--Must update based on day-->
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+                    <canvas id="reportChart" style="width:100%;max-width:700px"></canvas>
+                </div>
             </div>
         </div>
+        <script src="scripts/adminDash.js"></script>
     </body>
 </html>

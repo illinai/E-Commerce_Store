@@ -7,6 +7,8 @@
 
 body {
     background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
 }
 /* Headers */
 .header1 {
@@ -84,50 +86,41 @@ body {
     display: flex;
     gap: 10px;
 }
-.dashCards{
+
+    
+.navigation{
+    background-color: #333;
+    color: #fff;
+    padding: 15px 20px;
     display: flex;
-    gap: 30px;
+    justify-content: space-between;
+    align-items:flex-start;
+    position: fixed;
+    height: 100%;
+    width: 20%
+}
+.navigation h2{
+    text-align: left;
     margin-bottom: 30px;
-    margin-top: 30px;
-    margin-right: 20px;
-    margin-left: 20px;
+    font-weight: 100;
 }
-.dashCards div{
-    background-color: #cecccc;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    flex: 1;
-    text-align: center;
-}
-.dashCards div h3 {
+
+.navigation nav ul {
+    list-style: none;
+    /*display: flex;*/
+    gap: 15px;
     margin: 0;
-    font-size: 1.2rem;
-    color: #555;
+    padding: 0;
 }
-.dashCards div p {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 10px 0 0;
+.navigation nav ul li{
+    margin-top: 40px;
 }
-.stats{
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-    margin-top: 30px;
-    margin-right: 20px;
-    margin-left: 20px;
+.navigation nav ul li a {
+    color: rgb(214, 212, 212);
+    text-decoration: none;
+    font-weight: 100;
 }
-.stats div{
-    background-color: #cecccc;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    flex: 1;
-    text-align: center;
-}
-.stats div h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: #555;
+
+.navigation nav ul li a.active {
+    color: #ff6b6b;
 }

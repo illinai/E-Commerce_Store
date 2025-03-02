@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin Dashboard</title>
+        <link rel="stylesheet" href="css/reports.css">
     </head>
     <body>
         <!--Title Header Section-->
@@ -21,7 +22,7 @@
             <!--Menu-->
             <div class="menuTab">
                 <button class="menu-button" onclick="toggleMenu">
-                    <img src="icons/menu.png" alt="Menu">
+                    <img src="../icons/menu.png" alt="Menu">
                 </button>
                 <div class="menu-content">
                     <a href="adminDash.html">Dashboard</a>
@@ -38,15 +39,26 @@
             <div class="right-buttons">
                 <!--Profile-->
                 <button class="profile-button">
-                   <img src="icons/profile.png" alt="Profile">
+                   <img src="../icons/profile.png" alt="Profile">
                 </button>
             </div> 
         </header>
         <div class="rep">
             <h2>Reports</h2> 
-            <p>Total Reports: 0</p> <!--number should be actual number after database creation-->
-            <p>Pending Repors: 0</p> <!--number should be actual number after database creation-->
-            <p>Solved Reports: 0</p> <!--number should be actual number after database creation-->
+            <div class="repCards">
+                <div class="card">
+                    <h3>Total Reports:</h3>
+                    <p>0</p> <!--number should be actual number after database creation-->
+                </div>
+                <div class="card">
+                    <h3>Pending Reports:</h3>
+                    <p>0</p> <!--number should be actual number after database creation-->
+                </div>
+                <div class="card">
+                    <h3>Solved Reports:</h3>
+                    <p>0</p> <!--number should be actual number after database creation-->
+                </div>
+            </div>
             <div class="repList"> 
                 <p>Report Number: Username: Description</p> <!--format of reports-->
                 <!--Reports will show up as a list once database is created-->

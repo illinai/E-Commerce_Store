@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Dashboard</title>
+    </head>
+    <body>
+        <!--Title Header Section-->
+        <header class="header1">
+            <div id="container">
+                <div id="shopName">
+                    <h2>Site Name</h1>
+                </div>
+            </div>
+        </header>
+        <!---->
+
+        <!--Navigation Header Section-->
+        <header class="header2">
+            <!--Menu-->
+            <div class="menuTab">
+                <button class="menu-button" onclick="toggleMenu">
+                    <img src="icons/menu.png" alt="Menu">
+                </button>
+                <div class="menu-content">
+                    <a href="adminDash.html">Dashboard</a>
+                    <a href="reports.html">Reports</a>
+                    <a href="systemSet.html">System Settings</a>
+                    <a href="#">Account Setting</a>
+                    <a href="#">Help Center</a>
+                </div>
+            </div>
+            <!--Search Bar-->
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="right-buttons">
+                <!--Profile-->
+                <button class="profile-button">
+                   <img src="icons/profile.png" alt="Profile">
+                </button>
+            </div> 
+        </header>
+
+        <h2>System Settings</h2>
+
+        <div class="main">
+            <div class="navigation">
+                    <a href="#">Alerts</a>
+                    <a href="#">Notifications</a>
+                    <a href="#">Messaging</a>
+                    <a href="#">Shops</a>
+                    <a href="#">Buyers</a>
+                    <a href="#">Wishlists</a>
+                    <a href="#">Carts</a>
+                    <a href="#">Orders</a>
+                    <a href="#site-settings">Site Settings</a>
+            </div>
+
+            <div class="site">
+                <section id="site-settings">
+                    <!--features should include:-->
+                    <!--* disable/enable entire site-->
+                    <!--* disable/enable transactions/checkout-->
+                    <!--* disable/enable new account creation-->
+                </section>
+            </div>
+        </div>
+
+
+        
+    </body>
+</html>

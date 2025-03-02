@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"> 
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Dashboard</title>
+    </head>
+    <body>
+
+        <!--Title Header Section-->
+        <header class="header1">
+            <div id="container">
+                <div id="shopName">
+                    <h2>Site Name</h1>
+                </div>
+            </div>
+        </header>
+        <!---->
+
+        <!--Navigation Header Section-->
+        <header class="header2">
+            <!--Menu-->
+            <div class="menuTab">
+                <button class="menu-button" onclick="toggleMenu">
+                    <img src="icons/menu.png" alt="Menu">
+                </button>
+                <div class="menu-content">
+                    <a href="adminDash.html">Dashboard</a>
+                    <a href="reports.html">Reports</a>
+                    <a href="systemSet.html">System Settings</a>
+                    <a href="#">Account Setting</a>
+                    <a href="#">Help Center</a>
+                </div>
+            </div>
+            <!--Search Bar-->
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="right-buttons">
+                <!--Profile-->
+                <button class="profile-button">
+                   <img src="icons/profile.png" alt="Profile">
+                </button>
+            </div> 
+        </header>
+
+        <div class="main">
+            <div class="numUsers">      
+                <p>Total Users: 0</p> <!--number should be actual number after database creation-->
+                <p>Total Shops: 0</p> <!--number should be actual number after database creation-->
+            </div>
+            <div class="Orders">
+                <p>Orders Place: 0</p> <!--number should be actual number after database creation-->
+            </div>
+            <div class="alerts">
+                <p>Alerts: 0</p> <!--number should be actual number after database creation-->
+            </div>
+            <div>
+                <p>User Activity Stats</p>
+                <!--Insert user activity stats graph(continuous line chart)-->
+                <!--Must update based on day-->
+            </div>
+            <div>
+                <p>User Report Stats</p>
+                <!--Insert report stats graph(continuous line chart)-->
+                <!--Must update based on day-->
+            </div>
+        </div>
+    </body>
+</html>

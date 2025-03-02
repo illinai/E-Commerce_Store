@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content= "width=device-width, initial-scale=1.0">
+    <title>Profile - The Maker's Market</title>
+    <link rel="stylesheet" href="css/buyers.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <h1>The Maker's Market</h1>
+        <nav>
+            <ul>
+                <li><a href="buyers.html">Home</a></li>
+                <li><a href="wishlist.html">Wishlist</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="profile.html" class="active">Profile</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Profile Section -->
+    <section class="profile">
+        <h2>Your Profile</h2>
+        <div class="profile-container">
+            <img src="imgs/user-placeholder.jpg" alt="Profile Picture" class="profile-pic">
+            <h3 id="profile-name">John Doe</h3>
+            <p>Email: <span id="profile-email">johndoe@example.com</span></p>
+            <p>Member since: <span id="profile-date">January 2023</span></p>
+
+            <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
+        </div>
+
+        <!-- Edit Profile Modal -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Edit Profile</h3>
+                <label for="edit-name">Name:</label>
+                <input type="text" id="edit-name">
+                <label for="edit-email">Email:</label>
+                <input type="email" id="edit-email">
+                <button class="save-btn" onclick="saveProfile()">Save</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/profile.js"></script>
+</body>
+</html>

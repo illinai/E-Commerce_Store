@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer's Dashboard</title>
+    <link rel="stylesheet" href="css/buyers.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <h1>The Maker's Market</h1>
+        <nav>
+            <ul>
+                <li><a href="buyers.html">Home</a></li>
+                <li><a href="wishlist.html">Wishlist</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Search & Filters -->
+    <section class="search-filters">
+        <input type="text" id="search" placeholder="Search for products...">
+        <select id="category">
+            <option value="">All Categories</option>
+            <option value="jewelry">Jewelry</option>
+            <option value="clothing">Clothing</option>
+            <option value="art">Art</option>
+            <option value="home">Home Decor</option>
+        </select>
+        <input type="range" id="priceRange" min="1" max="500" step="1">
+        <span id="priceValue">$500</span>
+        <button onclick="applyFilters()">Apply Filters</button>
+    </section>
+
+    <!-- Product Listings -->
+    <section class="product-list">
+        <h2>Available Products</h2>
+        <div class="products" id="products-container">
+            <!-- Products will be dynamically inserted here -->
+        </div>
+    </section>
+
+    <!-- Shopping Cart -->
+    <section class="cart">
+        <h2>Your Cart</h2>
+        <div id="cart-items">
+            <p>No items in cart.</p>
+        </div>
+        <button class="checkout-btn">Proceed to Checkout</button>
+    </section>
+
+    <!-- Orders Section -->
+    <section class="orders">
+        <h2>Order History</h2>
+        <div id="order-history">
+            <p>No past orders yet.</p>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews">
+        <h2>Write a Review</h2>
+        <form id="review-form">
+            <label for="product">Select Product:</label>
+            <select id="product" required>
+                <option value="">Choose a product</option>
+                <!-- Options will be populated dynamically -->
+            </select>
+            <label for="rating">Rating:</label>
+            <input type="number" id="rating" min="1" max="5" required>
+            <label for="review-text">Your Review:</label>
+            <textarea id="review-text" required></textarea>
+            <button type="submit">Submit Review</button>
+        </form>
+    </section>
+
+    <script src="js/buyers.js"></script>
+</body>
+</html>

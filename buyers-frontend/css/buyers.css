@@ -11,44 +11,104 @@ body {
     padding: 20px;
 }
 
-/* Header and Navigation */
-header {
+/* Header Section */
+.header1 {
     background: #ff8c42;
     color: white;
     padding: 15px;
     text-align: center;
+    font-size: 1.5em;
 }
 
-nav ul {
-    list-style: none;
+/* Navigation Header */
+.header2 {
     display: flex;
-    justify-content: center;
-    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
+    background: #ff8c42;
+    padding: 10px 15px;
+    color: white;
 }
 
-nav ul li a {
+/* Sidebar Styles */
+#sidebar {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background: #ff6b6b;
+    color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease-in-out;
+    padding-top: 20px;
+}
+
+#sidebar a {
     color: white;
     text-decoration: none;
-    font-weight: bold;
+    display: block;
+    padding: 15px;
+    font-size: 1.2em;
 }
 
-/* Search and Filters */
-.search-filters {
+#sidebar a:hover {
+    background: #ff4f4f;
+}
+
+/* Close Menu Button */
+.close-menu {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2em;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+
+/* Menu Button */
+.menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.menu-button img {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+}
+
+/* Search Bar */
+.search-bar {
+    flex-grow: 1;
+    margin: 0 20px;
     display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 20px auto;
 }
 
-.search-filters input, .search-filters select, .search-filters button {
+.search-bar input {
+    width: 100%;
     padding: 8px;
+    border: none;
     border-radius: 5px;
-    border: 1px solid #ddd;
+}
+
+/* Right-side Buttons */
+.right-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.right-buttons button img {
+    width: 30px;
 }
 
 /* Product List */
 .product-list {
     padding: 20px;
+    margin-top: 20px;
 }
 
 .products {
@@ -62,6 +122,7 @@ nav ul li a {
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .product-card img {
@@ -84,39 +145,10 @@ nav ul li a {
     width: 100%;
 }
 
-/* Cart Section */
-.cart, .orders, .reviews {
-    margin-top: 30px;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.product-card button:hover {
+    background: #ff4f4f;
 }
 
-.cart button {
-    background: #ff6b6b;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-}
-
-/* Review Section */
-.reviews textarea {
-    width: 100%;
-    height: 80px;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-.reviews button {
-    background: #ff6b6b;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-}
 
 /* Wishlist Section */
 .wishlist {
@@ -125,6 +157,7 @@ nav ul li a {
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .wishlist-items {
@@ -164,6 +197,7 @@ nav ul li a {
 .wishlist-card button:hover {
     background: #ff4f4f;
 }
+
 
 /* Cart Section */
 .cart {
@@ -244,6 +278,7 @@ nav ul li a {
 }
 
 
+
 /* Orders Section */
 .orders {
     margin-top: 30px;
@@ -311,6 +346,9 @@ nav ul li a {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .profile-container {
@@ -325,9 +363,38 @@ nav ul li a {
     height: 120px;
     border-radius: 50%;
     margin-bottom: 15px;
+    object-fit: cover;
 }
 
-.edit-btn {
+#profile-upload {
+    display: block;
+    margin: 10px auto;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.profile-details label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.profile-details input,
+.profile-details textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.profile-details textarea {
+    height: 60px;
+}
+
+.edit-btn, .save-btn {
     background: #ff8c42;
     color: white;
     padding: 10px;
@@ -337,50 +404,8 @@ nav ul li a {
     margin-top: 10px;
 }
 
-.edit-btn:hover {
+.edit-btn:hover, .save-btn:hover {
     background: #ff6b6b;
-}
-
-/* Edit Profile Modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    width: 300px;
-}
-
-.close {
-    float: right;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.save-btn {
-    background: #42a5f5;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-.save-btn:hover {
-    background: #007bb6;
 }
 
 
@@ -408,6 +433,12 @@ nav ul li a {
     color: #555;
 }
 
+.logout-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
 .confirm-logout {
     background: #ff6b6b;
     color: white;
@@ -415,7 +446,7 @@ nav ul li a {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px;
+    font-size: 1.1em;
 }
 
 .confirm-logout:hover {
@@ -426,8 +457,12 @@ nav ul li a {
     text-decoration: none;
     color: #007bb6;
     font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 5px;
+    border: 1px solid #007bb6;
 }
 
 .cancel-logout:hover {
     text-decoration: underline;
+    background: #e0f0ff;
 }

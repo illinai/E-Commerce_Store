@@ -1,41 +1,50 @@
 document.addEventListener("DOMContentLoaded", () => {
     const wishlistContainer = document.getElementById("wishlist-container");
+    const sidebar = document.getElementById("sidebar");
 
-    // Sample wishlist data
-    const wishlistItems = [
-        { id: 1, name: "Handmade Earrings", price: 25, image: "imgs/earrings.jpg" },
-        { id: 2, name: "Wooden Home Decor", price: 40, image: "imgs/home-decor.jpg" },
-        { id: 3, name: "Custom Art Print", price: 30, image: "imgs/art.jpg" }
+    // Sample wishlist data (Load from localStorage or default)
+    let wishlistItems = JSON.parse(localStorage.getItem("wishlist")) || [
+        { id: 1, name: "Handmade Earrings", price: 25, image: "images/earrings.jpg" },
+        { id: 2, name: "Wooden Home Decor", price: 40, image: "images/home-decor.jpg" },
+        { id: 3, name: "Custom Art Print", price: 30, image: "images/art.jpg" }
     ];
 
-    // Display wishlist items
-    wishlistContainer.innerHTML = ""; // Clear default message
-    wishlistItems.forEach(item => {
-        const wishlistCard = document.createElement("div");
-        wishlistCard.classList.add("wishlist-card");
-        wishlistCard.innerHTML = `
-            <img src="${item.image}" alt="${item.name}">
-            <h3>${item.name}</h3>
-            <p>$${item.price}</p>
-            <button onclick="removeFromWishlist(${item.id})">Remove</button>
-        `;
-        wishlistContainer.appendChild(wishlistCard);
-    });
-
-    // Remove from wishlist function
-    window.removeFromWishlist = (itemId) => {
-        const updatedWishlist = wishlistItems.filter(item => item.id !== itemId);
-        wishlistContainer.innerHTML = "<p>No items in wishlist.</p>"; // Reset if empty
-        updatedWishlist.forEach(item => {
-            const wishlistCard = document.createElement("div");
-            wishlistCard.classList.add("wishlist-card");
-            wishlistCard.innerHTML = `
+    // Function to update the wishlist display
+    function renderWishlist() {
+        wishlistContainer.innerHTML = "";
+        if (wishlistItems.length === 0) {
+            wishlistContainer.innerHTML = `<p>No items in wishlist.</p>`;
+            return;
+        }
+        wishlistItems.forEach(item => {
+            const itemCard = document.createElement("div");
+            itemCard.classList.add("wishlist-card");
+            itemCard.innerHTML = `
                 <img src="${item.image}" alt="${item.name}">
                 <h3>${item.name}</h3>
                 <p>$${item.price}</p>
                 <button onclick="removeFromWishlist(${item.id})">Remove</button>
             `;
-            wishlistContainer.appendChild(wishlistCard);
+            wishlistContainer.appendChild(itemCard);
         });
+    }
+
+    // Remove item function
+    window.removeFromWishlist = (itemId) => {
+        wishlistItems = wishlistItems.filter(item => item.id !== itemId);
+        localStorage.setItem("wishlist", JSON.stringify(wishlistItems)); // Save updated wishlist
+        renderWishlist();
     };
+
+    // Toggle sidebar menu function
+    window.toggleMenu = () => {
+        if (sidebar.style.left === "0px") {
+            sidebar.style.left = "-250px"; // Hide sidebar
+        } else {
+            sidebar.style.left = "0px"; // Show sidebar
+        }
+    };
+
+    // Initial render
+    renderWishlist();
 });

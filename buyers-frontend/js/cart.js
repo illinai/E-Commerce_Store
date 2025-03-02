@@ -1,53 +1,54 @@
 document.addEventListener("DOMContentLoaded", () => {
     const cartContainer = document.getElementById("cart-container");
     const cartTotal = document.getElementById("cart-total");
+    const sidebar = document.getElementById("sidebar");
 
-    // Sample cart data
-    let cartItems = [
-        { id: 1, name: "Handmade Earrings", price: 25, image: "imgs/earrings.jpg" },
-        { id: 2, name: "Wooden Home Decor", price: 40, image: "imgs/home-decor.jpg" }
+    // Load cart items from localStorage or default
+    let cartItems = JSON.parse(localStorage.getItem("cart")) || [
+        { id: 1, name: "Handmade Earrings", price: 25, image: "images/earrings.jpg" },
+        { id: 2, name: "Wooden Home Decor", price: 40, image: "images/home-decor.jpg" },
     ];
 
-    function updateCart() {
-        cartContainer.innerHTML = ""; // Clear previous cart display
-        let total = 0;
-
+    // Function to update cart display
+    function renderCart() {
+        cartContainer.innerHTML = "";
         if (cartItems.length === 0) {
-            cartContainer.innerHTML = "<p>No items in cart.</p>";
-            cartTotal.textContent = "0.00";
+            cartContainer.innerHTML = `<p>No items in cart.</p>`;
+            cartTotal.textContent = "$0.00";
             return;
         }
-
+        let total = 0;
         cartItems.forEach(item => {
             total += item.price;
-            const cartCard = document.createElement("div");
-            cartCard.classList.add("cart-card");
-            cartCard.innerHTML = `
+            const itemCard = document.createElement("div");
+            itemCard.classList.add("cart-card");
+            itemCard.innerHTML = `
                 <img src="${item.image}" alt="${item.name}">
                 <h3>${item.name}</h3>
-                <p>$${item.price.toFixed(2)}</p>
+                <p>$${item.price}</p>
                 <button onclick="removeFromCart(${item.id})">Remove</button>
             `;
-            cartContainer.appendChild(cartCard);
+            cartContainer.appendChild(itemCard);
         });
-
-        cartTotal.textContent = total.toFixed(2);
+        cartTotal.textContent = `$${total.toFixed(2)}`;
     }
 
+    // Remove item from cart
     window.removeFromCart = (itemId) => {
         cartItems = cartItems.filter(item => item.id !== itemId);
-        updateCart();
+        localStorage.setItem("cart", JSON.stringify(cartItems)); // Save updated cart
+        renderCart();
     };
 
-    window.checkout = () => {
-        if (cartItems.length === 0) {
-            alert("Your cart is empty!");
-            return;
+    // Toggle sidebar menu
+    window.toggleMenu = () => {
+        if (sidebar.style.left === "0px") {
+            sidebar.style.left = "-250px"; // Hide sidebar
+        } else {
+            sidebar.style.left = "0px"; // Show sidebar
         }
-        alert("Proceeding to checkout...");
-        cartItems = [];
-        updateCart();
     };
 
-    updateCart();
+    // Initial render
+    renderCart();
 });

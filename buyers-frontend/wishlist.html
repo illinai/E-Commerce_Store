@@ -7,19 +7,46 @@
     <link rel="stylesheet" href="css/buyers.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <header>
+    <!-- Title Header Section -->
+    <header class="header1">
         <h1>The Maker's Market</h1>
-        <nav>
-            <ul>
-                <li><a href="buyers.html">Home</a></li>
-                <li><a href="wishlist.html" class="active">Wishlist</a></li>
-                <li><a href="cart.html">Cart</a></li>
-                <li><a href="orders.html">Orders</a></li>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="logout.html">Logout</a></li>
-            </ul>
-        </nav>
+    </header>
+
+    <!-- Navigation Header Section -->
+    <header class="header2">
+        <!-- Sidebar Menu -->
+        <div class="menuTab">
+            <button class="menu-button" onclick="toggleMenu()">
+                <img src="images/menu.png" alt="Menu">
+            </button>
+            <div id="sidebar" class="menu-content">
+                <button class="close-menu" onclick="toggleMenu()">×</button>
+                <a href="buyers.html">Home</a>
+                <a href="wishlist.html" class="active">Wishlist</a>
+                <a href="cart.html">Cart</a>
+                <a href="orders.html">Orders</a>
+                <a href="profile.html">Profile</a>
+                <a href="logout.html">Logout</a>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+        </div>
+
+        <!-- Right-side buttons -->
+        <div class="right-buttons">
+            <button class="liked-button">
+                <img src="images/liked.png" alt="Likes">
+            </button>
+            <button class="cart-button">
+                <img src="images/cart.png" alt="Cart">
+            </button>
+            <button class="profile-button">
+                <img src="images/profile.png" alt="Profile">
+            </button>
+        </div>
     </header>
 
     <!-- Wishlist Section -->

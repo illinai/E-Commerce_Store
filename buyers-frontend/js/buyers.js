@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     const productsContainer = document.getElementById("products-container");
-    const cartItems = document.getElementById("cart-items");
-    const orderHistory = document.getElementById("order-history");
 
     // Sample product data
     const products = [
@@ -23,9 +21,18 @@ document.addEventListener("DOMContentLoaded", () => {
         productsContainer.appendChild(productCard);
     });
 
-    // Add to cart function
+    // Sidebar toggle function
+    window.toggleMenu = () => {
+        const sidebar = document.getElementById("sidebar");
+        if (sidebar.style.left === "0px") {
+            sidebar.style.left = "-250px"; // Hide menu
+        } else {
+            sidebar.style.left = "0px"; // Show menu
+        }
+    };
+
+    // Add to cart function (for now, just a placeholder)
     window.addToCart = (productId) => {
-        const product = products.find(p => p.id === productId);
-        cartItems.innerHTML = `<p>${product.name} - $${product.price}</p>`;
+        alert(`Added product ID: ${productId} to cart.`);
     };
 });

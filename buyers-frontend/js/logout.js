@@ -1,11 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const logoutButton = document.querySelector(".confirm-logout");
+    const sidebar = document.getElementById("sidebar");
 
-    logoutButton.addEventListener("click", () => {
-        // Simulate logging out process
-        alert("You have been logged out.");
-        
-        // Redirect to login page
-        window.location.href = "login.html";
-    });
+    // Function to handle logout confirmation
+    window.confirmLogout = () => {
+        alert("You have been logged out successfully.");
+        localStorage.clear(); // Clear stored session data
+        window.location.href = "login.html"; // Redirect to login page
+    };
+
+    // Toggle sidebar menu
+    window.toggleMenu = () => {
+        if (sidebar.style.left === "0px") {
+            sidebar.style.left = "-250px"; // Hide sidebar
+        } else {
+            sidebar.style.left = "0px"; // Show sidebar
+        }
+    };
 });

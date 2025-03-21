@@ -62,15 +62,15 @@ document.addEventListener("DOMContentLoaded", () => {
         reviewForm.reset();
 
 
-         // Sidebar toggle function
-        window.toggleMenu = () => {
-        const sidebar = document.getElementById("sidebar");
-        if (sidebar.style.left === "0px") {
-            sidebar.style.left = "-250px"; // Hide menu
-        } else {
-            sidebar.style.left = "0px"; // Show menu
-        }
-    };
-
     });
+    
 });
+
+window.toggleMenu = () => {
+    const sidebar = document.getElementById("sidebar");
+    if (sidebar.style.left === "0px") {
+        sidebar.style.left = "-250px"; // Hide menu
+    } else {
+        sidebar.style.left = "0px"; // Show menu
+    }
+};

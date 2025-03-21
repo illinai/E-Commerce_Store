@@ -8,16 +8,14 @@
 
 body {
     background-color: #f4f4f9;
-    padding: 20px;
 }
 
 /* Header Section */
 .header1 {
-    background: #333;
-    color: white;
-    padding: 15px;
+    background-color: #333;
+    padding: 10px 20px;
     text-align: center;
-    font-size: 1.5em;
+    color: #ff6b6b;
 }
 
 /* Navigation Header */
@@ -75,12 +73,42 @@ body {
     cursor: pointer;
 }
 
-.menu-button img {
+/*.menu-button img {
     width: 40px;
     height: auto;
     cursor: pointer;
+}*/
+.menu-button img{
+    background-color: none;
+    width: 35px;
+    height: 35px;
+}
+.profile-button img{
+    background-color: none;
+    width: 35px;
+    height: 35px;
 }
 
+.cart-button img{
+    background-color: none;
+    width: 35px;
+    height: 35px;
+}
+.liked-button img{
+    background-color: none;
+    width: 30px;
+    height: 30px;
+}
+
+.menu-button, .profile-button, .cart-button, .liked-button{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.menu-button {
+    align-items: left;
+} 
+/*---*/
 /* Search Bar */
 .search-bar {
     flex-grow: 1;

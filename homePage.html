@@ -14,7 +14,7 @@
         <header class="header1">
             <div id="container">
                 <div id="shopName">
-                    <h2>Site Name</h1>
+                    <h2>Site Name</h2>
                 </div>
             </div>
         </header>
@@ -24,15 +24,18 @@
         <header class="header2">
             <!--Menu-->
             <div class="menuTab">
-                <button class="menu-button" onclick="toggleMenu">
+                <button class="menu-button" onclick="toggleMenu()">
                     <img src="icons/menu.png" alt="Menu">
                 </button>
-                <div class="menu-content">
-                    <a href="#">Order History</a>
-                    <a href="#">Reviews</a>
-                    <a href="#">Messages</a>
-                    <a href="#">Account Setting</a>
-                    <a href="#">Help Center</a>
+                <div id="sidebar" class="menu-content">
+                    <button class="close-menu" onclick="toggleMenu()">×</button>
+                    <a href="homePage.html">Home</a>                   
+                    <a href="buyers-frontend/wishlist.html">Wishlist</a>
+                    <a href="buyers-frontend/cart.html">Cart</a>
+                    <a href="buyers-frontend/orders.html">Orders</a>
+                    <a href="buyers-frontend/reviews.html">Reviews</a> 
+                    <a href="buyers-frontend/profile.html">Profile</a>
+                    <a href="buyers-frontend/logout.html">Logout</a>
                 </div>
             </div>
             <!--Search Bar-->
@@ -42,17 +45,17 @@
             <div class="right-buttons">
                 <!--Likes/Wishlist-->
                 <button class="liked-button">
-                    <img src="icons/liked.png" alt="Likes">
+                    <a href="buyers-frontend/wishlist.html"><img src="icons/liked.png" alt="Likes"></a>
                 </button>
                 <!--Cart-->
                 <button class="cart-button">
-                    <img src="icons/cart.png" alt="Cart">
+                    <a href="buyers-frontend/cart.html"><img src="icons/cart.png" alt="Cart"></a>
                 </button>
                 <!--Profile-->
-                <button class="profile-button">
+                <button id = "profileButton" class="profile-button" onclick="toggleProfile()">
                    <img src="icons/profile.png" alt="Profile">
                 </button>
-                <div class="profileTab">
+                <div id="profileOpt" class="profileTab">
                     <div class="profile-content">
                         <a href="#">Sign In</a>
                         <a href="#">Register</a>
@@ -108,8 +111,8 @@
                     </div>
                     <!--Small Busines-->
                     <div class="smallBus">
-                        <h2>Want to create your own small business?</h1>
-                        <h3>To Sign up as a Business Account</h2>
+                        <h2>Want to create your own small business?</h2>
+                        <h3>To Sign up as a Business Account</h3>
                         <button>Click Here</button>
                     </div>
                     <!---->

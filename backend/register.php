@@ -32,6 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result->num_rows > 0) {
             echo "Error: Email already exists.<br>";
+            header("refresh:3;url=../main/index.html"); // Redirect after 3 seconds to the login page
+            exit();
         } else {
             // Insert user into the database using prepared statement
             $sql = "INSERT INTO users (email, password, first_name, last_name, role) VALUES (?, ?, ?, ?, ?)";
@@ -42,7 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($stmt->execute()) {
                 // Display a confirmation message
                 echo "Account created successfully!<br>";
-                echo"";
                 echo "You will be redirected to the login page shortly.<br>";
 
                 // Add a short delay before redirecting

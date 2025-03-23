@@ -31,89 +31,131 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Load products
     async function loadProducts() {
-        const response = await fetch('backend/get_products.php'); // Fetch products
-        const products = await response.json();
-        const tbody = document.querySelector('#productTable tbody');
-        tbody.innerHTML = products.map(product => `
-            <tr>
-                <td>${product.name}</td>
-                <td>${product.description}</td>
-                <td>$${product.price}</td>
-                <td><img src="data:image/jpeg;base64,${btoa(String.fromCharCode(...new Uint8Array(product.image)))}" alt="${product.name}" width="100"></td>
-                <td><button onclick="deleteProduct(${product.id})">Delete</button></td>
-            </tr>
-        `).join('');
+        try {
+            const response = await fetch('backend/get_products.php'); // Fetch products
+            const products = await response.json();
+            const tbody = document.querySelector('#productTable tbody');
+            tbody.innerHTML = products.map(product => {
+                const imageUrl = URL.createObjectURL(new Blob([product.image]));
+                return `
+                    <tr>
+                        <td>${product.name}</td>
+                        <td>${product.description}</td>
+                        <td>$${product.price}</td>
+                        <td><img src="${imageUrl}" alt="${product.name}" width="100"></td>
+                        <td><button onclick="deleteProduct(${product.id})">Delete</button></td>
+                    </tr>
+                `;
+            }).join('');
+        } catch (error) {
+            console.error('Error loading products:', error);
+        }
     }
 
     // Add product
     document.getElementById('productForm').addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Create FormData object to handle file uploads
         const formData = new FormData();
         formData.append('name', document.getElementById('productName').value);
         formData.append('description', document.getElementById('productDescription').value);
         formData.append('price', document.getElementById('productPrice').value);
-        formData.append('image', document.getElementById('productImage').files[0]); // Handle file upload
+        formData.append('image', document.getElementById('productImage').files[0]);
         formData.append('category_id', 1); // Default category ID
 
-        const response = await fetch('backend/add_product.php', {
-            method: 'POST',
-            body: formData // Send FormData instead of JSON
-        });
-        const result = await response.json();
-        if (result.success) {
-            alert('Product added successfully!');
-            loadProducts(); // Refresh product list
-        } else {
-            alert('Error: ' + result.message);
+        try {
+            const response = await fetch('backend/add_product.php', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            if (result.success) {
+                alert('Product added successfully!');
+                loadProducts(); // Refresh product list
+            } else {
+                alert('Error: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error adding product:', error);
         }
     });
 
+    // Delete product
+    async function deleteProduct(productId) {
+        try {
+            const response = await fetch('backend/delete_product.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ product_id: productId })
+            });
+            const result = await response.json();
+            if (result.success) {
+                alert('Product deleted successfully!');
+                loadProducts(); // Refresh product list
+            } else {
+                alert('Error: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error deleting product:', error);
+        }
+    }
+
     // Load orders
     async function loadOrders() {
-        const response = await fetch('backend/get_orders.php'); // Fetch orders
-        const orders = await response.json();
-        const tbody = document.querySelector('#orderTable tbody');
-        tbody.innerHTML = orders.map(order => `
-            <tr>
-                <td>${order.id}</td>
-                <td>${order.name}</td>
-                <td>${order.quantity}</td>
-                <td>${order.status}</td>
-                <td><button onclick="updateOrderStatus(${order.id}, 'Shipped')">Mark as Shipped</button></td>
-            </tr>
-        `).join('');
+        try {
+            const response = await fetch('backend/get_orders.php'); // Fetch orders
+            const orders = await response.json();
+            const tbody = document.querySelector('#orderTable tbody');
+            tbody.innerHTML = orders.map(order => `
+                <tr>
+                    <td>${order.id}</td>
+                    <td>${order.name}</td>
+                    <td>${order.quantity}</td>
+                    <td>${order.status}</td>
+                    <td><button onclick="updateOrderStatus(${order.id}, 'Shipped')">Mark as Shipped</button></td>
+                </tr>
+            `).join('');
+        } catch (error) {
+            console.error('Error loading orders:', error);
+        }
     }
 
     // Update order status
     async function updateOrderStatus(orderId, status) {
-        const response = await fetch('backend/update_order.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ order_id: orderId, status: status })
-        });
-        const result = await response.json();
-        if (result.success) {
-            alert('Order status updated!');
-            loadOrders(); // Refresh order list
-        } else {
-            alert('Error: ' + result.message);
+        try {
+            const response = await fetch('backend/update_order.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ order_id: orderId, status: status })
+            });
+            const result = await response.json();
+            if (result.success) {
+                alert('Order status updated!');
+                loadOrders(); // Refresh order list
+            } else {
+                alert('Error: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error updating order status:', error);
         }
     }
 
     // Load profile
     async function loadProfile() {
-        const response = await fetch('backend/get_profile_seller.php'); // Fetch profile
-        const profile = await response.json();
-        document.getElementById('sellerName').value = profile.first_name;
-        document.getElementById('sellerLastName').value = profile.last_name;
+        try {
+            const response = await fetch('backend/get_profile_seller.php'); // Fetch profile
+            const profile = await response.json();
+            document.getElementById('sellerName').value = profile.first_name;
+            document.getElementById('sellerLastName').value = profile.last_name;
 
-        // Display profile image
-        if (profile.profile_img) {
-            const imageUrl = URL.createObjectURL(new Blob([profile.profile_img]));
-            document.getElementById('profileImagePreview').src = imageUrl;
-            document.getElementById('profileImagePreview').style.display = 'block';
+            // Display profile image
+            if (profile.profile_img) {
+                const imageUrl = URL.createObjectURL(new Blob([profile.profile_img]));
+                document.getElementById('profileImagePreview').src = imageUrl;
+                document.getElementById('profileImagePreview').style.display = 'block';
+            }
+        } catch (error) {
+            console.error('Error loading profile:', error);
         }
     }
 
@@ -121,22 +163,25 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('profileForm').addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Create FormData object to handle file uploads
         const formData = new FormData();
         formData.append('first_name', document.getElementById('sellerName').value);
         formData.append('last_name', document.getElementById('sellerLastName').value);
-        formData.append('profile_img', document.getElementById('sellerImage').files[0]); // Handle file upload
+        formData.append('profile_img', document.getElementById('sellerImage').files[0]);
 
-        const response = await fetch('backend/edit_profile.php', {
-            method: 'POST',
-            body: formData // Send FormData instead of JSON
-        });
-        const result = await response.json();
-        if (result.success) {
-            alert('Profile updated successfully!');
-            loadProfile(); // Refresh profile data
-        } else {
-            alert('Error: ' + result.message);
+        try {
+            const response = await fetch('backend/edit_profile.php', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            if (result.success) {
+                alert('Profile updated successfully!');
+                loadProfile(); // Refresh profile data
+            } else {
+                alert('Error: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error updating profile:', error);
         }
     });
 

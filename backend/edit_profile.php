@@ -7,6 +7,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $last_name = $_POST['last_name'];
     $seller_id = $_SESSION['user_id'];
 
+    // Validate profile image file
+    if ($_FILES['profile_image']['size'] > 5000000) { // 5MB limit
+        echo json_encode(['success' => false, 'message' => 'File is too large.']);
+        exit;
+    }
+    if (!in_array($_FILES['profile_image']['type'], ['image/jpeg', 'image/png', 'image/gif'])) {
+        echo json_encode(['success' => false, 'message' => 'Invalid file type.']);
+        exit;
+    }
+
     // Handle profile image upload
     $profile_image = file_get_contents($_FILES['profile_image']['tmp_name']); // Read image file as binary data
 

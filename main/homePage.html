@@ -22,77 +22,73 @@
 
         <!--Navigation Header Section-->
         <header class="header2">
-            <!--Menu-->
-            <div class="menuTab">
-                <button class="menu-button" onclick="toggleMenu()">
-                    <img src="icons/menu.png" alt="Menu">
-                </button>
-                <div id="sidebar" class="menu-content">
-                    <button class="close-menu" onclick="toggleMenu()">×</button>
-                    <a href="homePage.html">Home</a>
-                    <a href="../buyers-frontend/wishlist.html">Wishlist</a>
-                    <a href="../buyers-frontend/cart.html">Cart</a>
-                    <a href="../buyers-frontend/orders.html">Orders</a>
-                    <a href="../buyers-frontend/reviews.html">Reviews</a> 
-                    <a href="../buyers-frontend/profile.html">Profile</a>
-                    <a href="../buyers-frontend/logout.html">Logout</a>
+            
+                <!--Menu-->
+                <div class="menuTab">
+                    <button class="menu-button" onclick="toggleMenu()">
+                        <img src="icons/menu.png" alt="Menu">
+                    </button>
+                    <div id="sidebar" class="menu-content">
+                        <button class="close-menu" onclick="toggleMenu()">×</button>
+                        <a href="homePage.html">Home</a>
+                        <a href="../buyers-frontend/wishlist.html">Wishlist</a>
+                        <a href="../buyers-frontend/cart.html">Cart</a>
+                        <a href="../buyers-frontend/orders.html">Orders</a>
+                        <a href="../buyers-frontend/reviews.html">Reviews</a> 
+                        <a href="../buyers-frontend/profile.html">Profile</a>
+                        <a href="../buyers-frontend/logout.html">Logout</a>
+                    </div>
                 </div>
-            </div>
-            <!--Search Bar-->
-            <div class="search-bar">
-                <input type="text" placeholder="Search...">
-            </div>
-            <div class="right-buttons">
-                <!--Likes/Wishlist-->
-                <button class="liked-button">
-                    <a href="../buyers-frontend/wishlist.html"><img src="icons/liked.png" alt="Likes"></a>
-                </button>
-                <!--Cart-->
-                <button class="cart-button">
-                    <a href="../buyers-frontend/cart.html"><img src="icons/cart.png" alt="Cart"></a>
-                </button>
-                <!--Profile-->
-                <button id = "profileButton" class="profile-button" onclick="toggleProfile()">
-                    <img src="icons/profile.png" alt="Profile">
-                 </button>
-                 <div id="profileOpt" class="profileTab">
-                     <div class="profile-content">
-                         <a href="index.html">Sign In</a>
-                         <a href="register.html">Register</a>
-                     </div>
-                 </div>
-            </div> 
+                <!--Search Bar-->
+                <div class="search-bar">
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="right-buttons">
+                    <!--Likes/Wishlist-->
+                    <button class="liked-button">
+                        <a href="../buyers-frontend/wishlist.html"><img src="icons/liked.png" alt="Likes"></a>
+                    </button>
+                    <!--Cart-->
+                    <button class="cart-button">
+                        <a href="../buyers-frontend/cart.html"><img src="icons/cart.png" alt="Cart"></a>
+                    </button>
+                    <!--Profile-->
+                    <button id = "profileButton" class="profile-button" onclick="toggleProfile()">
+                        <img src="icons/profile.png" alt="Profile">
+                    </button>
+                    <div id="profileOpt" class="profileTab">
+                        <div class="profile-content">
+                            <a href="index.html">Sign In</a>
+                            <a href="register.html">Register</a>
+                        </div>
+                    </div>
+                </div> 
+            
         </header>
         <!---->
-        <section class="main">
-                <!--Slider-->
-                <section id="Slider">
-                    <div class="containerSlider">
-                        <!--Insert required images-->
-                        <img class="slidingImage" src="imgs/img1.jpeg" alt="image1"> <!--Temporary image Needs to be Replaced-->
-                        <img class="slidingImage" src="imgs/img2.png" alt="image2"> 
-                        <img class="slidingImage" src="imgs/img3.png" alt="image3"> 
-                        <img class="slidingImage" src="imgs/img4.png" alt="image4">
-                        <button class="w3-button w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-                        <button class="w3-button w3-display-right" onclick="plusDivs(+1)">&#10095;</button>
+        <div class="main">
+                <!--banner-->
+                <section id="banner">
+                    <div class="banner">
+                        <img src="imgs/banner3.png" alt="Banner">
                     </div>
+
                 </section>
-                <!---->
             <div class="below">
                 <!--Top Shops-->
-                <section id="topShops">
+                <!--<section id="topShops">
                     <div class="shops">
                         <h3>Best Selling Shops</h3>
-                        <div><img class="shops1" src="imgs/shop1.jpeg" alt="shop1"></div> <!--Temporary image Needs to be Replaced-->
-                        <div><p>Shop Name 1</p></div> <!--Temporary Name Needs to be Replaced-->
-                        <div><img class="shops1" src="imgs/shop2.jpeg" alt="shop2"></div> <!--Temporary image Needs to be Replaced-->
-                        <div><p>Shop Name 2</p></div> <!--Temporary Name Needs to be Replaced-->
-                        <div><img class="shops1" src="imgs/shop3.jpeg" alt="shop3"></div> <!--Temporary image Needs to be Replaced-->
-                        <div><p>Shop Name 3</p></div> <!--Temporary Name Needs to be Replaced-->
+                        <div><img class="shops1" src="imgs/shop1.jpeg" alt="shop1"></div> <!--Temporary image Needs to be Replaced
+                        <div><p>Shop Name 1</p></div> <!--Temporary Name Needs to be Replaced
+                        <div><img class="shops1" src="imgs/shop2.jpeg" alt="shop2"></div> <!--Temporary image Needs to be Replaced
+                        <div><p>Shop Name 2</p></div> <!--Temporary Name Needs to be Replaced
+                        <div><img class="shops1" src="imgs/shop3.jpeg" alt="shop3"></div> <!--Temporary image Needs to be Replaced
+                        <div><p>Shop Name 3</p></div> <!--Temporary Name Needs to be Replaced
                     </div>
-                </section>
+                </section>-->
                 <!---->
-
+                
                 <!--Categories and More-->
                 <section id="Categories-And-More">
                     <div class="categories">
@@ -109,17 +105,19 @@
                             <button>Explore More Categories</button>
                          </div>
                     </div>
+
                     <!--Small Busines-->
                     <div class="smallBus">
                         <h2>Want to create your own small business?</h1>
-                        <h3>To Sign up as a Business Account</h2>
+                        <h3>To Sign up</h2>
                         <button>Click Here</button>
                     </div>
-                    <!---->
+                <!---->
+                    
                 </section>
                 <!---->
             </div>
-        </section>
+        </div>
         <footer>
             <nav>
                 <a href="#">Stuff</a> <!--Temporary Needs to be Replaced-->

@@ -8,6 +8,7 @@ CREATE TABLE users (
     last_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    profile_img LONGBLOB,
     role ENUM('normal', 'admin') DEFAULT 'normal',
     ability ENUM('enabled', 'disabled') DEFAULT 'enabled',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -20,7 +21,7 @@ CREATE TABLE products (
     name VARCHAR(255) NOT NULL,
     description TEXT,
     price DECIMAL(10, 2) NOT NULL,
-    image_url VARCHAR(255),
+    image LONGBLOB,
     category_id INT NOT NULL,
     sold INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

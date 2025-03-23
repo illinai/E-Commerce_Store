@@ -3,13 +3,14 @@ session_start();
 include 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $data = json_decode(file_get_contents('php://input'), true);
-    $first_name = $data['first_name'];
-    $last_name = $data['last_name'];
-    $profile_image = $data['profile_image'];
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
     $seller_id = $_SESSION['user_id'];
 
-    $sql = "UPDATE users SET first_name = ?, last_name = ?, profile_image = ? WHERE id = ?";
+    // Handle profile image upload
+    $profile_image = file_get_contents($_FILES['profile_image']['tmp_name']); // Read image file as binary data
+
+    $sql = "UPDATE users SET first_name = ?, last_name = ?, profile_img = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssi", $first_name, $last_name, $profile_image, $seller_id);
 

@@ -39,11 +39,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${product.name}</td>
                 <td>${product.description}</td>
                 <td>$${product.price}</td>
-                <td>${product.quantity}</td>
                 <td><button onclick="deleteProduct(${product.id})">Delete</button></td>
             </tr>
         `).join('');
     }
+
+    // Add product
+    document.getElementById('productForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Create FormData object to handle file uploads
+        const formData = new FormData();
+        formData.append('name', document.getElementById('productName').value);
+        formData.append('description', document.getElementById('productDescription').value);
+        formData.append('price', document.getElementById('productPrice').value);
+        formData.append('image', document.getElementById('productImage').files[0]); // Handle file upload
+        formData.append('category_id', 1); // Default category ID
+
+        const response = await fetch('backend/add_product.php', {
+            method: 'POST',
+            body: formData // Send FormData instead of JSON
+        });
+        const result = await response.json();
+        if (result.success) {
+            alert('Product added successfully!');
+            loadProducts(); // Refresh product list
+        } else {
+            alert('Error: ' + result.message);
+        }
+    });
 
     // Load orders
     async function loadOrders() {
@@ -61,33 +85,9 @@ document.addEventListener("DOMContentLoaded", function () {
         `).join('');
     }
 
-    // Add product
-    document.getElementById('productForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const productData = {
-            name: document.getElementById('productName').value,
-            description: document.getElementById('productDescription').value,
-            price: document.getElementById('productPrice').value,
-            image_url: document.getElementById('productImage').value,
-            quantity: document.getElementById('productQuantity').value
-        };
-        const response = await fetch('backend/add_product.php', { // Add product
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(productData)
-        });
-        const result = await response.json();
-        if (result.success) {
-            alert('Product added successfully!');
-            loadProducts(); // Refresh product list
-        } else {
-            alert('Error: ' + result.message);
-        }
-    });
-
     // Update order status
     async function updateOrderStatus(orderId, status) {
-        const response = await fetch('backend/update_order.php', { // Update order
+        const response = await fetch('backend/update_order.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ order_id: orderId, status: status })
@@ -106,26 +106,32 @@ document.addEventListener("DOMContentLoaded", function () {
         const response = await fetch('backend/get_profile_seller.php'); // Fetch profile
         const profile = await response.json();
         document.getElementById('sellerName').value = profile.first_name;
-        document.getElementById('sellerLastName').value = profile.last_name; // Add this field to your HTML
-        document.getElementById('sellerImage').value = profile.profile_image;
+        document.getElementById('sellerLastName').value = profile.last_name;
+        // Display profile image (if stored as binary data, you may need to convert it to a URL)
+        if (profile.profile_img) {
+            const imageUrl = URL.createObjectURL(new Blob([profile.profile_img]));
+            document.getElementById('sellerImage').src = imageUrl;
+        }
     }
 
     // Edit profile
     document.getElementById('profileForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-        const profileData = {
-            first_name: document.getElementById('sellerName').value,
-            last_name: document.getElementById('sellerLastName').value, // Add this field to your HTML
-            profile_image: document.getElementById('sellerImage').value
-        };
-        const response = await fetch('backend/edit_profile.php', { // Update profile
+
+        // Create FormData object to handle file uploads
+        const formData = new FormData();
+        formData.append('first_name', document.getElementById('sellerName').value);
+        formData.append('last_name', document.getElementById('sellerLastName').value);
+        formData.append('profile_image', document.getElementById('sellerImage').files[0]); // Handle file upload
+
+        const response = await fetch('backend/edit_profile.php', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(profileData)
+            body: formData // Send FormData instead of JSON
         });
         const result = await response.json();
         if (result.success) {
             alert('Profile updated successfully!');
+            loadProfile(); // Refresh profile data
         } else {
             alert('Error: ' + result.message);
         }

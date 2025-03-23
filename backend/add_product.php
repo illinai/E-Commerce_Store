@@ -3,17 +3,18 @@ session_start();
 include 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $data = json_decode(file_get_contents('php://input'), true);
-    $name = $data['name'];
-    $description = $data['description'];
-    $price = $data['price'];
-    $image_url = $data['image_url'];
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+    $price = $_POST['price'];
+    $category_id = $_POST['category_id'];
     $seller_id = $_SESSION['user_id']; // Assume seller is logged in
-    $category_id = 1; // Default category ID (you can change this)
 
-    $sql = "INSERT INTO products (seller_id, name, description, price, image_url, category_id) VALUES (?, ?, ?, ?, ?, ?)";
+    // Handle image upload
+    $image = file_get_contents($_FILES['image']['tmp_name']); // Read image file as binary data
+
+    $sql = "INSERT INTO products (seller_id, name, description, price, image, category_id) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("issdsi", $seller_id, $name, $description, $price, $image_url, $category_id);
+    $stmt->bind_param("issdsi", $seller_id, $name, $description, $price, $image, $category_id);
 
     if ($stmt->execute()) {
         echo json_encode(['success' => true]);

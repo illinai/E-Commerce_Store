@@ -1,44 +1,60 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Sidebar toggle function
-    window.toggleMenu = () => {
-      const sidebar = document.getElementById("sidebar");
-      if (sidebar.style.left === "0px") {
-          sidebar.style.left = "-250px"; // Hide menu
-      } else {
-          sidebar.style.left = "0px"; // Show menu
-      }
+  // Sidebar toggle
+  window.toggleMenu = () => {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
   };
-});
 
-var slideIndex = 1;
-showDivs(slideIndex);
+  // Product list
+  const products = [
+    { id: 1, name: "Handmade Earrings", price: 25, image: "imgs/earrings.jpg" },
+    { id: 2, name: "Wooden Home Decor", price: 40, image: "imgs/home-decor.jpg" },
+    { id: 3, name: "Custom Art Print", price: 30, image: "imgs/art.jpg" }
+  ];
 
-function plusDivs(n) {
-  showDivs(slideIndex += n);
-}
+  // Display products
+  const container = document.getElementById("products-container");
+  products.forEach(product => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+    card.innerHTML = `
+      <img src="${product.image}" alt="${product.name}">
+      <h3 class="product-name">${product.name}</h3>
+      <p class="product-price">$${product.price}</p>
+      <button onclick="addToCart(${product.id})">Add to Cart</button>
+    `;
+    container.appendChild(card);
+  });
 
-function showDivs(n) {
-  var i;
-  var x = document.getElementsByClassName("slidingImage");
-  if (n > x.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = x.length} ;
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-  }
-  x[slideIndex-1].style.display = "block";
-}
+  window.addToCart = (productId) => {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+  
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  
+    const existingItem = cart.find(item => item.id === productId);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({ ...product, quantity: 1 }); // Includes name, image, price
+    }
+  
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`${product.name} added to cart!`);
+  };
 
-function toggleProfile() {
-  let profileDropdown = document.getElementById("profileOpt");
-  profileDropdown.style.display = (profileDropdown.style.display === "flex") ? "none" : "flex";
-}
+  // Profile dropdown toggle
+  window.toggleProfile = () => {
+    const dropdown = document.getElementById("profileOpt");
+    dropdown.style.display = dropdown.style.display === "flex" ? "none" : "flex";
+  };
 
-// Close dropdown if clicked outside
-document.addEventListener("click", function(event) {
-  let profileDropdown = document.getElementById("profileOpt");
-  let profileButton = document.getElementById("profileButton");
-
-  if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
-      profileDropdown.style.display = "none";
-  }
+  // Close profile dropdown when clicked outside
+  document.addEventListener("click", (event) => {
+    const dropdown = document.getElementById("profileOpt");
+    const profileBtn = document.getElementById("profileButton");
+    if (!profileBtn.contains(event.target) && !dropdown.contains(event.target)) {
+      dropdown.style.display = "none";
+    }
+  });
 });

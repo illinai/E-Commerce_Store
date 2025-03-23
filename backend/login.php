@@ -1,37 +1,33 @@
 <?php
 session_start();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-include 'config.php';
+include 'config.php'; // Ensure your database connection is set up correctly
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
 
-    // Check if user exists
-    $sql = "SELECT * FROM users WHERE email='$email'";
-    $result = $conn->query($sql);
+    // Secure query using prepared statements
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
+        // Verify password
         if (password_verify($password, $user['password'])) {
-            // Password is correct
+            // Successful login
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['first_name'] = $user['first_name'];
-            $_SESSION['last_name'] = $user['last_name'];
-            $_SESSION['email'] = $user['email'];
-            $_SESSION['role'] = $user['role'];
-            header("Location: ../main/dashboard.html");
+            header("Location: ../main/dashboard.html"); // Redirect to dashboard
             exit();
         } else {
-            // Password is incorrect
-            echo "Invalid email or password.";
+            // Incorrect password
+            header("Location: ../main/index.html?error=Invalid email or password");
+            exit();
         }
     } else {
         // User not found
-        echo "Invalid email or password.";
+        header("Location: ../main/index.html?error=User does not exist. Please register.");
+        exit();
     }
 }
-?>

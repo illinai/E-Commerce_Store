@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${product.name}</td>
                 <td>${product.description}</td>
                 <td>$${product.price}</td>
+                <td><img src="data:image/jpeg;base64,${btoa(String.fromCharCode(...new Uint8Array(product.image)))}" alt="${product.name}" width="100"></td>
                 <td><button onclick="deleteProduct(${product.id})">Delete</button></td>
             </tr>
         `).join('');
@@ -107,10 +108,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const profile = await response.json();
         document.getElementById('sellerName').value = profile.first_name;
         document.getElementById('sellerLastName').value = profile.last_name;
-        // Display profile image (if stored as binary data, you may need to convert it to a URL)
+
+        // Display profile image
         if (profile.profile_img) {
             const imageUrl = URL.createObjectURL(new Blob([profile.profile_img]));
-            document.getElementById('sellerImage').src = imageUrl;
+            document.getElementById('profileImagePreview').src = imageUrl;
+            document.getElementById('profileImagePreview').style.display = 'block';
         }
     }
 
@@ -122,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const formData = new FormData();
         formData.append('first_name', document.getElementById('sellerName').value);
         formData.append('last_name', document.getElementById('sellerLastName').value);
-        formData.append('profile_image', document.getElementById('sellerImage').files[0]); // Handle file upload
+        formData.append('profile_img', document.getElementById('sellerImage').files[0]); // Handle file upload
 
         const response = await fetch('backend/edit_profile.php', {
             method: 'POST',

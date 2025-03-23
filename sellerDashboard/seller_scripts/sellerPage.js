@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Load profile
     async function loadProfile() {
-        const response = await fetch('backend/get_profile.php'); // Fetch profile
+        const response = await fetch('backend/get_profile_seller.php'); // Fetch profile
         const profile = await response.json();
         document.getElementById('sellerName').value = profile.first_name;
         document.getElementById('sellerLastName').value = profile.last_name; // Add this field to your HTML

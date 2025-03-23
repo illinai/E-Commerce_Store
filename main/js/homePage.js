@@ -1,3 +1,15 @@
+document.addEventListener("DOMContentLoaded", () => {
+    // Sidebar toggle function
+    window.toggleMenu = () => {
+      const sidebar = document.getElementById("sidebar");
+      if (sidebar.style.left === "0px") {
+          sidebar.style.left = "-250px"; // Hide menu
+      } else {
+          sidebar.style.left = "0px"; // Show menu
+      }
+  };
+});
+
 var slideIndex = 1;
 showDivs(slideIndex);
 

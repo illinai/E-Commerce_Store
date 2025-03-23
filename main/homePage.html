@@ -14,7 +14,7 @@
         <header class="header1">
             <div id="container">
                 <div id="shopName">
-                    <h2>Site Name</h1>
+                    <h1>The Maker's Market</h1>
                 </div>
             </div>
         </header>
@@ -24,15 +24,18 @@
         <header class="header2">
             <!--Menu-->
             <div class="menuTab">
-                <button class="menu-button" onclick="toggleMenu">
+                <button class="menu-button" onclick="toggleMenu()">
                     <img src="icons/menu.png" alt="Menu">
                 </button>
-                <div class="menu-content">
-                    <a href="#">Order History</a>
-                    <a href="#">Reviews</a>
-                    <a href="#">Messages</a>
-                    <a href="#">Account Setting</a>
-                    <a href="#">Help Center</a>
+                <div id="sidebar" class="menu-content">
+                    <button class="close-menu" onclick="toggleMenu()">×</button>
+                    <a href="homePage.html">Home</a>
+                    <a href="../buyers-frontend/wishlist.html">Wishlist</a>
+                    <a href="../buyers-frontend/cart.html">Cart</a>
+                    <a href="../buyers-frontend/orders.html">Orders</a>
+                    <a href="../buyers-frontend/reviews.html">Reviews</a> 
+                    <a href="../buyers-frontend/profile.html">Profile</a>
+                    <a href="../buyers-frontend/logout.html">Logout</a>
                 </div>
             </div>
             <!--Search Bar-->
@@ -126,6 +129,6 @@
             </nav>
         </footer>
 
-        <script src="./scripts/homePage.js"></script>
+        <script src="js/homePage.js"></script>
     </body>
 </html>

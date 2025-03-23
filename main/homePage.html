@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home Page</title>
+
+        <link rel="stylesheet" href="css/homePage.css">
+    </head>
+
+    <body>
+
+        <!--Title Header Section-->
+        <header class="header1">
+            <div id="container">
+                <div id="shopName">
+                    <h1>The Maker's Market</h1>
+                </div>
+            </div>
+        </header>
+        <!---->
+
+        <!--Navigation Header Section-->
+        <header class="header2">
+            
+                <!--Menu-->
+                <div class="menuTab">
+                    <button class="menu-button" onclick="toggleMenu()">
+                        <img src="icons/menu.png" alt="Menu">
+                    </button>
+                    <div id="sidebar" class="menu-content">
+                        <button class="close-menu" onclick="toggleMenu()">×</button>
+                        <a href="homePage.html">Home</a>
+                        <a href="../buyers-frontend/wishlist.html">Wishlist</a>
+                        <a href="../buyers-frontend/cart.html">Cart</a>
+                        <a href="../buyers-frontend/orders.html">Orders</a>
+                        <a href="../buyers-frontend/reviews.html">Reviews</a> 
+                        <a href="../buyers-frontend/profile.html">Profile</a>
+                        <a href="../buyers-frontend/logout.html">Logout</a>
+                    </div>
+                </div>
+                <!--Search Bar-->
+                <div class="search-bar">
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="right-buttons">
+                    <!--Likes/Wishlist-->
+                    <button class="liked-button">
+                        <a href="../buyers-frontend/wishlist.html"><img src="icons/liked.png" alt="Likes"></a>
+                    </button>
+                    <!--Cart-->
+                    <button class="cart-button">
+                        <a href="../buyers-frontend/cart.html"><img src="icons/cart.png" alt="Cart"></a>
+                    </button>
+                    <!--Profile-->
+                    <button id = "profileButton" class="profile-button" onclick="toggleProfile()">
+                        <img src="icons/profile.png" alt="Profile">
+                    </button>
+                    <div id="profileOpt" class="profileTab">
+                        <div class="profile-content">
+                            <a href="index.html">Sign In</a>
+                            <a href="register.html">Register</a>
+                        </div>
+                    </div>
+                </div> 
+            
+        </header>
+        <!---->
+        <div class="main">
+                <!--banner-->
+                <section id="banner">
+                    <div class="banner">
+                        <img src="imgs/banner3.png" alt="Banner">
+                    </div>
+
+                </section>
+            <div class="below">
+                <!--Top Shops-->
+                <!--<section id="topShops">
+                    <div class="shops">
+                        <h3>Best Selling Shops</h3>
+                        <div><img class="shops1" src="imgs/shop1.jpeg" alt="shop1"></div> <!--Temporary image Needs to be Replaced
+                        <div><p>Shop Name 1</p></div> <!--Temporary Name Needs to be Replaced
+                        <div><img class="shops1" src="imgs/shop2.jpeg" alt="shop2"></div> <!--Temporary image Needs to be Replaced
+                        <div><p>Shop Name 2</p></div> <!--Temporary Name Needs to be Replaced
+                        <div><img class="shops1" src="imgs/shop3.jpeg" alt="shop3"></div> <!--Temporary image Needs to be Replaced
+                        <div><p>Shop Name 3</p></div> <!--Temporary Name Needs to be Replaced
+                    </div>
+                </section>-->
+                <!---->
+                
+                <!--Categories and More-->
+                <section id="Categories-And-More">
+                    <div class="categories">
+                        <div class="popular">
+                            <h2>Popular Categories</h3>
+                            <button><img class="categs" src="cats/tops.png" alt="tops"></button>
+                            <button><img class="categs" src="cats/jackets.png" alt="jackets"></button>
+                            <button><img class="categs" src="cats/dresses.png" alt="dresses"></button>
+                            <button><img class="categs" src="cats/necklaces.png" alt="necklaces"></button>
+                            <button><img class="categs" src="cats/earrings.png" alt="earrings"></button>
+                            <button><img class="categs" src="cats/shoes.png" alt="shoes"></button>
+                         </div>
+                         <div class="explore">
+                            <button>Explore More Categories</button>
+                         </div>
+                    </div>
+
+                    <!--Small Busines-->
+                    <div class="smallBus">
+                        <h2>Want to create your own small business?</h1>
+                        <h3>To Sign up</h2>
+                        <button>Click Here</button>
+                    </div>
+                <!---->
+                    
+                </section>
+                <!---->
+            </div>
+        </div>
+        <footer>
+            <nav>
+                <a href="#">Stuff</a> <!--Temporary Needs to be Replaced-->
+                <a href="#">Stuff</a> <!--Temporary Needs to be Replaced-->
+                <a href="#">Stuff</a> <!--Temporary Needs to be Replaced-->
+                <a href="#">Stuff</a> <!--Temporary Needs to be Replaced-->
+            </nav>
+        </footer>
+
+        <script src="js/homePage.js"></script>
+    </body>
+</html>

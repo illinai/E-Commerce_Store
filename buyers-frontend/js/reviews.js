@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
         reviewForm.reset();
 
 
-         // Sidebar toggle function
+        // Sidebar toggle function
         window.toggleMenu = () => {
         const sidebar = document.getElementById("sidebar");
         if (sidebar.style.left === "0px") {
@@ -74,3 +74,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 });
+

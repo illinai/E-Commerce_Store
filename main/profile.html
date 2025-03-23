@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Profile</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .profile-container {
+      max-width: 500px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .profile-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .profile-pic {
+      display: block;
+      margin: 0 auto 15px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .input-group {
+      margin-bottom: 15px;
+    }
+    .input-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .btn {
+      background-color: #ff6b6b;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #ff4f4f;
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-container">
+    <h2>Your Profile</h2>
+    <img src="imgs/default-profile.png" alt="Profile Picture" id="profileImage" class="profile-pic">
+
+    <form id="profileForm" enctype="multipart/form-data">
+      <div class="input-group">
+        <label for="first_name">First Name</label>
+        <input type="text" id="first_name" name="first_name" required>
+      </div>
+
+      <div class="input-group">
+        <label for="last_name">Last Name</label>
+        <input type="text" id="last_name" name="last_name" required>
+      </div>
+
+      <div class="input-group">
+        <label for="email">Email (read-only)</label>
+        <input type="email" id="email" name="email" readonly>
+      </div>
+
+      <div class="input-group">
+        <label for="profile_pic">Update Profile Picture</label>
+        <input type="file" id="profile_pic" name="profile_pic" accept="image/*">
+      </div>
+
+      <button type="submit" class="btn">Save Changes</button>
+    </form>
+
+    <p style="text-align:center; margin-top: 15px;">
+      <a href="dashboard.html">← Back to Dashboard</a>
+    </p>
+  </div>
+
+  <script>
+    // Load user data on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      fetch('../backend/get_profile.php')
+        .then(res => res.json())
+        .then(data => {
+          if (data.first_name) document.getElementById('first_name').value = data.first_name;
+          if (data.last_name) document.getElementById('last_name').value = data.last_name;
+          if (data.email) document.getElementById('email').value = data.email;
+          if (data.profile_pic) {
+            document.getElementById('profileImage').src = 'uploads/' + data.profile_pic;
+          }
+        })
+        .catch(err => console.error('Error loading profile:', err));
+    });
+
+    // Submit profile form
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+
+      fetch('../backend/update_profile.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.text())
+      .then(response => {
+        alert(response);
+        location.reload();
+      })
+      .catch(err => console.error('Error updating profile:', err));
+    });
+  </script>
+</body>
+</html>

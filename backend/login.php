@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'config.php'; // Ensure your database connection is set up correctly
+include 'config.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);

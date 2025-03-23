@@ -61,14 +61,6 @@
                         <label for="productImage">Image URL:</label>
                         <input type="url" id="productImage" required>
                     </div>
-                    <div class="form-group">
-                        <label for="productTags">Tags:</label>
-                        <input type="text" id="productTags" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="productQuantity">Quantity:</label>
-                        <input type="number" id="productQuantity" required>
-                    </div>
                     <button type="submit" class="btn-primary">Post Product</button>
                 </form>
             </div>
@@ -82,7 +74,6 @@
                             <th>Product Name</th>
                             <th>Description</th>
                             <th>Price</th>
-                            <th>Quantity</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -134,12 +125,12 @@
                 <h2>Edit Profile</h2>
                 <form id="profileForm">
                     <div class="form-group">
-                        <label for="sellerName">Name:</label>
+                        <label for="sellerName">First Name:</label>
                         <input type="text" id="sellerName" required>
                     </div>
                     <div class="form-group">
-                        <label for="sellerBio">Bio:</label>
-                        <textarea id="sellerBio" required></textarea>
+                        <label for="sellerLastName">Last Name:</label>
+                        <input type="text" id="sellerLastName" required>
                     </div>
                     <div class="form-group">
                         <label for="sellerImage">Profile Image URL:</label>

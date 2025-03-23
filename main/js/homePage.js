@@ -27,3 +27,18 @@ function showDivs(n) {
   }
   x[slideIndex-1].style.display = "block";
 }
+
+function toggleProfile() {
+  let profileDropdown = document.getElementById("profileOpt");
+  profileDropdown.style.display = (profileDropdown.style.display === "flex") ? "none" : "flex";
+}
+
+// Close dropdown if clicked outside
+document.addEventListener("click", function(event) {
+  let profileDropdown = document.getElementById("profileOpt");
+  let profileButton = document.getElementById("profileButton");
+
+  if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
+      profileDropdown.style.display = "none";
+  }
+});

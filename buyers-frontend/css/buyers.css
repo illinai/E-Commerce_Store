@@ -17,7 +17,6 @@ body {
     color: white;
     padding: 15px;
     text-align: center;
-    font-size: 1.5em;
 }
 
 /* Navigation Header */
@@ -68,17 +67,33 @@ body {
     cursor: pointer;
 }
 
-/* Menu Button */
-.menu-button {
+/* header Buttons */
+.menu-button, .profile-button, .cart-button, .liked-button{
     background: none;
     border: none;
     cursor: pointer;
 }
 
-.menu-button img {
-    width: 40px;
-    height: auto;
-    cursor: pointer;
+.menu-button img{
+    background-color: none;
+    width: 35px;
+    height: 35px;
+}
+.profile-button img{
+    background-color: none;
+    width: 35px;
+    height: 35px;
+}
+
+.cart-button img{
+    background-color: none;
+    width: 35px;
+    height: 35px;
+}
+.liked-button img{
+    background-color: none;
+    width: 30px;
+    height: 30px;
 }
 
 /* Search Bar */

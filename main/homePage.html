@@ -45,22 +45,22 @@
             <div class="right-buttons">
                 <!--Likes/Wishlist-->
                 <button class="liked-button">
-                    <img src="icons/liked.png" alt="Likes">
+                    <a href="../buyers-frontend/wishlist.html"><img src="icons/liked.png" alt="Likes"></a>
                 </button>
                 <!--Cart-->
                 <button class="cart-button">
-                    <img src="icons/cart.png" alt="Cart">
+                    <a href="../buyers-frontend/cart.html"><img src="icons/cart.png" alt="Cart"></a>
                 </button>
                 <!--Profile-->
-                <button class="profile-button">
-                   <img src="icons/profile.png" alt="Profile">
-                </button>
-                <div class="profileTab">
-                    <div class="profile-content">
-                        <a href="#">Sign In</a>
-                        <a href="#">Register</a>
-                    </div>
-                </div>
+                <button id = "profileButton" class="profile-button" onclick="toggleProfile()">
+                    <img src="icons/profile.png" alt="Profile">
+                 </button>
+                 <div id="profileOpt" class="profileTab">
+                     <div class="profile-content">
+                         <a href="index.html">Sign In</a>
+                         <a href="register.html">Register</a>
+                     </div>
+                 </div>
             </div> 
         </header>
         <!---->

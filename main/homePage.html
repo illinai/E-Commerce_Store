@@ -36,10 +36,9 @@
       </div>
     </div>
 
-    <!--Search Bar-->
     <div class="search-bar">
-      <input type="text" placeholder="Search..." />
-    </div>
+        <input type="text" id="searchInput" placeholder="Search..." />
+      </div>
 
     <!--Header Right Buttons-->
     <div class="right-buttons">
@@ -91,7 +90,8 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById("products-container");
-
+      const searchInput = document.getElementById("searchInput");
+  
       const products = [
         {
           id: 1,
@@ -112,19 +112,24 @@
           image: "imgs/art.jpg"
         }
       ];
-
-      products.forEach(product => {
-        const card = document.createElement("div");
-        card.className = "product-card";
-        card.innerHTML = `
-          <img src="${product.image}" alt="${product.name}">
-          <h3 class="product-name">${product.name}</h3>
-          <p class="product-price">$${product.price}</p>
-          <button onclick="addToCart(${product.id})">Add to Cart</button>
-        `;
-        container.appendChild(card);
-      });
-
+  
+      function renderProducts(productList) {
+        container.innerHTML = "";
+        productList.forEach(product => {
+          const card = document.createElement("div");
+          card.className = "product-card";
+          card.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <h3 class="product-name">${product.name}</h3>
+            <p class="product-price">$${product.price}</p>
+            <button onclick="addToCart(${product.id})">Add to Cart</button>
+          `;
+          container.appendChild(card);
+        });
+      }
+  
+      renderProducts(products);
+  
       window.addToCart = function (productId) {
         const selectedProduct = products.find(p => p.id === productId);
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -137,19 +142,26 @@
         localStorage.setItem("cart", JSON.stringify(cart));
         alert(`${selectedProduct.name} added to cart!`);
       };
-
+  
+      // Search Functionality
+      searchInput.addEventListener("input", (event) => {
+        const keyword = event.target.value.toLowerCase();
+        const filtered = products.filter(p => p.name.toLowerCase().includes(keyword));
+        renderProducts(filtered);
+      });
+  
       // Sidebar toggle
       window.toggleMenu = () => {
         const sidebar = document.getElementById("sidebar");
         sidebar.style.left = sidebar.style.left === "0px" ? "-250px" : "0px";
       };
-
+  
       // Profile dropdown toggle
       window.toggleProfile = () => {
         const dropdown = document.getElementById("profileOpt");
         dropdown.style.display = dropdown.style.display === "flex" ? "none" : "flex";
       };
-
+  
       // Close profile dropdown if clicked outside
       document.addEventListener("click", (event) => {
         const dropdown = document.getElementById("profileOpt");

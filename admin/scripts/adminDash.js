@@ -30,3 +30,19 @@ const myChart = new Chart("activeChart", {
     options: {}
   });
 
+document.querySelector(".search-bar input").addEventListener("input", function() {
+    let query = this.value;
+    if (query.length > 1) {
+        fetch(`search.php?query=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                let results = "";
+                data.forEach(user => {
+                    results += `<p>${user.first_name} ${user.last_name} - ${user.email}</p>`;
+                });
+                document.querySelector(".search-results").innerHTML = results;
+            });
+    }
+});
+
+

@@ -3,7 +3,7 @@
 document.getElementById('searchInput').addEventListener('input', function() {
     const searchTerm = this.value.trim();
 
-    if (searchTerm.length > 2) { // Only search if the term is longer than 2 characters
+    if (searchTerm.length > 2) { 
         fetch(`search.php?term=${encodeURIComponent(searchTerm)}`)
             .then(response => response.json())
             .then(data => {
@@ -13,7 +13,7 @@ document.getElementById('searchInput').addEventListener('input', function() {
                 console.error('Error:', error);
             });
     } else {
-        document.getElementById('resultsContainer').innerHTML = ''; // Clear results if the search term is too short
+        document.getElementById('resultsContainer').innerHTML = ''; 
     }
 });
 
@@ -44,7 +44,7 @@ function displayResults(data) {
 document.getElementById('searchInput').addEventListener('input', function() {
         const searchTerm = this.value.trim();
     
-        if (searchTerm.length > 2) { // Only search if the term is longer than 2 characters
+        if (searchTerm.length > 2) { 
             fetch(`search.php?term=${encodeURIComponent(searchTerm)}`)
                 .then(response => response.json())
                 .then(data => {
@@ -54,13 +54,13 @@ document.getElementById('searchInput').addEventListener('input', function() {
                     console.error('Error:', error);
                 });
         } else {
-            document.getElementById('resultsContainer').innerHTML = ''; // Clear results if the search term is too short
+            document.getElementById('resultsContainer').innerHTML = ''; 
         }
     });
     
     function displayResults(data) {
         const resultsContainer = document.getElementById('resultsContainer');
-        resultsContainer.innerHTML = ''; // Clear previous results
+        resultsContainer.innerHTML = ''; 
     
         if (data.products.length > 0 || data.users.length > 0) {
             if (data.products.length > 0) {
@@ -83,8 +83,7 @@ document.getElementById('searchInput').addEventListener('input', function() {
             } else {
             resultsContainer.innerHTML = '<div class="result-item">No results found.</div>';
         }
-    
-        // Add event listeners to delete buttons
+
         document.querySelectorAll('.delete-button').forEach(button => {
             button.addEventListener('click', function() {
                 const productId = this.getAttribute('data-product-id');

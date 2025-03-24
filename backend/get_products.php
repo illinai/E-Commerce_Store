@@ -22,7 +22,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 $products = $result->fetch_all(MYSQLI_ASSOC);
 
-// Convert binary data to base64 for JSON
+// Convert binary image data to base64 for JSON
 foreach ($products as &$product) {
     if (isset($product['image']) && $product['image']) {
         $product['image'] = base64_encode($product['image']);

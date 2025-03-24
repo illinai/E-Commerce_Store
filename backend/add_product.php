@@ -19,15 +19,19 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Debugging: Log POST data
+    error_log("Received POST data: " . print_r($_POST, true));
+    error_log("Received FILES data: " . print_r($_FILES, true));
+
     // Check if required fields are set
     if (!isset($_POST['name']) || !isset($_POST['description']) || !isset($_POST['price'])) {
         echo json_encode(['success' => false, 'message' => 'Missing required fields']);
         exit;
     }
     
-    $name = $_POST['name'];
-    $description = $_POST['description'];
-    $price = $_POST['price'];
+    $name = htmlspecialchars(trim($_POST['name']));
+    $description = htmlspecialchars(trim($_POST['description']));
+    $price = floatval(trim($_POST['price']));
     $seller_id = $_SESSION['user_id'];
     
     // Check if image was uploaded

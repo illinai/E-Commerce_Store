@@ -1,6 +1,5 @@
 <?php
-// filepath: backend/config.php
-$servername = "cosc360.ok.ubc.ca";
+$servername = "localhost";
 $username = "vpanagsa";
 $password = "vpanagsa";
 $dbname = "vpanagsa";
@@ -11,11 +10,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
+} else {
+    echo "Connected successfully";
 }
-
-// Debugging information
-echo "<br>Connection successful!";
-echo "<br>Server: $servername";
-echo "<br>Username: $username";
-echo "<br>Database: $dbname";
 ?>

@@ -20,7 +20,7 @@ if (!isset($_SESSION['user_id'])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if required fields are set
-    if (!isset($_POST['name']) || !isset($_POST['description']) || !isset($_POST['price']) || !isset($_POST['category_id'])) {
+    if (!isset($_POST['name']) || !isset($_POST['description']) || !isset($_POST['price'])) {
         echo json_encode(['success' => false, 'message' => 'Missing required fields']);
         exit;
     }
@@ -28,7 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $description = $_POST['description'];
     $price = $_POST['price'];
-    $category_id = $_POST['category_id'];
     $seller_id = $_SESSION['user_id'];
     
     // Check if image was uploaded
@@ -52,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Handle image upload
         $image = file_get_contents($_FILES['image']['tmp_name']); // Read image file as binary data
         
-        $sql = "INSERT INTO products (seller_id, name, description, price, image, category_id) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO products (seller_id, name, description, price, image) VALUES (?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         
         // Check if prepare succeeded
@@ -61,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         }
         
-        $stmt->bind_param("issdsi", $seller_id, $name, $description, $price, $image, $category_id);
+        $stmt->bind_param("issds", $seller_id, $name, $description, $price, $image);
         
         if ($stmt->execute()) {
             echo json_encode(['success' => true, 'product_id' => $conn->insert_id]);

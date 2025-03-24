@@ -33,7 +33,7 @@
             <!--Search Bar-->
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="Search...">
-                <div class="search-results"></div>
+                <!--<div class="search-results"></div>-->
             </div>
             <div class="right-buttons">
                 <!--Profile-->
@@ -46,47 +46,10 @@
         <!-- Results Section -->
         <div class="main">
             <h2>Search Results</h2>
-            <div id="resultsContainer"></div>
+            <div id="resultsContainer">
+
+            </div>
         </div>
-        <script>
-            document.getElementById("searchInput").addEventListener("input", function() {
-            let query = this.value.trim();
-            if (query.length > 1) {
-                fetch(`search.php?query=${query}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        let resultsContainer = document.getElementById("resultsContainer");
-                        resultsContainer.innerHTML = ""; // Clear old results
-
-                        if (data.users.length === 0 && data.products.length === 0) {
-                            resultsContainer.innerHTML = "<p>No results found.</p>";
-                            return;
-                        }
-
-                        // Display users
-                        if (data.users.length > 0) {
-                            let usersHTML = "<h3>Users</h3>";
-                            data.users.forEach(user => {
-                                usersHTML += `<p>${user.first_name} ${user.last_name} - ${user.email}</p>`;
-                            });
-                            resultsContainer.innerHTML += usersHTML;
-                        }
-
-                        // Display products
-                        if (data.products.length > 0) {
-                            let productsHTML = "<h3>Products</h3>";
-                            data.products.forEach(product => {
-                                productsHTML += `<p>${product.product_name} - $${product.price}</p>`;
-                            });
-                            resultsContainer.innerHTML += productsHTML;
-                        }
-                    })
-                    .catch(error => console.error("Error fetching data:", error));
-            } else {
-                document.getElementById("resultsContainer").innerHTML = "";
-            }
-        });
-        </script>
         <div class="main">
             <div class="dashCards">
                 <div class="numUsers">   
@@ -106,22 +69,6 @@
                 <p>Report Number: Username: Description</p> <!--format of reports-->
                 <!--Reports will show up as a list once database is created-->
             </div>
-            <!--<div class="stats">
-                <div class="activeStats">
-                    <h3>User Activity Stats</h3>
-                    <!--Insert user activity stats graph(continuous line chart)
-                    <!--Must update based on day
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-                    <canvas id="activeChart" style="width:100%;max-width:700px"></canvas>
-                </div>
-                <div class="reportStats">
-                    <h3>User Report Stats</h3>
-                    <!--Insert report stats graph(continuous line chart)
-                    <!--Must update based on day-
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-                    <canvas id="reportChart" style="width:100%;max-width:700px"></canvas>
-                </div>
-            </div>-->
         </div>
         <script src="scripts/adminDash.js"></script>
     </body>

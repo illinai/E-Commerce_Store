@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="css/buyers.css">
+</head>
+<body>
+    <!-- Title Header Section -->
+    <header class="header1">
+        <h1>The Maker's Market</h1>
+    </header>
+
+    <!-- Navigation Header Section -->
+    <header class="header2">
+        <!-- Sidebar Menu -->
+        <div class="menuTab">
+            <button class="menu-button" onclick="toggleMenu()">
+                <img src="images/menu.png" alt="Menu">
+            </button>
+            <div id="sidebar" class="menu-content">
+                <button class="close-menu" onclick="toggleMenu()">×</button>
+                <a href="buyers.html">Home</a>
+                <a href="wishlist.html">Wishlist</a>
+                <a href="cart.html" class="active">Cart</a>
+                <a href="orders.html">Orders</a>
+                <a href="profile.html">Profile</a>
+                <a href="logout.html">Logout</a>
+                <a href="reviews.html">Reviews</a>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+        </div>
+
+        <!-- Right-side buttons -->
+        <div class="right-buttons">
+            <button class="liked-button">
+                <img src="images/liked.png" alt="Likes">
+            </button>
+            <button class="cart-button">
+                <img src="images/cart.png" alt="Cart">
+            </button>
+            <button class="profile-button">
+                <img src="images/profile.png" alt="Profile">
+            </button>
+        </div>
+    </header>
+
+    <!-- Cart Section -->
+    <section class="cart">
+        <h2>Your Shopping Cart</h2>
+        <div class="cart-items" id="cart-container">
+            <p>No items in cart.</p>
+        </div>
+        <div class="cart-summary">
+            <h3>Total: <span id="cart-total">$0.00</span></h3>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </section>
+
+    <script src="js/cart.js"></script>
+</body>
+</html>

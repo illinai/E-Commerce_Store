@@ -1,48 +1,43 @@
-// this code should connect real time data after database set up
+// adminDash.js
 
-const xV = [1, 2, 3, 4, 5, 6]; //should be time of day based on date
-const yV = [2, 4, 6, 8, 10, 3]; //should be number of active users during that time of day
-const myChart = new Chart("activeChart", {
-    type: "line",
-    data: {
-        labels: xV,
-        datasets: [{
-            fill: false,
-            backgroundColor:"rgba(0,0,255,1.0)",
-            borderColor: "rgba(0,0,255,0.1)",
-            data: yV
-        }]
-    },
-    options: {}
-  });
+document.getElementById('searchInput').addEventListener('input', function() {
+    const searchTerm = this.value.trim();
 
-  const myChart1 = new Chart("reportChart", {
-    type: "line",
-    data: {
-        labels: xV,
-        datasets: [{
-            fill: false,
-            backgroundColor:"rgba(0,0,255,1.0)",
-            borderColor: "rgba(0,0,255,0.1)",
-            data: yV
-        }]
-    },
-    options: {}
-  });
-
-document.querySelector(".search-bar input").addEventListener("input", function() {
-    let query = this.value;
-    if (query.length > 1) {
-        fetch(`search.php?query=${query}`)
+    if (searchTerm.length > 2) { // Only search if the term is longer than 2 characters
+        fetch(`search.php?term=${encodeURIComponent(searchTerm)}`)
             .then(response => response.json())
             .then(data => {
-                let results = "";
-                data.forEach(user => {
-                    results += `<p>${user.first_name} ${user.last_name} - ${user.email}</p>`;
-                });
-                document.querySelector(".search-results").innerHTML = results;
+                displayResults(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
+    } else {
+        document.getElementById('resultsContainer').innerHTML = ''; // Clear results if the search term is too short
     }
 });
+
+function displayResults(data) {
+    const resultsContainer = document.getElementById('resultsContainer');
+    resultsContainer.innerHTML = ''; // Clear previous results
+
+    if (data.products.length > 0 || data.users.length > 0) {
+        if (data.products.length > 0) {
+            resultsContainer.innerHTML += '<h3>Products</h3>';
+            data.products.forEach(product => {
+                resultsContainer.innerHTML += `<div class="result-item">${product.name} - $${product.price}</div>`;
+            });
+        }
+
+        if (data.users.length > 0) {
+            resultsContainer.innerHTML += '<h3>Users</h3>';
+            data.users.forEach(user => {
+                resultsContainer.innerHTML += `<div class="result-item">${user.username} - ${user.email}</div>`;
+            });
+        }
+    } else {
+        resultsContainer.innerHTML = '<div class="result-item">No results found.</div>';
+    }
+}
 
 

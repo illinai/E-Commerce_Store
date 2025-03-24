@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Welcome</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="register-container">
+        <!-- Left Side -->
+        <div class="left-panel">
+            <h1>Join Us!</h1>
+            <p>Your Marketplace for Unique & Handmade Goods!</p>
+            <img src="imgs/logo.png" alt="Illustration">
+        </div>
+
+        <!-- Right Side (Register Form) -->
+        <div class="right-panel">
+            <div class="register-box">
+                <div class="logo">
+                    <img src="imgs/logo.png" alt="Logo">
+                    <h2>Create an Account</h2>
+                    <p>Please fill in the form to create an account</p>
+                </div>
+                
+                <form action="../backend/register.php" method="POST">
+                    <div class="input-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">Email address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+
+                    <button type="submit" class="btn-signup">Register</button>
+
+                    <p class="login-link">Already have an account? <a href="index.html">Login</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

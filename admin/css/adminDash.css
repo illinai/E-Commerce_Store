@@ -139,3 +139,17 @@ body {
     flex: 1;
     text-align: center;
 }
+
+/* Add this to your existing CSS */
+#resultsContainer {
+    margin-top: 20px;
+}
+
+.result-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}

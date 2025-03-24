@@ -1,44 +1,42 @@
 <?php
-    include 'config.php'; // Your database connection file
+    // search.php
 
-    $search = isset($_GET['query']) ? trim($_GET['query']) : '';
+    include 'config.php';
 
-    if ($search === '') {
-        echo json_encode(['users' => [], 'products' => []]);
-        exit;
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
 
-    $searchTerm = "%$search%";
-
-    // Search for users
-    $userQuery = "SELECT first_name, last_name, email FROM users WHERE first_name LIKE ? OR last_name LIKE ? OR email LIKE ?";
-    $userStmt = $conn->prepare($userQuery);
-    $userStmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
-    $userStmt->execute();
-    $userResult = $userStmt->get_result();
-
-    $users = [];
-    while ($row = $userResult->fetch_assoc()) {
-        $users[] = $row;
-    }
+    // Get the search term from the request
+    $searchTerm = $_GET['term'];
 
     // Search for products
-    $productQuery = "SELECT product_name, price FROM products WHERE product_name LIKE ?";
-    $productStmt = $conn->prepare($productQuery);
-    $productStmt->bind_param("s", $searchTerm);
-    $productStmt->execute();
-    $productResult = $productStmt->get_result();
+    $productQuery = "SELECT * FROM products WHERE name LIKE '%$searchTerm%'";
+    $productResult = $conn->query($productQuery);
 
     $products = [];
     while ($row = $productResult->fetch_assoc()) {
         $products[] = $row;
     }
 
-    // Return JSON response
-    echo json_encode(['users' => $users, 'products' => $products]);
+    // Search for users
+    $userQuery = "SELECT * FROM users WHERE username LIKE '%$searchTerm%'";
+    $userResult = $conn->query($userQuery);
 
-    // Close connections
-    $userStmt->close();
-    $productStmt->close();
+    $users = [];
+    while ($row = $userResult->fetch_assoc()) {
+        $users[] = $row;
+    }
+
+    // Combine results
+    $results = [
+        'products' => $products,
+        'users' => $users
+    ];
+
+    // Return results as JSON
+    header('Content-Type: application/json');
+    echo json_encode($results);
+
     $conn->close();
 ?>

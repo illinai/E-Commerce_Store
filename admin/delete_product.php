@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_product'])) {
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Failed to delete product']);
     }
-    exit; // Stop further execution
+    exit; 
 }
 
 // Handle search

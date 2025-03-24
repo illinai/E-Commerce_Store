@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $user['password'])) {
             // Successful login
             $_SESSION['user_id'] = $user['id'];
-            $stmt2 = $conn->prepare("SELECT role FROME user WHERE id = ?");
+            $stmt2 = $conn->prepare("SELECT role FROM user WHERE id = ?");
             $stmt2->bind_param("s", $user["id"]);
             $stmt2->execute();
             $result2 = $stmt2->get_result();

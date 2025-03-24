@@ -1,28 +1,8 @@
 <?php
-session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
 include 'config.php';
-
-// Check connection after include
-if (!$conn || $conn->connect_error) {
-    echo json_encode(['success' => false, 'message' => 'Database connection error: ' . ($conn ? $conn->connect_error : 'Could not establish connection')]);
-    exit;
-}
-
-header('Content-Type: application/json');
-
-// For testing purposes - simulate logged in user if not already set
-if (!isset($_SESSION['user_id'])) {
-    $_SESSION['user_id'] = 1; // Use a user ID that exists in your database
-}
-
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['success' => false, 'message' => 'User not logged in']);
-    exit;
-}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Debugging: Log POST data
@@ -35,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
+    // Sanitize and validate input data
     $name = htmlspecialchars(trim($_POST['name']));
     $description = htmlspecialchars(trim($_POST['description']));
     $price = floatval(trim($_POST['price']));
@@ -59,24 +40,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         // Handle image upload
-        $image = file_get_contents($_FILES['image']['tmp_name']); // Read image file as binary data
+        $image_name = basename($_FILES['image']['name']);
+        $image_path = __DIR__ . '/../uploads/' . $image_name; // Save images in /uploads directory
 
-        $sql = "INSERT INTO products (seller_id, name, description, price, image) VALUES (?, ?, ?, ?, ?)";
+        // Ensure the /uploads directory exists
+        if (!is_dir(__DIR__ . '/../uploads')) {
+            mkdir(__DIR__ . '/../uploads', 0755, true);
+        }
+
+        if (!move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
+            echo json_encode(['success' => false, 'message' => 'Failed to move uploaded file.']);
+            exit;
+        }
+
+        // Insert product into the database using prepared statement
+        $sql = "INSERT INTO products (name, description, price, image_url, seller_id) VALUES (?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
 
-        // Check if prepare succeeded
         if (!$stmt) {
             echo json_encode(['success' => false, 'message' => 'Database prepare error: ' . $conn->error]);
             exit;
         }
 
-        $stmt->bind_param("issds", $seller_id, $name, $description, $price, $image);
+        // Bind parameters
+        $stmt->bind_param("ssdsi", $name, $description, $price, $image_path, $seller_id);
 
         if ($stmt->execute()) {
             echo json_encode(['success' => true, 'product_id' => $conn->insert_id]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Database execute error: ' . $stmt->error]);
         }
+
+        $stmt->close();  // Close the prepared statement
     } catch (Exception $e) {
         echo json_encode(['success' => false, 'message' => 'Server error: ' . $e->getMessage()]);
     }

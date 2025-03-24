@@ -52,12 +52,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             tbody.innerHTML = products.map(product => {
-                // Fixed template literal syntax with backticks
-                const imageHtml = product.image 
-                    ? `<img src="data:image/jpeg;base64,${product.image}" alt="${product.name}" width="100">`
+                // Updated image handling: Use image_url instead of base64-encoded image
+                const imageHtml = product.image_url 
+                    ? `<img src="${product.image_url}" alt="${product.name}" width="100">`
                     : 'No image';
 
-                // Fixed template literal syntax with backticks
                 return `
                 <tr>
                     <td>${product.name}</td>
@@ -90,8 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const imageFile = document.getElementById('productImage').files[0];
         console.log('Image file:', imageFile);
         formData.append('image', imageFile);
-
-        formData.append('category_id', 1); // Default category ID
 
         try {
             console.log('Sending request to add_product.php...');

@@ -19,6 +19,6 @@ try {
 
     echo json_encode($products);
 } catch (Exception $e) {
-    echo json_encode(['error' => $e->getMessage()]);
+    echo json_encode(['error' => $e->getMessage()]); 
 }
 ?>

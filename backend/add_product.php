@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     error_log("Received FILES data: " . print_r($_FILES, true));
 
     // Check if required fields are set
-    if (!isset($_POST['name']) || !isset($_POST['description']) || !isset($_POST['price'])) {
+    if (!isset($_POST['name']) || !isset($_POST['description']) || !isset($_POST['price']) || !isset($_SESSION['user_id'])) {
         echo json_encode(['success' => false, 'message' => 'Missing required fields']);
         exit;
     }
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars(trim($_POST['name']));
     $description = htmlspecialchars(trim($_POST['description']));
     $price = floatval(trim($_POST['price']));
-    $seller_id = $_SESSION['user_id'];
+    $seller_id = intval($_SESSION['user_id']); // Ensure seller_id is an integer
 
     // Check if image was uploaded
     if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
@@ -78,4 +78,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method']);
 }
-?>

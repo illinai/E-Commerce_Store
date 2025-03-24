@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seller Dashboard</title>
     <link rel="stylesheet" href="seller_css/sellerPage.css">
 </head>
+
 <body>
     <!-- Header at the Top -->
     <header class="top-header">
@@ -44,25 +46,30 @@
             <!-- Post Product Listings -->
             <div class="section-box">
                 <h2>Post Product Listings</h2>
-                <form id="productForm" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="productName">Product Name:</label>
-                        <input type="text" id="productName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="productDescription">Description:</label>
-                        <textarea id="productDescription" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="productPrice">Price ($):</label>
-                        <input type="number" id="productPrice" step="0.01" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="productImage">Product Image:</label>
-                        <input type="file" id="productImage" accept="image/*" required>
-                    </div>
-                    <button type="submit" class="btn-primary">Post Product</button>
-                </form>
+                <div class="section-box">
+                    <h2>Post Product Listings</h2>
+                    <form id="productForm" enctype="multipart/form-data" method="POST"
+                        action="/backend/add_product.php">
+                        <div class="form-group">
+                            <label for="productName">Product Name:</label>
+                            <input type="text" id="productName" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productDescription">Description:</label>
+                            <textarea id="productDescription" name="description" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrice">Price ($):</label>
+                            <input type="number" id="productPrice" name="price" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productImage">Product Image:</label>
+                            <input type="file" id="productImage" name="image" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Post Product</button>
+                        <div id="productFormFeedback" style="color: red;"></div>
+                    </form>
+                </div>
             </div>
 
             <!-- View All Products Section -->
@@ -137,7 +144,8 @@
                     </div>
                     <div class="form-group">
                         <label for="sellerImage">Profile Image:</label>
-                        <img id="profileImagePreview" src="" alt="Profile Image" style="display: none; width: 100px; height: 100px;">
+                        <img id="profileImagePreview" src="" alt="Profile Image"
+                            style="display: none; width: 100px; height: 100px;">
                         <input type="file" id="sellerImage" accept="image/*">
                     </div>
                     <button type="submit" class="btn-primary">Save Changes</button>
@@ -148,4 +156,5 @@
 
     <script src="seller_scripts/sellerPage.js"></script>
 </body>
+
 </html>

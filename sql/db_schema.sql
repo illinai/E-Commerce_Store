@@ -1,4 +1,3 @@
-
 USE vpanagsa;
 
 -- Users table
@@ -14,6 +13,12 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Categories table (moved up before products table)
+CREATE TABLE categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(255)
+);
+
 -- Products table
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -27,12 +32,6 @@ CREATE TABLE products (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id),
     FOREIGN KEY (seller_id) REFERENCES users(id)
-);
-
--- Categories table
-CREATE TABLE categories (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    category_name VARCHAR(255)
 );
 
 -- Shipping info table
@@ -92,7 +91,7 @@ CREATE TABLE wishlist (
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
---reviews
+-- reviews
 CREATE TABLE reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,

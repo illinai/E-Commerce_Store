@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Home Page</title>
   <link rel="stylesheet" href="css/homePage.css" />
 </head>
 
 <body>
-  <!--Title Header Section-->
+  <!-- Title Header Section -->
   <header class="header1">
     <div id="container">
       <div id="shopName">
@@ -17,9 +17,9 @@
     </div>
   </header>
 
-  <!--Navigation Header Section-->
+  <!-- Navigation Header Section -->
   <header class="header2">
-    <!--Menu-->
+    <!-- Menu -->
     <div class="menuTab">
       <button class="menu-button" onclick="toggleMenu()">
         <img src="icons/menu.png" alt="Menu" />
@@ -29,18 +29,19 @@
         <a href="homePage.html">Home</a>
         <a href="wishlist.html">Wishlist</a>
         <a href="cart.html">Cart</a>
-        <a href="../buyers-frontend/orders.html">Orders</a>
-        <a href="../buyers-frontend/reviews.html">Reviews</a>
-        <a href="../buyers-frontend/profile.html">Profile</a>
-        <a href="../buyers-frontend/logout.html">Logout</a>
+        <a href="orders.html">Orders</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="profile.html">Profile</a>
+        <a href="logout.html">Logout</a>
       </div>
     </div>
 
+    <!-- Search Bar -->
     <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search..." />
-      </div>
+      <input type="text" id="searchInput" placeholder="Search by name..." />
+    </div>
 
-    <!--Header Right Buttons-->
+    <!-- Right Buttons -->
     <div class="right-buttons">
       <button class="liked-button">
         <a href="wishlist.html"><img src="icons/liked.png" alt="Likes" /></a>
@@ -68,15 +69,30 @@
       </div>
     </section>
 
+    <!-- Filter Bar -->
+    <section class="filter-bar">
+      <select id="categoryFilter">
+        <option value="">All Categories</option>
+        <option value="Jewelry">Jewelry</option>
+        <option value="Home">Home</option>
+        <option value="Art">Art</option>
+      </select>
+
+      <input type="text" id="tagFilter" placeholder="Search by tag" />
+      <input type="number" id="minPrice" placeholder="Min Price" />
+      <input type="number" id="maxPrice" placeholder="Max Price" />
+    </section>
+
     <!-- Product Listings -->
     <section class="product-list">
       <h2>Available Products</h2>
       <div class="products" id="products-container">
-        <!-- Dynamic product cards go here -->
+        <!-- Dynamic product cards will be injected here -->
       </div>
     </section>
   </div>
 
+  <!-- Footer -->
   <footer>
     <nav>
       <a href="#">Stuff</a>
@@ -86,36 +102,47 @@
     </nav>
   </footer>
 
-  <!-- JS -->
+  <!-- JavaScript -->
   <script>
+    const products = [
+      {
+        id: 1,
+        name: "Handmade Earrings",
+        price: 25,
+        category: "Jewelry",
+        tags: ["handmade", "accessory"],
+        image: "imgs/earrings.jpg"
+      },
+      {
+        id: 2,
+        name: "Wooden Home Decor",
+        price: 40,
+        category: "Home",
+        tags: ["wood", "decor"],
+        image: "imgs/home-decor.jpg"
+      },
+      {
+        id: 3,
+        name: "Custom Art Print",
+        price: 30,
+        category: "Art",
+        tags: ["print", "custom"],
+        image: "imgs/art.jpg"
+      }
+    ];
+
     document.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById("products-container");
       const searchInput = document.getElementById("searchInput");
-  
-      const products = [
-        {
-          id: 1,
-          name: "Handmade Earrings",
-          price: 25,
-          image: "imgs/earrings.jpg"
-        },
-        {
-          id: 2,
-          name: "Wooden Home Decor",
-          price: 40,
-          image: "imgs/home-decor.jpg"
-        },
-        {
-          id: 3,
-          name: "Custom Art Print",
-          price: 30,
-          image: "imgs/art.jpg"
-        }
-      ];
-  
-      function renderProducts(productList) {
+
+      function renderProducts(filteredProducts) {
         container.innerHTML = "";
-        productList.forEach(product => {
+        if (filteredProducts.length === 0) {
+          container.innerHTML = "<p>No products found.</p>";
+          return;
+        }
+
+        filteredProducts.forEach(product => {
           const card = document.createElement("div");
           card.className = "product-card";
           card.innerHTML = `
@@ -127,46 +154,67 @@
           container.appendChild(card);
         });
       }
-  
+
+      function applyFilters() {
+        const searchKeyword = searchInput.value.toLowerCase();
+        const selectedCategory = document.getElementById("categoryFilter").value;
+        const tagKeyword = document.getElementById("tagFilter").value.toLowerCase();
+        const minPrice = parseFloat(document.getElementById("minPrice").value) || 0;
+        const maxPrice = parseFloat(document.getElementById("maxPrice").value) || Infinity;
+
+        const filtered = products.filter(p => {
+          const matchesSearch = p.name.toLowerCase().includes(searchKeyword);
+          const matchesCategory = !selectedCategory || p.category === selectedCategory;
+          const matchesTag = !tagKeyword || p.tags.some(tag => tag.toLowerCase().includes(tagKeyword));
+          const matchesPrice = p.price >= minPrice && p.price <= maxPrice;
+          return matchesSearch && matchesCategory && matchesTag && matchesPrice;
+        });
+
+        renderProducts(filtered);
+      }
+
+      // Initialize product list
       renderProducts(products);
-  
-      window.addToCart = function (productId) {
-        const selectedProduct = products.find(p => p.id === productId);
+
+      // Event listeners for filters
+      searchInput.addEventListener("input", applyFilters);
+      document.getElementById("categoryFilter").addEventListener("change", applyFilters);
+      document.getElementById("tagFilter").addEventListener("input", applyFilters);
+      document.getElementById("minPrice").addEventListener("input", applyFilters);
+      document.getElementById("maxPrice").addEventListener("input", applyFilters);
+
+      // Add to cart function
+      window.addToCart = (productId) => {
+        const product = products.find(p => p.id === productId);
+        if (!product) return;
+
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const existing = cart.find(p => p.id === selectedProduct.id);
-        if (existing) {
-          existing.quantity += 1;
+        const existingItem = cart.find(item => item.id === productId);
+        if (existingItem) {
+          existingItem.quantity += 1;
         } else {
-          cart.push({ ...selectedProduct, quantity: 1 });
+          cart.push({ ...product, quantity: 1 });
         }
         localStorage.setItem("cart", JSON.stringify(cart));
-        alert(`${selectedProduct.name} added to cart!`);
+        alert(`${product.name} added to cart!`);
       };
-  
-      // Search Functionality
-      searchInput.addEventListener("input", (event) => {
-        const keyword = event.target.value.toLowerCase();
-        const filtered = products.filter(p => p.name.toLowerCase().includes(keyword));
-        renderProducts(filtered);
-      });
-  
-      // Sidebar toggle
+
+      // Toggle sidebar menu
       window.toggleMenu = () => {
         const sidebar = document.getElementById("sidebar");
         sidebar.style.left = sidebar.style.left === "0px" ? "-250px" : "0px";
       };
-  
-      // Profile dropdown toggle
+
+      // Toggle profile dropdown
       window.toggleProfile = () => {
         const dropdown = document.getElementById("profileOpt");
         dropdown.style.display = dropdown.style.display === "flex" ? "none" : "flex";
       };
-  
-      // Close profile dropdown if clicked outside
-      document.addEventListener("click", (event) => {
+
+      document.addEventListener("click", (e) => {
         const dropdown = document.getElementById("profileOpt");
         const profileBtn = document.getElementById("profileButton");
-        if (!profileBtn.contains(event.target) && !dropdown.contains(event.target)) {
+        if (!dropdown.contains(e.target) && !profileBtn.contains(e.target)) {
           dropdown.style.display = "none";
         }
       });

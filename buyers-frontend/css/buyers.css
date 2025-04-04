@@ -8,7 +8,7 @@
 
 body {
     background-color: #f4f4f9;
-    
+    padding: 20px;
 }
 
 /* Header Section */
@@ -17,6 +17,7 @@ body {
     color: white;
     padding: 15px;
     text-align: center;
+    font-size: 1.5em;
 }
 
 /* Navigation Header */
@@ -67,33 +68,17 @@ body {
     cursor: pointer;
 }
 
-/* header Buttons */
-.menu-button, .profile-button, .cart-button, .liked-button{
+/* Menu Button */
+.menu-button {
     background: none;
     border: none;
     cursor: pointer;
 }
 
-.menu-button img{
-    background-color: none;
-    width: 35px;
-    height: 35px;
-}
-.profile-button img{
-    background-color: none;
-    width: 35px;
-    height: 35px;
-}
-
-.cart-button img{
-    background-color: none;
-    width: 35px;
-    height: 35px;
-}
-.liked-button img{
-    background-color: none;
-    width: 30px;
-    height: 30px;
+.menu-button img {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
 }
 
 /* Search Bar */

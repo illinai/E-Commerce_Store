@@ -13,7 +13,7 @@ body {
     background-color: #333;
     padding: 10px 20px;
     text-align: center;
-    color: #fbf7f7;
+    color: #ff6b6b;
 }
 
 .header2 {
@@ -130,26 +130,4 @@ body {
     margin: 0;
     font-size: 1.2rem;
     color: #555;
-}
-.repList{
-    background-color: #cecccc;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    flex: 1;
-    text-align: center;
-}
-
-/* Add this to your existing CSS */
-#resultsContainer {
-    margin-top: 20px;
-}
-
-.result-item {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-.result-item:last-child {
-    border-bottom: none;
 }

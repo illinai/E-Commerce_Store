@@ -14,7 +14,6 @@
 
   <!-- Navigation Header Section -->
   <header class="header2">
-    <!-- Sidebar Menu -->
     <div class="menuTab">
       <button class="menu-button" onclick="toggleMenu()">
         <img src="icons/menu.png" alt="Menu" />
@@ -26,26 +25,24 @@
         <a href="cart.html">Cart</a>
         <a href="orders.html">Orders</a>
         <a href="profile.html">Profile</a>
-        <a href="logout.html">Logout</a>
+        <a href="logout.php">Logout</a>
         <a href="reviews.html">Reviews</a>
       </div>
     </div>
 
-    <!-- Search Bar -->
     <div class="search-bar">
       <input type="text" placeholder="Search...">
     </div>
 
-    <!-- Right-side buttons -->
     <div class="right-buttons">
       <button class="liked-button">
-        <img src="icons/liked.png" alt="Likes" />
+        <a href="wishlist.html"><img src="icons/liked.png" alt="Likes" /></a>
       </button>
       <button class="cart-button">
-        <img src="icons/cart.png" alt="Cart" />
+        <a href="cart.html"><img src="icons/cart.png" alt="Cart" /></a>
       </button>
       <button class="profile-button">
-        <img src="icons/profile.png" alt="Profile" />
+        <a href="profile.html"><img src="icons/profile.png" alt="Profile" /></a>
       </button>
     </div>
   </header>
@@ -54,7 +51,6 @@
   <section class="wishlist">
     <h2>Your Wishlist</h2>
     <div class="cart-items" id="wishlist-container">
-      <!-- Wishlist items will be dynamically injected here -->
       <p id="empty-message">No items in wishlist.</p>
     </div>
   </section>
@@ -65,27 +61,18 @@
       const sidebar = document.getElementById("sidebar");
       sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
     }
-  </script>
 
-  <script>
-    // Sample wishlist data (simulate from localStorage or server)
-    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [
-      {
-        name: "Handmade Earrings",
-        image: "imgs/earrings.jpg",
-        price: 25
-      },
-      {
-        name: "Custom Art Print",
-        image: "imgs/art.jpg",
-        price: 30
+    function renderWishlist() {
+      const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+      const container = document.getElementById("wishlist-container");
+      const emptyMsg = document.getElementById("empty-message");
+
+      container.innerHTML = ""; // Clear previous content
+      if (wishlist.length === 0) {
+        emptyMsg.style.display = "block";
+        return;
       }
-    ];
 
-    const container = document.getElementById("wishlist-container");
-    const emptyMsg = document.getElementById("empty-message");
-
-    if (wishlist.length > 0) {
       emptyMsg.style.display = "none";
       wishlist.forEach(item => {
         const card = document.createElement("div");
@@ -94,16 +81,38 @@
           <img src="${item.image}" alt="${item.name}">
           <h3>${item.name}</h3>
           <p>$${item.price.toFixed(2)}</p>
-          <button onclick="addToCart('${item.name}')">Add to Cart</button>
+          <button onclick="addToCart(${item.id})">Add to Cart</button>
+          <button onclick="removeFromWishlist(${item.id})" style="background-color: red; color: white;">Remove</button>
         `;
         container.appendChild(card);
       });
     }
 
-    function addToCart(name) {
-      alert(`${name} added to cart!`);
-      // Implement your add-to-cart logic here
+    function addToCart(productId) {
+      const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+      const product = wishlist.find(p => p.id === productId);
+      if (!product) return;
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existing = cart.find(item => item.id === product.id);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${product.name} added to cart!`);
     }
+
+    function removeFromWishlist(productId) {
+      let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+      wishlist = wishlist.filter(item => item.id !== productId);
+      localStorage.setItem("wishlist", JSON.stringify(wishlist));
+      renderWishlist(); // Re-render the updated list
+    }
+
+    renderWishlist();
   </script>
 </body>
 </html>

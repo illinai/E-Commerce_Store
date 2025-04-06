@@ -35,7 +35,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <a href="orders.html">Orders</a>
         <a href="reviews.html">Reviews</a>
         <a href="profile.html">Profile</a>
-        <a href="logout.html">Logout</a>
+        <a href="logout.php">Logout</a>
       </div>
     </div>
 
@@ -57,7 +57,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <div class="profile-content">
           <?php if ($isLoggedIn): ?>
             <a href="profile.html">My Profile</a>
-            <a href="logout.html">Logout</a>
+            <a href="logout.php">Logout</a>
           <?php else: ?>
             <a href="index.html">Sign In</a>
             <a href="register.html">Register</a>
@@ -91,9 +91,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <!-- Product Listings -->
     <section class="product-list">
       <h2>Available Products</h2>
-      <div class="products" id="products-container">
-        <!-- Dynamic product cards will be injected here -->
-      </div>
+      <div class="products" id="products-container"></div>
     </section>
   </div>
 
@@ -109,45 +107,21 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
   <!-- JavaScript -->
   <script>
+    const isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
+
     const products = [
-      {
-        id: 1,
-        name: "Handmade Earrings",
-        price: 25,
-        category: "Jewelry",
-        tags: ["handmade", "accessory"],
-        image: "imgs/earrings.jpg"
-      },
-      {
-        id: 2,
-        name: "Wooden Home Decor",
-        price: 40,
-        category: "Home",
-        tags: ["wood", "decor"],
-        image: "imgs/home-decor.jpg"
-      },
-      {
-        id: 3,
-        name: "Custom Art Print",
-        price: 30,
-        category: "Art",
-        tags: ["print", "custom"],
-        image: "imgs/art.jpg"
-      }
+      { id: 1, name: "Handmade Earrings", price: 25, category: "Jewelry", tags: ["handmade", "accessory"], image: "imgs/earrings.jpg" },
+      { id: 2, name: "Wooden Home Decor", price: 40, category: "Home", tags: ["wood", "decor"], image: "imgs/home-decor.jpg" },
+      { id: 3, name: "Custom Art Print", price: 30, category: "Art", tags: ["print", "custom"], image: "imgs/art.jpg" }
     ];
 
     document.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById("products-container");
       const searchInput = document.getElementById("searchInput");
 
-      function renderProducts(filteredProducts) {
-        container.innerHTML = "";
-        if (filteredProducts.length === 0) {
-          container.innerHTML = "<p>No products found.</p>";
-          return;
-        }
-
-        filteredProducts.forEach(product => {
+      function renderProducts(filtered) {
+        container.innerHTML = filtered.length ? '' : "<p>No products found.</p>";
+        filtered.forEach(product => {
           const card = document.createElement("div");
           card.className = "product-card";
           card.innerHTML = `
@@ -155,55 +129,62 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <h3 class="product-name">${product.name}</h3>
             <p class="product-price">$${product.price}</p>
             <button onclick="addToCart(${product.id})">Add to Cart</button>
+            <button onclick="addToWishlist(${product.id})">♡ Add to Wishlist</button>
           `;
           container.appendChild(card);
         });
       }
 
       function applyFilters() {
-        const searchKeyword = searchInput.value.toLowerCase();
-        const selectedCategory = document.getElementById("categoryFilter").value;
-        const tagKeyword = document.getElementById("tagFilter").value.toLowerCase();
-        const minPrice = parseFloat(document.getElementById("minPrice").value) || 0;
-        const maxPrice = parseFloat(document.getElementById("maxPrice").value) || Infinity;
+        const search = searchInput.value.toLowerCase();
+        const category = document.getElementById("categoryFilter").value;
+        const tag = document.getElementById("tagFilter").value.toLowerCase();
+        const min = parseFloat(document.getElementById("minPrice").value) || 0;
+        const max = parseFloat(document.getElementById("maxPrice").value) || Infinity;
 
-        const filtered = products.filter(p => {
-          const matchesSearch = p.name.toLowerCase().includes(searchKeyword);
-          const matchesCategory = !selectedCategory || p.category === selectedCategory;
-          const matchesTag = !tagKeyword || p.tags.some(tag => tag.toLowerCase().includes(tagKeyword));
-          const matchesPrice = p.price >= minPrice && p.price <= maxPrice;
-          return matchesSearch && matchesCategory && matchesTag && matchesPrice;
-        });
+        const filtered = products.filter(p =>
+          p.name.toLowerCase().includes(search) &&
+          (!category || p.category === category) &&
+          (!tag || p.tags.some(t => t.toLowerCase().includes(tag))) &&
+          p.price >= min && p.price <= max
+        );
 
         renderProducts(filtered);
       }
 
       renderProducts(products);
-
       searchInput.addEventListener("input", applyFilters);
       document.getElementById("categoryFilter").addEventListener("change", applyFilters);
       document.getElementById("tagFilter").addEventListener("input", applyFilters);
       document.getElementById("minPrice").addEventListener("input", applyFilters);
       document.getElementById("maxPrice").addEventListener("input", applyFilters);
 
-      window.addToCart = (productId) => {
-        const product = products.find(p => p.id === productId);
-        if (!product) return;
-
+      window.addToCart = (id) => {
+        if (!isLoggedIn) return alert("Please log in to add to cart.");
+        const product = products.find(p => p.id === id);
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const existingItem = cart.find(item => item.id === productId);
-        if (existingItem) {
-          existingItem.quantity += 1;
-        } else {
-          cart.push({ ...product, quantity: 1 });
-        }
+        const existing = cart.find(item => item.id === id);
+        existing ? existing.quantity++ : cart.push({ ...product, quantity: 1 });
         localStorage.setItem("cart", JSON.stringify(cart));
         alert(`${product.name} added to cart!`);
       };
 
+      window.addToWishlist = (id) => {
+        if (!isLoggedIn) return alert("Please log in to save to wishlist.");
+        const product = products.find(p => p.id === id);
+        let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+        if (!wishlist.find(item => item.id === id)) {
+          wishlist.push(product);
+          localStorage.setItem("wishlist", JSON.stringify(wishlist));
+          alert(`${product.name} added to wishlist!`);
+        } else {
+          alert(`${product.name} is already in your wishlist.`);
+        }
+      };
+
       window.toggleMenu = () => {
         const sidebar = document.getElementById("sidebar");
-        sidebar.style.left = sidebar.style.left === "0px" ? "-250px" : "0px";
+        sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
       };
 
       window.toggleProfile = () => {

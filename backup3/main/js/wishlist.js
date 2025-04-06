@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Sample wishlist data (Load from localStorage or default)
     let wishlistItems = JSON.parse(localStorage.getItem("wishlist")) || [
-        { id: 1, name: "Handmade Earrings", price: 25, image: "images/earrings.jpg" },
-        { id: 2, name: "Wooden Home Decor", price: 40, image: "images/home-decor.jpg" },
-        { id: 3, name: "Custom Art Print", price: 30, image: "images/art.jpg" }
+        { id: 1, name: "Handmade Earrings", price: 25, image: "imgs/earrings.jpg" },
+        { id: 2, name: "Wooden Home Decor", price: 40, image: "imgs/home-decor.jpg" },
+        { id: 3, name: "Custom Art Print", price: 30, image: "imgs/art.jpg" }
     ];
 
     // Function to update the wishlist display

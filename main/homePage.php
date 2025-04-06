@@ -35,7 +35,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <a href="orders.html">Orders</a>
         <a href="reviews.html">Reviews</a>
         <a href="profile.html">Profile</a>
-        <a href="logout.php">Logout</a>
+        <a href="logout.html">Logout</a>
       </div>
     </div>
 
@@ -159,8 +159,14 @@ $isLoggedIn = isset($_SESSION['user_id']);
       document.getElementById("minPrice").addEventListener("input", applyFilters);
       document.getElementById("maxPrice").addEventListener("input", applyFilters);
 
+      // Add to Cart
       window.addToCart = (id) => {
-        if (!isLoggedIn) return alert("Please log in to add to cart.");
+        if (!isLoggedIn) {
+          alert("Please log in to add items to your cart.");
+          window.location.href = "index.html";
+          return;
+        }
+
         const product = products.find(p => p.id === id);
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         const existing = cart.find(item => item.id === id);
@@ -169,8 +175,14 @@ $isLoggedIn = isset($_SESSION['user_id']);
         alert(`${product.name} added to cart!`);
       };
 
+      // Add to Wishlist
       window.addToWishlist = (id) => {
-        if (!isLoggedIn) return alert("Please log in to save to wishlist.");
+        if (!isLoggedIn) {
+          alert("Please log in to save items to your wishlist.");
+          window.location.href = "index.html";
+          return;
+        }
+
         const product = products.find(p => p.id === id);
         let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
         if (!wishlist.find(item => item.id === id)) {

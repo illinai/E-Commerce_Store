@@ -1,3 +1,7 @@
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['user_id']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,14 +23,13 @@
 
   <!-- Navigation Header Section -->
   <header class="header2">
-    <!-- Menu -->
     <div class="menuTab">
       <button class="menu-button" onclick="toggleMenu()">
         <img src="icons/menu.png" alt="Menu" />
       </button>
       <div id="sidebar" class="menu-content">
         <button class="close-menu" onclick="toggleMenu()">×</button>
-        <a href="homePage.html">Home</a>
+        <a href="homePage.php">Home</a>
         <a href="wishlist.html">Wishlist</a>
         <a href="cart.html">Cart</a>
         <a href="orders.html">Orders</a>
@@ -36,12 +39,10 @@
       </div>
     </div>
 
-    <!-- Search Bar -->
     <div class="search-bar">
       <input type="text" id="searchInput" placeholder="Search by name..." />
     </div>
 
-    <!-- Right Buttons -->
     <div class="right-buttons">
       <button class="liked-button">
         <a href="wishlist.html"><img src="icons/liked.png" alt="Likes" /></a>
@@ -54,8 +55,13 @@
       </button>
       <div id="profileOpt" class="profileTab">
         <div class="profile-content">
-          <a href="index.html">Sign In</a>
-          <a href="register.html">Register</a>
+          <?php if ($isLoggedIn): ?>
+            <a href="profile.html">My Profile</a>
+            <a href="logout.html">Logout</a>
+          <?php else: ?>
+            <a href="index.html">Sign In</a>
+            <a href="register.html">Register</a>
+          <?php endif; ?>
         </div>
       </div>
     </div>
@@ -77,7 +83,6 @@
         <option value="Home">Home</option>
         <option value="Art">Art</option>
       </select>
-
       <input type="text" id="tagFilter" placeholder="Search by tag" />
       <input type="number" id="minPrice" placeholder="Min Price" />
       <input type="number" id="maxPrice" placeholder="Max Price" />
@@ -173,17 +178,14 @@
         renderProducts(filtered);
       }
 
-      // Initialize product list
       renderProducts(products);
 
-      // Event listeners for filters
       searchInput.addEventListener("input", applyFilters);
       document.getElementById("categoryFilter").addEventListener("change", applyFilters);
       document.getElementById("tagFilter").addEventListener("input", applyFilters);
       document.getElementById("minPrice").addEventListener("input", applyFilters);
       document.getElementById("maxPrice").addEventListener("input", applyFilters);
 
-      // Add to cart function
       window.addToCart = (productId) => {
         const product = products.find(p => p.id === productId);
         if (!product) return;
@@ -199,13 +201,11 @@
         alert(`${product.name} added to cart!`);
       };
 
-      // Toggle sidebar menu
       window.toggleMenu = () => {
         const sidebar = document.getElementById("sidebar");
         sidebar.style.left = sidebar.style.left === "0px" ? "-250px" : "0px";
       };
 
-      // Toggle profile dropdown
       window.toggleProfile = () => {
         const dropdown = document.getElementById("profileOpt");
         dropdown.style.display = dropdown.style.display === "flex" ? "none" : "flex";

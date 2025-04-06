@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// If user confirmed logout, destroy session and redirect
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_logout'])) {
+    session_unset();
+    session_destroy();
+    header("Location: index.html");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,7 +84,6 @@
 
   <!-- Navigation Header Section -->
   <header class="header2">
-    <!-- Sidebar Menu -->
     <div class="menuTab">
       <button class="menu-button" onclick="toggleMenu()">
         <img src="icons/menu.png" alt="Menu" />
@@ -97,7 +107,6 @@
       <input type="text" placeholder="Search..." />
     </div>
 
-    <!-- Right-side buttons -->
     <div class="right-buttons">
       <button class="liked-button">
         <a href="wishlist.html"><img src="icons/liked.png" alt="Likes" /></a>
@@ -115,21 +124,18 @@
   <section class="logout-section">
     <h2>Are you sure you want to log out?</h2>
     <p>You will be redirected to the login page after logging out.</p>
-    <div class="logout-buttons">
-      <button class="confirm-logout" onclick="confirmLogout()">Yes, Logout</button>
-      <a href="profile.html" class="cancel-logout">Cancel</a>
-    </div>
+    <form method="POST">
+      <div class="logout-buttons">
+        <button type="submit" name="confirm_logout" class="confirm-logout">Yes, Logout</button>
+        <a href="profile.html" class="cancel-logout">Cancel</a>
+      </div>
+    </form>
   </section>
 
-  <!-- Scripts -->
   <script>
     function toggleMenu() {
       const sidebar = document.getElementById("sidebar");
       sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
-    }
-
-    function confirmLogout() {
-      window.location.href = "logout.php"; // backend clears session
     }
   </script>
 </body>

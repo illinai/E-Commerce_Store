@@ -22,12 +22,14 @@
       <div id="sidebar" class="menu-content">
         <button class="close-menu" onclick="toggleMenu()">×</button>
         <a href="homePage.php">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
         <a href="wishlist.html">Wishlist</a>
         <a href="cart.html">Cart</a>
         <a href="orders.html">Orders</a>
         <a href="reviews.html" class="active">Reviews</a>
         <a href="profile.html">Profile</a>
-        <a href="logout.html">Logout</a>
+        <a href="logout.php">Logout</a>
       </div>
     </div>
 
@@ -39,13 +41,13 @@
     <!-- Right-side buttons -->
     <div class="right-buttons">
       <button class="liked-button">
-        <img src="icons/liked.png" alt="Likes" />
+        <a href="wishlist.html"><img src="icons/liked.png" alt="Likes" /></a>
       </button>
       <button class="cart-button">
-        <img src="icons/cart.png" alt="Cart" />
+        <a href="cart.html"><img src="icons/cart.png" alt="Cart" /></a>
       </button>
       <button class="profile-button">
-        <img src="icons/profile.png" alt="Profile" />
+        <a href="profile.html"><img src="icons/profile.png" alt="Profile" /></a>
       </button>
     </div>
   </header>
@@ -81,6 +83,7 @@
     </div>
   </section>
 
+  <!-- Scripts -->
   <script src="js/reviews.js"></script>
   <script>
     function toggleMenu() {

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile</title>
+  <link rel="stylesheet" href="css/homePage.css" />
+</head>
+<body>
+  <!-- Title Header Section -->
+  <header class="header1">
+    <h1>The Maker's Market</h1>
+  </header>
+
+  <!-- Navigation Header Section -->
+  <header class="header2">
+    <!-- Sidebar Menu -->
+    <div class="menuTab">
+      <button class="menu-button" onclick="toggleMenu()">
+        <img src="icons/menu.png" alt="Menu" />
+      </button>
+      <div id="sidebar" class="menu-content">
+        <button class="close-menu" onclick="toggleMenu()">×</button>
+        <a href="homePage.php">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="wishlist.html">Wishlist</a>
+        <a href="cart.html">Cart</a>
+        <a href="orders.html">Orders</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="profile.html" class="active">Profile</a>
+        <a href="logout.php">Logout</a>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input type="text" placeholder="Search..." />
+    </div>
+
+    <!-- Right-side buttons -->
+    <div class="right-buttons">
+      <button class="liked-button">
+        <a href="wishlist.html"><img src="icons/liked.png" alt="Likes" /></a>
+      </button>
+      <button class="cart-button">
+        <a href="cart.html"><img src="icons/cart.png" alt="Cart" /></a>
+      </button>
+      <button class="profile-button">
+        <a href="profile.html"><img src="icons/profile.png" alt="Profile" /></a>
+      </button>
+    </div>
+  </header>
+
+  <!-- Profile Section -->
+  <section class="profile">
+    <h2>My Profile</h2>
+    <div class="profile-container">
+      <img id="profile-pic" class="profile-pic" src="imgs/default-profile.png" alt="Profile Picture" />
+      <input type="file" id="profile-upload" accept="image/*" />
+      <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
+    </div>
+
+    <div class="profile-details">
+      <label for="name">Name:</label>
+      <input type="text" id="name" value="John Doe" disabled />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" value="johndoe@example.com" disabled />
+
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" value="+1 234 567 8901" disabled />
+
+      <label for="address">Address:</label>
+      <textarea id="address" disabled>123 Handmade St, Artisan City, CA</textarea>
+
+      <button class="save-btn" onclick="saveProfile()" disabled>Save Changes</button>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="js/profile.js"></script>
+  <script>
+    function toggleMenu() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
+    }
+  </script>
+</body>
+</html>

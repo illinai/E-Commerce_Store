@@ -18,6 +18,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $user['password'])) {
             // Successful login
             $_SESSION['user_id'] = $user['id'];
+            
+            // if admin
+            if($user['role'] == 'admin'){
+                header("Location: ../admin2/adDashboard.html"); // Redirect to dashboard
+            }
+
+            //
+            
             header("Location: ../main/dashboard.html"); // Redirect to dashboard
             exit();
         } else {

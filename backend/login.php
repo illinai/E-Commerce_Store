@@ -23,8 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if($user['role'] == 'admin'){
                 header("Location: ../admin2/adDashboard.html"); // Redirect to admin dashboard
                 exit();
+            //if account disabled    
             } elseif($user["ability"] == 'disabled'){
-                header("Location: ../main/disabled.html"); // Redirect to dashboard
+                header("Location: ../main/disabled.html"); // Redirect to disabled dashboard
                 exit();
             } else {
                 header("Location: ../main/dashboard.html"); // Redirect to dashboard

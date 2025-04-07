@@ -1,36 +1,40 @@
 <?php
 
 session_start();
-include 'config.php';
+include '../backend/config.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../main/index.html");
     exit();
 }
 
-$userCount = 0;
-$orderCount = 0;
-//$reportCount = 0;
+try{
+    $userCount = 0;
+    $orderCount = 0;
+    //$reportCount = 0;
 
-// Get user count
-$stmt1 = $conn->prepare("SELECT COUNT(*) as total FROM users");
-$stmt1->execute();
-$userResult = $stmt1->get_result();
+    // Get user count
+    $stmt1 = $conn->prepare("SELECT COUNT(*) as total FROM users");
+    $stmt1->execute();
+    $userResult = $stmt1->get_result();
 
-if (!$userResult) {
-    throw new Exception("Error getting user count: " . $conn->error);
+    if (!$userResult) {
+        throw new Exception("Error getting user count: " . $conn->error);
+    }
+    $userCount = $userResult->fetch_assoc()['total'];
+
+    // Get order count
+    $stmt2 = $conn->prepare("SELECT COUNT(*) as total_o FROM orders");
+    $stmt2->execute();
+    $orderResult = $stmt2->get_result();
+
+    if (!$orderResult) {
+        throw new Exception("Error getting order count: " . $conn->error);
+    }
+    $orderCount = $orderResult->fetch_assoc()['total_o'];
+}catch(Exception $e){
+    error_log("Database error: " . $e->getMessage());
 }
-$userCount = $userResult->fetch_assoc()['total'];
-
-// Get order count
-$stmt2 = $conn->prepare("SELECT COUNT(*) as total_o FROM orders");
-$stmt2->execute();
-$orderResult = $stmt2->get_result();
-
-if (!$orderResult) {
-    throw new Exception("Error getting order count: " . $conn->error);
-}
-$orderCount = $orderResult->fetch_assoc()['total_o'];
 
 ?>
 

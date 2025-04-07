@@ -18,8 +18,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $user['password'])) {
             // Successful login
             $_SESSION['user_id'] = $user['id'];
-            header("Location: ../main/dashboard.html"); // Redirect to dashboard
-            exit();
+            
+            // if admin
+            if($user['role'] == 'admin'){
+                header("Location: ../admin2/adDashboard.html"); // Redirect to admin dashboard
+                exit();
+            //if account disabled    
+            } elseif($user["ability"] == 'disabled'){
+                header("Location: ../main/disabled.html"); // Redirect to disabled dashboard
+                exit();
+            } else {
+                header("Location: ../main/dashboard.html"); // Redirect to dashboard
+                exit();
+            }
         } else {
             // Incorrect password
             header("Location: ../main/index.html?error=Invalid email or password");

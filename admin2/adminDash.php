@@ -104,18 +104,17 @@ try{
                    <a href="adProfile.html"><img src="../main/icons/profile.png" alt="Profile"></a>
                 </button>
             </div> 
-
-             <!-- Search Type Selector -->
-            <div class="search-type-container">
-                <label for="searchType">Search for:</label>
-                <select id="searchType">
-                    <option value="users">Users</option>
-                    <option value="products">Products</option>
-                </select>
-            </div>
-            <!-- --- -->
-
         </header>
+
+        <!-- Search Type Selector -->
+        <div class="search-type-container">
+            <label for="searchType">Search for:</label>
+            <select id="searchType">
+                <option value="users">Users</option>
+                <option value="products">Products</option>   
+            </select>
+        </div>
+            <!-- --- -->
 
         <div class="main">
             <div class="dashCards">

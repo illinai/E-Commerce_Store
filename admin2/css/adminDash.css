@@ -335,7 +335,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.product-image-container {
+/*.product-image-container {
     height: 150px;
     display: flex;
     align-items: center;
@@ -359,7 +359,7 @@ body {
     background-color: #f8f9fa;
     color: #6c757d;
     font-style: italic;
-}
+}*/
 
 .product-details {
     flex-grow: 1;

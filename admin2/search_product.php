@@ -19,7 +19,7 @@ if (empty($searchTerm)) {
 try {
     // Prepare search query - look for matches in name, description, or tags
     $stmt = $conn->prepare("
-        SELECT id, name, description, price, image_url, quantity, tags, image_blob
+        SELECT id, name, description, price, quantity, tags
         FROM products 
         WHERE name LIKE ? OR description LIKE ? OR tags LIKE ?
         ORDER BY name ASC
@@ -33,9 +33,9 @@ try {
     $products = [];
     while ($row = $result->fetch_assoc()) {
         // Convert any binary data to base64 if needed
-        if (!empty($row['image_blob'])) {
+        /*if (!empty($row['image_blob'])) {
             $row['image_blob_base64'] = base64_encode($row['image_blob']);
-        }
+        }*/
         $products[] = $row;
     }
     

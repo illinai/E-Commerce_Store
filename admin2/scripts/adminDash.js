@@ -130,7 +130,7 @@ function updateUser(event, userId) {
 } */
 
     document.addEventListener('DOMContentLoaded', function() {
-        
+
         // Menu toggle functionality
         /*const menuButton = document.querySelector('.menu-button');
         if (menuButton) {
@@ -258,22 +258,20 @@ function updateUser(event, userId) {
             productCard.className = 'product-card';
             
             // Determine image source - either from URL or blob
-            let imageHtml = '';
+            /*let imageHtml = '';
             if (product.image_url && product.image_url !== '') {
                 imageHtml = `<img src="../${product.image_url}" alt="${product.name}" class="product-image">`;
             } else if (product.image_blob_base64) {
                 imageHtml = `<img src="data:image/jpeg;base64,${product.image_blob_base64}" alt="${product.name}" class="product-image">`;
             } else {
                 imageHtml = `<div class="no-image">No Image Available</div>`;
-            }
+            }*/
             
             // Format the price to always show 2 decimal places
             const formattedPrice = parseFloat(product.price).toFixed(2);
             
             productCard.innerHTML = `
-                <div class="product-image-container">
-                    ${imageHtml}
-                </div>
+                
                 <div class="product-details">
                     <h3>${product.name}</h3>
                     <p><strong>Price:</strong> $${formattedPrice}</p>
@@ -291,6 +289,10 @@ function updateUser(event, userId) {
                     </form>
                 </div>
             `;
+
+            /*<div class="product-image-container">
+                    ${imageHtml}
+                </div>*/
             
             resultsContainer.appendChild(productCard);
         });

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Confirmed</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/homePage.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #f4f4f4;
+    }
+
+    .confirmation-container {
+      max-width: 600px;
+      margin: 100px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .confirmation-container h1 {
+      font-size: 2em;
+      color: #4CAF50;
+      margin-bottom: 10px;
+    }
+
+    .confirmation-container p {
+      font-size: 1.1em;
+      color: #444;
+      margin-bottom: 25px;
+    }
+
+    .confirmation-container a {
+      display: inline-block;
+      text-decoration: none;
+      background-color: #1e88e5;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 6px;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+    }
+
+    .confirmation-container a:hover {
+      background-color: #1565c0;
+    }
+
+    @media (max-width: 600px) {
+      .confirmation-container {
+        margin: 50px 20px;
+        padding: 30px;
+      }
+
+      .confirmation-container h1 {
+        font-size: 1.5em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="confirmation-container">
+    <h1>Thank You for Your Order!</h1>
+    <p>Your order has been placed successfully. You will receive a confirmation email shortly.</p>
+    <a href="homePage.php">Continue Shopping</a>
+  </div>
+
+  <script>
+    localStorage.removeItem("cart"); // Clear cart after placing order
+  </script>
+</body>
+</html>

@@ -52,7 +52,6 @@ body {
 .left-panel img {
     width: 250px; /* Adjust width as needed */
     height: auto; /* Maintain aspect ratio */
-    background-color: white;
 }
 
 
@@ -85,7 +84,6 @@ body {
 
 .logo img {
     max-width: 50px;
-    background: white;
 }
 
 .logo h2 {

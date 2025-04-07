@@ -31,25 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Replacing your placeholder
-window.addToCart = (productId) => {
-    fetch("../backend/add_to_cart.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ product_id: productId })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            alert("Product added to cart!");
-        } else {
-            alert("Failed to add to cart.");
-        }
-    })
-    .catch(err => {
-        console.error("Error adding to cart:", err);
-    });
-};
+    // Add to cart function (for now, just a placeholder)
+    window.addToCart = (productId) => {
+        alert(`Added product ID: ${productId} to cart.`);
+    };
 });

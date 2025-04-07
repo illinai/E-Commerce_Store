@@ -12,7 +12,7 @@
         <header class="header1">
             <div id="container">
                 <div id="shopName">
-                    <h1>The Maker's Market</h1>
+                    <h2>Site Name</h1>
                 </div>
             </div>
         </header>
@@ -27,13 +27,15 @@
                 </button>
                 <div class="menu-content">
                     <a href="adminDash.html">Dashboard</a>
-                    <a href="#">Logout</a>
+                    <a href="reports.html">Reports</a>
+                    <a href="systemSet.html">System Settings</a>
+                    <a href="#">Account Setting</a>
+                    <a href="#">Help Center</a>
                 </div>
             </div>
             <!--Search Bar-->
             <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Search...">
-                <!--<div class="search-results"></div>-->
+                <input type="text" placeholder="Search...">
             </div>
             <div class="right-buttons">
                 <!--Profile-->
@@ -43,17 +45,14 @@
             </div> 
         </header>
 
-        <!-- Results Section -->
-        <div class="main">
-            <h2>Search Results</h2>
-            <div id="resultsContainer">
-
-            </div>
-        </div>
         <div class="main">
             <div class="dashCards">
                 <div class="numUsers">   
                     <h3>Total Users:</h3>   
+                    <p>0</p> <!--number should be actual number after database creation-->
+                </div>
+                <div class="numShops">   
+                    <h3>Number of Shops:</h3>   
                     <p>0</p> <!--number should be actual number after database creation-->
                 </div>
                 <div class="Orders">
@@ -61,13 +60,25 @@
                     <p>0</p> <!--number should be actual number after database creation-->
                 </div>
                 <div class="alerts">
-                    <h3>Reports:</h3>
+                    <h3>Alerts:</h3>
                     <p>0</p> <!--number should be actual number after database creation-->
                 </div>
             </div>
-            <div class="repList"> 
-                <p>Report Number: Username: Description</p> <!--format of reports-->
-                <!--Reports will show up as a list once database is created-->
+            <div class="stats">
+                <div class="activeStats">
+                    <h3>User Activity Stats</h3>
+                    <!--Insert user activity stats graph(continuous line chart)-->
+                    <!--Must update based on day-->
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+                    <canvas id="activeChart" style="width:100%;max-width:700px"></canvas>
+                </div>
+                <div class="reportStats">
+                    <h3>User Report Stats</h3>
+                    <!--Insert report stats graph(continuous line chart)-->
+                    <!--Must update based on day-->
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+                    <canvas id="reportChart" style="width:100%;max-width:700px"></canvas>
+                </div>
             </div>
         </div>
         <script src="scripts/adminDash.js"></script>

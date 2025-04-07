@@ -67,8 +67,8 @@ try{
                     <img src="../main/icons/menu.png" alt="Menu">
                 </button>
                 <div class="menu-content">
-                    <a href="adminDash.html">Dashboard</a>
-                    <a href="#">Logout</a>
+                    <a href="adminDash.php">Dashboard</a>
+                    <a href="../main/logout.php">Logout</a>
                 </div>
             </div>
             <!--Search Bar-->

@@ -124,7 +124,7 @@ try{
             </div>
         </div>
 
-        <!--<script src="scripts/adminDash.js"></script>-->
+        <script src="scripts/adminDash.js"></script>
     </body>
 </html>
 

@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+            //comment
             // Perform a POST request to the server for authentication
             fetch("authenticate.php", {
                 method: "POST",

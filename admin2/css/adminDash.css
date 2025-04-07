@@ -80,6 +80,26 @@ body {
     border: none;
     border-radius: 5px;
 }
+
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+#searchButton {
+    margin-left: 5px;
+    padding: 8px 15px;
+    background-color:#ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#searchButton:hover {
+    background-color: #f84444;
+}
+
 .right-buttons {
     display: flex;
     gap: 10px;
@@ -140,7 +160,7 @@ body {
     text-align: center;
 }
 
-/* Add this to your existing CSS */
+/*
 #resultsContainer {
     margin-top: 20px;
 }
@@ -153,3 +173,4 @@ body {
 .result-item:last-child {
     border-bottom: none;
 }
+*/

@@ -1,3 +1,40 @@
+<?php
+
+session_start();
+include 'config.php';
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../main/index.html");
+    exit();
+}
+
+$userCount = 0;
+$orderCount = 0;
+//$reportCount = 0;
+
+// Get user count
+$stmt1 = $conn->prepare("SELECT COUNT(*) as total FROM users");
+$stmt1->execute();
+$userResult = $stmt1->get_result();
+
+if (!$userResult) {
+    throw new Exception("Error getting user count: " . $conn->error);
+}
+$userCount = $userResult->fetch_assoc()['total'];
+
+// Get order count
+$stmt2 = $conn->prepare("SELECT COUNT(*) as total_o FROM orders");
+$stmt2->execute();
+$orderResult = $stmt2->get_result();
+
+if (!$orderResult) {
+    throw new Exception("Error getting order count: " . $conn->error);
+}
+$orderCount = $orderResult->fetch_assoc()['total_o'];
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en"> 
     <head>
@@ -23,7 +60,7 @@
             <!--Menu-->
             <div class="menuTab">
                 <button class="menu-button" onclick="toggleMenu">
-                    <img src="../icons/menu.png" alt="Menu">
+                    <img src="../main/icons/menu.png" alt="Menu">
                 </button>
                 <div class="menu-content">
                     <a href="adminDash.html">Dashboard</a>
@@ -33,32 +70,26 @@
             <!--Search Bar-->
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="Search...">
+                <button id="searchButton">Search</button>
                 <!--<div class="search-results"></div>-->
             </div>
             <div class="right-buttons">
                 <!--Profile-->
                 <button class="profile-button">
-                   <img src="../icons/profile.png" alt="Profile">
+                   <img src="../main/icons/profile.png" alt="Profile">
                 </button>
             </div> 
         </header>
 
-        <!-- Results Section -->
-        <div class="main">
-            <h2>Search Results</h2>
-            <div id="resultsContainer">
-
-            </div>
-        </div>
         <div class="main">
             <div class="dashCards">
                 <div class="numUsers">   
                     <h3>Total Users:</h3>   
-                    <p>0</p> <!--number should be actual number after database creation-->
+                    <p><?php echo $userCount; ?></p>
                 </div>
                 <div class="Orders">
                     <h3>Total Orders:</h3>
-                    <p>0</p> <!--number should be actual number after database creation-->
+                    <p><?php echo $orderCount; ?></p> 
                 </div>
                 <div class="alerts">
                     <h3>Reports:</h3>
@@ -70,6 +101,14 @@
                 <!--Reports will show up as a list once database is created-->
             </div>
         </div>
-        <script src="scripts/adminDash.js"></script>
+
+        <!-- Results Section -->
+        <div class="mainR">
+            <div id="resultsContainer">
+
+            </div>
+        </div>
+
+        <!--<script src="scripts/adminDash.js"></script>-->
     </body>
 </html>

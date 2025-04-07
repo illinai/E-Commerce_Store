@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: ../main/disabled.html"); // Redirect to disabled dashboard
                 exit();
             } else {
-                header("Location: ../main/dashboard.html"); // Redirect to dashboard
+                header("Location: ../main/homePage.php"); // Redirect to dashboard
                 exit();
             }
         } else {

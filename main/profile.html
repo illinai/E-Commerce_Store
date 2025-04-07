@@ -1,90 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profile</title>
-  <link rel="stylesheet" href="css/homePage.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .profile-container {
+            width: 60%;
+            min-height: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        .profile-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            font-size: large;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .btn {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #ff4f4f;
+        }
+
+        #editProfileForm {
+            display: none;
+            /* Initially hide the edit form */
+        }
+
+        .back-btn {
+            background-color: #ccc;
+            color: black;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            background-color: #bbb;
+        }
+
+        p {
+            color: #444;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    </style>
+
 </head>
+
 <body>
-  <!-- Title Header Section -->
-  <header class="header1">
-    <h1>The Maker's Market</h1>
-  </header>
-
-  <!-- Navigation Header Section -->
-  <header class="header2">
-    <!-- Sidebar Menu -->
-    <div class="menuTab">
-      <button class="menu-button" onclick="toggleMenu()">
-        <img src="icons/menu.png" alt="Menu" />
-      </button>
-      <div id="sidebar" class="menu-content">
-        <button class="close-menu" onclick="toggleMenu()">×</button>
-        <a href="homePage.php">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="wishlist.html">Wishlist</a>
-        <a href="cart.html">Cart</a>
-        <a href="orders.html">Orders</a>
-        <a href="reviews.html">Reviews</a>
-        <a href="profile.html" class="active">Profile</a>
-        <a href="logout.php">Logout</a>
-      </div>
-    </div>
-
-    <!-- Search Bar -->
-    <div class="search-bar">
-      <input type="text" placeholder="Search..." />
-    </div>
-
-    <!-- Right-side buttons -->
-    <div class="right-buttons">
-      <button class="liked-button">
-        <a href="wishlist.html"><img src="icons/liked.png" alt="Likes" /></a>
-      </button>
-      <button class="cart-button">
-        <a href="cart.html"><img src="icons/cart.png" alt="Cart" /></a>
-      </button>
-      <button class="profile-button">
-        <a href="profile.html"><img src="icons/profile.png" alt="Profile" /></a>
-      </button>
-    </div>
-  </header>
-
-  <!-- Profile Section -->
-  <section class="profile">
-    <h2>My Profile</h2>
     <div class="profile-container">
-      <img id="profile-pic" class="profile-pic" src="imgs/default-profile.png" alt="Profile Picture" />
-      <input type="file" id="profile-upload" accept="image/*" />
-      <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
+        <h2>Your Profile</h2>
+
+        <div id="profileDisplay">
+            <p><strong>First Name:</strong> <span id="displayFirstName"></span></p>
+            <p><strong>Last Name:</strong> <span id="displayLastName"></span></p>
+            <p><strong>Email:</strong> <span id="displayEmail"></span></p>
+            <p><strong>Shop Name:</strong> <span id="displayShopName"></span></p>
+            <p><strong>Shop Description:</strong> <span id="displayShopDescription"></span></p>
+            <button id="editProfileButton" class="btn">Edit Profile</button>
+        </div>
+
+        <form id="editProfileForm">
+            <button type="button" id="backToProfile" class="back-btn">Back to Profile</button>
+            <div class="input-group">
+                <label for="editFirstName">First Name</label>
+                <input type="text" id="editFirstName" name="first_name" required>
+            </div>
+
+            <div class="input-group">
+                <label for="editLastName">Last Name</label>
+                <input type="text" id="editLastName" name="last_name" required>
+            </div>
+
+            <div class="input-group">
+                <label for="editEmail">Email</label>
+                <input type="email" id="editEmail" name="email" required>
+            </div>
+
+            <div class="input-group">
+                <label for="editShopName">Shop Name</label>
+                <input type="text" id="editShopName" name="shop_name">
+            </div>
+
+            <div class="input-group">
+                <label for="editShopDescription">Shop Description</label>
+                <textarea id="editShopDescription" name="shop_description"></textarea>
+            </div>
+
+            <button type="submit" class="btn">Save Changes</button>
+            <input type="hidden" name="action" value="update">
+        </form>
+
+        <a href="homePage.php" class="back-button">← Back to Home</a>
+
     </div>
 
-    <div class="profile-details">
-      <label for="name">Name:</label>
-      <input type="text" id="name" value="John Doe" disabled />
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('../backend/profile.php?action=get')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('displayFirstName').textContent = data.first_name;
+                    document.getElementById('displayLastName').textContent = data.last_name;
+                    document.getElementById('displayEmail').textContent = data.email;
+                    document.getElementById('displayShopName').textContent = data.shop_name || 'N/A';
+                    document.getElementById('displayShopDescription').textContent = data.shop_description || 'N/A';
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" value="johndoe@example.com" disabled />
+                    document.getElementById('editFirstName').value = data.first_name;
+                    document.getElementById('editLastName').value = data.last_name;
+                    document.getElementById('editEmail').value = data.email;
+                    document.getElementById('editShopName').value = data.shop_name || '';
+                    document.getElementById('editShopDescription').value = data.shop_description || '';
+                })
+                .catch(err => console.error('Error loading profile:', err));
+        });
 
-      <label for="phone">Phone:</label>
-      <input type="text" id="phone" value="+1 234 567 8901" disabled />
+        document.getElementById('editProfileButton').addEventListener('click', () => {
+            document.getElementById('profileDisplay').style.display = 'none';
+            document.getElementById('editProfileForm').style.display = 'block';
+        });
 
-      <label for="address">Address:</label>
-      <textarea id="address" disabled>123 Handmade St, Artisan City, CA</textarea>
+        document.getElementById('editProfileForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
 
-      <button class="save-btn" onclick="saveProfile()" disabled>Save Changes</button>
-    </div>
-  </section>
+            const formData = new FormData(this);
 
-  <!-- Scripts -->
-  <script src="js/profile.js"></script>
-  <script>
-    function toggleMenu() {
-      const sidebar = document.getElementById("sidebar");
-      sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
-    }
-  </script>
+            try {
+                const res = await fetch('../backend/update.php', { // Use update.php
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+                const responseData = await res.json();
+                if (responseData.error) throw new Error(responseData.error);
+
+                alert('Profile updated successfully!');
+                location.reload();
+            } catch (err) {
+                console.error('Error updating profile:', err);
+                alert('Error updating profile: ' + err.message);
+            }
+        });
+
+        document.getElementById('backToProfile').addEventListener('click', () => {
+            document.getElementById('editProfileForm').style.display = 'none';
+            document.getElementById('profileDisplay').style.display = 'block';
+        });
+    </script>
 </body>
+
 </html>

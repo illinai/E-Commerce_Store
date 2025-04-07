@@ -1,3 +1,4 @@
+<!-- REGISTERED USERS -->
 <?php
 session_start();
 $isLoggedIn = isset($_SESSION['user_id']);
@@ -19,6 +20,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <h1>The Maker's Market</h1>
       </div>
     </div>
+    <a href="sellerDashboard.html" class="back-button">Switch to Seller's Page</a>
   </header>
 
   <!-- Navigation Header Section -->
@@ -110,16 +112,29 @@ $isLoggedIn = isset($_SESSION['user_id']);
   <!-- JavaScript -->
   <script>
     const isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
-
-    const products = [
-      { id: 1, name: "Handmade Earrings", price: 25, category: "Jewelry", tags: ["handmade", "accessory"], image: "imgs/earrings.jpg" },
-      { id: 2, name: "Wooden Home Decor", price: 40, category: "Home", tags: ["wood", "decor"], image: "imgs/home-decor.jpg" },
-      { id: 3, name: "Custom Art Print", price: 30, category: "Art", tags: ["print", "custom"], image: "imgs/art.jpg" }
-    ];
+    let products = [];
 
     document.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById("products-container");
       const searchInput = document.getElementById("searchInput");
+
+      fetch("../backend/get_products.php")
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            products = data.products.map(p => ({
+              ...p,
+              tags: p.tags.split(",").map(t => t.trim()),
+              image: p.image || "imgs/default.png"
+            }));
+            renderProducts(products);
+          } else {
+            container.innerHTML = `<p>Error loading products: ${data.error}</p>`;
+          }
+        })
+        .catch(err => {
+          container.innerHTML = `<p>Failed to fetch products: ${err.message}</p>`;
+        });
 
       function renderProducts(filtered) {
         container.innerHTML = filtered.length ? '' : "<p>No products found.</p>";
@@ -154,14 +169,12 @@ $isLoggedIn = isset($_SESSION['user_id']);
         renderProducts(filtered);
       }
 
-      renderProducts(products);
       searchInput.addEventListener("input", applyFilters);
       document.getElementById("categoryFilter").addEventListener("change", applyFilters);
       document.getElementById("tagFilter").addEventListener("input", applyFilters);
       document.getElementById("minPrice").addEventListener("input", applyFilters);
       document.getElementById("maxPrice").addEventListener("input", applyFilters);
 
-      // Add to Cart
       window.addToCart = (id) => {
         if (!isLoggedIn) {
           alert("Please log in to add items to your cart.");
@@ -177,7 +190,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
         alert(`${product.name} added to cart!`);
       };
 
-      // Add to Wishlist
       window.addToWishlist = (id) => {
         if (!isLoggedIn) {
           alert("Please log in to save items to your wishlist.");

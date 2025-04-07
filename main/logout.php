@@ -5,7 +5,7 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_logout'])) {
     session_unset();
     session_destroy();
-    header("Location: index.html");
+    header("Location: public_home.php");
     exit();
 }
 ?>
@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_logout'])) {
   <!-- Logout Confirmation Section -->
   <section class="logout-section">
     <h2>Are you sure you want to log out?</h2>
-    <p>You will be redirected to the login page after logging out.</p>
+    <p>You will be redirected to the home page after logging out.</p>
     <form method="POST">
       <div class="logout-buttons">
         <button type="submit" name="confirm_logout" class="confirm-logout">Yes, Logout</button>

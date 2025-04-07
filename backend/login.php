@@ -21,13 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             // if admin
             if($user['role'] == 'admin'){
-                header("Location: ../admin2/adDashboard.html"); // Redirect to dashboard
+                header("Location: ../admin2/adDashboard.html"); // Redirect to admin dashboard
+                exit();
+            } else {
+                header("Location: ../main/dashboard.html"); // Redirect to dashboard
+                exit();
             }
-
-            //
-            
-            header("Location: ../main/dashboard.html"); // Redirect to dashboard
-            exit();
         } else {
             // Incorrect password
             header("Location: ../main/index.html?error=Invalid email or password");

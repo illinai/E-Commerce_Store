@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 try{
     $userCount = 0;
     $orderCount = 0;
-    //$reportCount = 0;
+    $sellerCount = 0;
 
     // Get user count
     $stmt1 = $conn->prepare("SELECT COUNT(*) as total FROM users");
@@ -32,6 +32,17 @@ try{
         throw new Exception("Error getting order count: " . $conn->error);
     }
     $orderCount = $orderResult->fetch_assoc()['total_o'];
+
+    $stmt3 = $conn->prepare("SELECT COUNT(*) as sellers FROM users WHERE shop_name IS NOT NULL");
+    $stmt3->execute();
+    $sellerResult = $stmt3->get_result();
+
+    if (!$sellerResult) {
+        throw new Exception("Error getting order count: " . $conn->error);
+    }
+    $sellerCount = $sellerResult->fetch_assoc()['sellers'];
+
+
 }catch(Exception $e){
     error_log("Database error: " . $e->getMessage());
 }
@@ -96,8 +107,8 @@ try{
                     <p><?php echo $orderCount; ?></p> 
                 </div>
                 <div class="alerts">
-                    <h3>Reports:</h3>
-                    <p>0</p> <!--number should be actual number after database creation-->
+                    <h3>Sellers:</h3>
+                    <p><?php echo $sellerCount; ?></p>
                 </div>
             </div>
             <div class="repList"> 

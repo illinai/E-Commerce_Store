@@ -3,10 +3,10 @@
 session_start();
 include 'config.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../main/index.html");
-    exit();
-}
+//if (!isset($_SESSION['user_id'])) {
+  //  header("Location: ../main/index.html");
+    //exit();
+//}
 
 $userCount = 0;
 $orderCount = 0;

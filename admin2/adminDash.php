@@ -68,7 +68,7 @@ try{
                 </button>
                 <div class="menu-content">
                     <a href="adminDash.php">Dashboard</a>
-                    <a href="../main/logout.php">Logout</a>
+                    <a href="adLogout.php">Logout</a>
                 </div>
             </div>
             <!--Search Bar-->
@@ -80,7 +80,7 @@ try{
             <div class="right-buttons">
                 <!--Profile-->
                 <button class="profile-button">
-                   <img src="../main/icons/profile.png" alt="Profile">
+                   <a href="adProfile.html"><img src="../main/icons/profile.png" alt="Profile"></a>
                 </button>
             </div> 
         </header>

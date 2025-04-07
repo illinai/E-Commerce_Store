@@ -12,6 +12,7 @@ try{
     $userCount = 0;
     $orderCount = 0;
     $sellerCount = 0;
+    $productCount = 0;
 
     // Get user count
     $stmt1 = $conn->prepare("SELECT COUNT(*) as total FROM users");
@@ -41,6 +42,15 @@ try{
         throw new Exception("Error getting order count: " . $conn->error);
     }
     $sellerCount = $sellerResult->fetch_assoc()['sellers'];
+
+    // Get product count
+    $stmt4 = $conn->prepare("SELECT COUNT(*) as products FROM products");
+    $stmt4->execute();
+    $productResult = $stmt4->get_result();
+    if (!$productResult) {
+        throw new Exception("Error getting product count: " . $conn->error);
+    }
+    $productCount = $productResult->fetch_assoc()['products'];
 
 
 }catch(Exception $e){
@@ -94,6 +104,17 @@ try{
                    <a href="adProfile.html"><img src="../main/icons/profile.png" alt="Profile"></a>
                 </button>
             </div> 
+
+             <!-- Search Type Selector -->
+            <div class="search-type-container">
+                <label for="searchType">Search for:</label>
+                <select id="searchType">
+                    <option value="users">Users</option>
+                    <option value="products">Products</option>
+                </select>
+            </div>
+            <!-- --- -->
+
         </header>
 
         <div class="main">
@@ -109,6 +130,10 @@ try{
                 <div class="alerts">
                     <h3>Sellers:</h3>
                     <p><?php echo $sellerCount; ?></p>
+                </div>
+                <div class="products">
+                    <h3>Products:</h3>
+                    <p><?php echo $productCount; ?></p>
                 </div>
             </div>
             <div class="repList"> 

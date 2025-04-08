@@ -1,4 +1,3 @@
-<!-- REGISTERED USERS -->
 <?php
 session_start();
 $isLoggedIn = isset($_SESSION['user_id']);
@@ -10,20 +9,84 @@ $isLoggedIn = isset($_SESSION['user_id']);
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Home Page</title>
   <link rel="stylesheet" href="css/homePage.css" />
+  <style>
+    .product-card { cursor: pointer; }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-content {
+      background: #fff;
+      color: black;
+      margin: 5% auto;
+      padding: 20px;
+      max-width: 600px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .close-modal {
+      float: right;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    #modalProductImage {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 15px;
+      border-radius: 8px;
+    }
+
+    #modalShopName {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: black;
+      margin-bottom: 0.3rem;
+    }
+
+    #modalPrice {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+
+    #modalAddToCart {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #f25f5c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #modalAddToCart:hover {
+      background-color: #d94a47;
+    }
+
+    #modalShopDesc {
+      font-size: 1rem;
+      color: #333;
+    }
+  </style>
 </head>
 
 <body>
-  <!-- Title Header Section -->
+  <!-- Header -->
   <header class="header1">
     <div id="container">
-      <div id="shopName">
-        <h1>The Maker's Market</h1>
-      </div>
+      <div id="shopName"><h1>The Maker's Market</h1></div>
     </div>
     <a href="sellerDashboard.html" class="back-button">Switch to Seller's Page</a>
   </header>
 
-  <!-- Navigation Header Section -->
   <header class="header2">
     <div class="menuTab">
       <button class="menu-button" onclick="toggleMenu()">
@@ -38,8 +101,8 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <a href="reviews.html">Reviews</a>
         <a href="profile.html">Profile</a>
         <a href="logout.php">Logout</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <a href="about.php">About</a>
+        <a href="contact.php">Contact</a>
       </div>
     </div>
 
@@ -48,12 +111,8 @@ $isLoggedIn = isset($_SESSION['user_id']);
     </div>
 
     <div class="right-buttons">
-      <button class="liked-button">
-        <a href="wishlist.html"><img src="icons/liked.png" alt="Likes" /></a>
-      </button>
-      <button class="cart-button">
-        <a href="cart.html"><img src="icons/cart.png" alt="Cart" /></a>
-      </button>
+      <button class="liked-button"><a href="wishlist.html"><img src="icons/liked.png" alt="Likes" /></a></button>
+      <button class="cart-button"><a href="cart.html"><img src="icons/cart.png" alt="Cart" /></a></button>
       <button id="profileButton" class="profile-button" onclick="toggleProfile()">
         <img src="icons/profile.png" alt="Profile" />
       </button>
@@ -71,15 +130,12 @@ $isLoggedIn = isset($_SESSION['user_id']);
     </div>
   </header>
 
-  <!-- Main Banner -->
+  <!-- Main Content -->
   <div class="main">
     <section id="banner">
-      <div class="banner">
-        <img src="imgs/banner3.png" alt="Banner" />
-      </div>
+      <div class="banner"><img src="imgs/banner3.png" alt="Banner" /></div>
     </section>
 
-    <!-- Filter Bar -->
     <section class="filter-bar">
       <select id="categoryFilter">
         <option value="">All Categories</option>
@@ -92,14 +148,25 @@ $isLoggedIn = isset($_SESSION['user_id']);
       <input type="number" id="maxPrice" placeholder="Max Price" />
     </section>
 
-    <!-- Product Listings -->
     <section class="product-list">
       <h2>Available Products</h2>
       <div class="products" id="products-container"></div>
     </section>
   </div>
 
-  <!-- Footer -->
+  <!-- Modal -->
+  <div id="productModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">×</span>
+      <h2>Seller Shop Info</h2>
+      <h3 id="modalShopName"></h3>
+      <img id="modalProductImage" src="" alt="Product Image" />
+      <p id="modalPrice"></p>
+      <p id="modalShopDesc"></p>
+      <button id="modalAddToCart">Add to Cart</button>
+    </div>
+  </div>
+
   <footer>
     <nav>
       <a href="#">Stuff</a>
@@ -109,14 +176,13 @@ $isLoggedIn = isset($_SESSION['user_id']);
     </nav>
   </footer>
 
-  <!-- JavaScript -->
   <script>
     const isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
     let products = [];
+    let currentProduct = null;
 
     document.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById("products-container");
-      const searchInput = document.getElementById("searchInput");
 
       fetch("../backend/get_products.php")
         .then(res => res.json())
@@ -124,7 +190,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
           if (data.success) {
             products = data.products.map(p => ({
               ...p,
-              tags: p.tags.split(",").map(t => t.trim()),
+              tags: Array.isArray(p.tags) ? p.tags : (p.tags || "").split(",").map(t => t.trim()),
               image: p.image || "imgs/default.png"
             }));
             renderProducts(products);
@@ -148,12 +214,21 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <button onclick="addToCart(${product.id})">Add to Cart</button>
             <button onclick="addToWishlist(${product.id})">♡ Add to Wishlist</button>
           `;
+          card.addEventListener("click", (e) => {
+            if (!e.target.matches("button")) {
+              showProductModal(product);
+            }
+          });
           container.appendChild(card);
         });
       }
 
+      ["searchInput", "categoryFilter", "tagFilter", "minPrice", "maxPrice"].forEach(id =>
+        document.getElementById(id).addEventListener("input", applyFilters)
+      );
+
       function applyFilters() {
-        const search = searchInput.value.toLowerCase();
+        const search = document.getElementById("searchInput").value.toLowerCase();
         const category = document.getElementById("categoryFilter").value;
         const tag = document.getElementById("tagFilter").value.toLowerCase();
         const min = parseFloat(document.getElementById("minPrice").value) || 0;
@@ -165,15 +240,8 @@ $isLoggedIn = isset($_SESSION['user_id']);
           (!tag || p.tags.some(t => t.toLowerCase().includes(tag))) &&
           p.price >= min && p.price <= max
         );
-
         renderProducts(filtered);
       }
-
-      searchInput.addEventListener("input", applyFilters);
-      document.getElementById("categoryFilter").addEventListener("change", applyFilters);
-      document.getElementById("tagFilter").addEventListener("input", applyFilters);
-      document.getElementById("minPrice").addEventListener("input", applyFilters);
-      document.getElementById("maxPrice").addEventListener("input", applyFilters);
 
       window.addToCart = (id) => {
         if (!isLoggedIn) {
@@ -181,7 +249,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
           window.location.href = "index.html";
           return;
         }
-
         const product = products.find(p => p.id === id);
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         const existing = cart.find(item => item.id === id);
@@ -196,7 +263,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
           window.location.href = "index.html";
           return;
         }
-
         const product = products.find(p => p.id === id);
         let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
         if (!wishlist.find(item => item.id === id)) {
@@ -223,6 +289,26 @@ $isLoggedIn = isset($_SESSION['user_id']);
         const profileBtn = document.getElementById("profileButton");
         if (!dropdown.contains(e.target) && !profileBtn.contains(e.target)) {
           dropdown.style.display = "none";
+        }
+      });
+
+      window.showProductModal = (product) => {
+        currentProduct = product;
+        document.getElementById("modalShopName").textContent = product.shop_name || "Unknown Shop";
+        document.getElementById("modalShopDesc").textContent = product.shop_description || "No description available.";
+        document.getElementById("modalProductImage").src = product.image || "imgs/default.png";
+        document.getElementById("modalPrice").textContent = `$${product.price}`;
+        document.getElementById("productModal").style.display = "block";
+      };
+
+      window.closeModal = () => {
+        document.getElementById("productModal").style.display = "none";
+      };
+
+      document.getElementById("modalAddToCart").addEventListener("click", () => {
+        if (currentProduct) {
+          addToCart(currentProduct.id);
+          closeModal();
         }
       });
     });

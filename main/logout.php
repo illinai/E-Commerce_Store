@@ -91,8 +91,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_logout'])) {
       <div id="sidebar" class="menu-content">
         <button class="close-menu" onclick="toggleMenu()">×</button>
         <a href="homePage.php">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="contact.html">Contact Us</a>
+        <a href="about.php">About Us</a>
+        <a href="contact.php">Contact Us</a>
         <a href="wishlist.html">Wishlist</a>
         <a href="cart.html">Cart</a>
         <a href="orders.html">Orders</a>

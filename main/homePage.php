@@ -66,6 +66,10 @@ background-color: #d94a47;
 font-size: 1rem;
 color: #333;
  }
+ .back-button {
+    color: white;
+    text-decoration: underline;
+}
 </style>
 </head>
 <body>

@@ -8,11 +8,11 @@ ob_start();
 // Session configuration
 session_set_cookie_params([
     'lifetime' => 86400,
-    'path' => '/smann06/E-Commerce_Store/backup2/', // Exact deployment path
-    'domain' => '.ok.ubc.ca', // Top-level domain
-    'secure' => true, // REQUIRED for HTTPS
+    'path' => '/smann06/E-Commerce_Store/backup2/',
+    'domain' => '.ok.ubc.ca', 
+    'secure' => true, 
     'httponly' => true,
-    'samesite' => 'Lax' // Balance security and functionality
+    'samesite' => 'Lax' 
 ]);
 session_start();
 

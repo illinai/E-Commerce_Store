@@ -3,7 +3,6 @@ header('Content-Type: application/json');
 require 'config.php';
 
 try {
-    // Prepare statement to get all products with seller information
     $stmt = $conn->prepare("
         SELECT p.*, u.shop_name, u.first_name, u.last_name 
         FROM products p 

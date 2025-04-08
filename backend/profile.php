@@ -5,12 +5,12 @@ error_reporting(E_ALL);
 ob_start();
 
 session_set_cookie_params([
-    'lifetime' => 86400, // 1 day
-    'path' => '/smann06/E-Commerce_Store/backup2/', // Exact deployment path
-    'domain' => '.ok.ubc.ca', // Top-level domain
-    'secure' => true, // REQUIRED for HTTPS
+    'lifetime' => 86400,
+    'path' => '/smann06/E-Commerce_Store/backup2/', 
+    'domain' => '.ok.ubc.ca',
+    'secure' => true,
     'httponly' => true,
-    'samesite' => 'Lax' // Balance security and functionality
+    'samesite' => 'Lax' 
 ]);
 
 session_start();
@@ -35,7 +35,6 @@ try {
         ]));
     }
 
-    // GET PROFILE ENDPOINT
     if (isset($_GET['action']) && $_GET['action'] === 'get') {
         if (!isset($_SESSION['user_id'])) {
             throw new Exception('Not logged in', 401);

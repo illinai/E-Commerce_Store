@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Success handling (AJAX or normal POST)
             alert(`Account created successfully!\nFirst Name: ${firstName}\nLast Name: ${lastName}\nEmail: ${email}`);
-            registerForm.submit(); // Or remove this if you're doing fetch/AJAX instead
+            registerForm.submit(); 
         });
     }
 });

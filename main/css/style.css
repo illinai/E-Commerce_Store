@@ -28,7 +28,7 @@ body {
 /* Left Panel */
 .left-panel {
     flex: 1;
-    background: linear-gradient(to bottom, #555, #222); /* Smooth dark transition */
+    background: linear-gradient(to bottom, #555, #222); 
     color: white;
     padding: 40px;
     text-align: center;
@@ -50,15 +50,12 @@ body {
 }
 
 .left-panel img {
-    width: 250px; /* Adjust width as needed */
-    height: auto; /* Maintain aspect ratio */
+    width: 250px;
+    height: auto;
 }
 
-
-
-/* Adjust heading and text placement */
 .left-panel .content {
-    flex-grow: 1; /* Pushes logo to the bottom */
+    flex-grow: 1; 
     display: flex;
     flex-direction: column;
     justify-content: center;

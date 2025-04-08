@@ -4,164 +4,182 @@ $isLoggedIn = isset($_SESSION['user_id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Home Page</title>
-<link rel="stylesheet" href="css/homePage.css" />
-<style>
-.product-card { cursor: pointer; }
-.modal {
-display: none;
-position: fixed;
-z-index: 1000;
-left: 0; top: 0;
-width: 100%; height: 100%;
-background-color: rgba(0, 0, 0, 0.6);
- }
-.modal-content {
-background: #fff;
-color: black;
-margin: 5% auto;
-padding: 20px;
-max-width: 600px;
-border-radius: 10px;
-text-align: center;
- }
-.close-modal {
-float: right;
-font-size: 1.5rem;
-cursor: pointer;
- }
-#modalProductImage {
-max-width: 100%;
-height: auto;
-margin-bottom: 15px;
-border-radius: 8px;
- }
-#modalShopName {
-font-size: 1.3rem;
-font-weight: bold;
-color: black;
-margin-bottom: 0.3rem;
- }
-#modalPrice {
-font-size: 1.2rem;
-font-weight: bold;
-margin: 0.5rem 0;
- }
-#modalAddToCart {
-margin-top: 15px;
-padding: 10px 20px;
-background-color: #f25f5c;
-color: white;
-border: none;
-border-radius: 5px;
-cursor: pointer;
- }
-#modalAddToCart:hover {
-background-color: #d94a47;
- }
-#modalShopDesc {
-font-size: 1rem;
-color: #333;
- }
- .back-button {
-    color: white;
-    text-decoration: underline;
-}
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <link rel="stylesheet" href="css/homePage.css" />
+    <style>
+        .product-card {
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-content {
+            background: #fff;
+            color: black;
+            margin: 5% auto;
+            padding: 20px;
+            max-width: 600px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .close-modal {
+            float: right;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        #modalProductImage {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        #modalShopName {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 0.3rem;
+        }
+
+        #modalPrice {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        #modalAddToCart {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #f25f5c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #modalAddToCart:hover {
+            background-color: #d94a47;
+        }
+
+        #modalShopDesc {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .back-button {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
-<!-- Header -->
-<header class="header1">
-<div id="container">
-<div id="shopName"><h1>The Maker's Market</h1></div>
-</div>
-<a href="sellerDashboard.html" class="back-button">Switch to Seller's Page</a>
-</header>
-<header class="header2">
-<div class="menuTab">
-<button class="menu-button" onclick="toggleMenu()">
-<img src="icons/menu.png" alt="Menu" />
-</button>
-<div id="sidebar" class="menu-content">
-<button class="close-menu" onclick="toggleMenu()">×</button>
-<a href="homePage.php">Home</a>
-<a href="wishlist.html">Wishlist</a>
-<a href="cart.html">Cart</a>
-<a href="orders.html">Orders</a>
-<a href="reviews.html">Reviews</a>
-<a href="profile.html">Profile</a>
-<a href="logout.php">Logout</a>
-<a href="about.php">About</a>
-<a href="contact.php">Contact</a>
-</div>
-</div>
-<div class="search-bar">
-<input type="text" id="searchInput" placeholder="Search by name..." />
-</div>
-<div class="right-buttons">
-<button class="liked-button"><a href="wishlist.html"><img src="icons/liked.png" alt="Likes" /></a></button>
-<button class="cart-button"><a href="cart.html"><img src="icons/cart.png" alt="Cart" /></a></button>
-<button id="profileButton" class="profile-button" onclick="toggleProfile()">
-<img src="icons/profile.png" alt="Profile" />
-</button>
-<div id="profileOpt" class="profileTab">
-<div class="profile-content">
-<?php if ($isLoggedIn): ?>
-<a href="profile.html">My Profile</a>
-<a href="logout.php">Logout</a>
-<?php else: ?>
-<a href="index.html">Sign In</a>
-<a href="register.html">Register</a>
-<?php endif; ?>
-</div>
-</div>
-</div>
-</header>
-<!-- Main Content -->
-<div class="main">
-<section id="banner">
-<div class="banner"><img src="imgs/banner3.png" alt="Banner" /></div>
-</section>
-<section class="filter-bar">
-<select id="categoryFilter">
-<option value="">All Categories</option>
-<option value="Jewelry">Jewelry</option>
-<option value="Home">Home</option>
-<option value="Art">Art</option>
-</select>
-<input type="text" id="tagFilter" placeholder="Search by tag" />
-<input type="number" id="minPrice" placeholder="Min Price" />
-<input type="number" id="maxPrice" placeholder="Max Price" />
-</section>
-<section class="product-list">
-<h2>Available Products</h2>
-<div class="products" id="products-container"></div>
-</section>
-</div>
-<!-- Modal -->
-<div id="productModal" class="modal">
-<div class="modal-content">
-<span class="close-modal" onclick="closeModal()">×</span>
-<h2>Seller Shop Info</h2>
-<h3 id="modalShopName"></h3>
-<img id="modalProductImage" src="" alt="Product Image" />
-<p id="modalPrice"></p>
-<p id="modalShopDesc"></p>
-<button id="modalAddToCart">Add to Cart</button>
-</div>
-</div>
-<footer>
-<nav>
-<a href="#">Stuff</a>
-<a href="#">Stuff</a>
-<a href="#">Stuff</a>
-<a href="#">Stuff</a>
-</nav>
-</footer>
-<script>
+    <!-- Header -->
+    <header class="header1">
+        <div id="container">
+            <div id="shopName">
+                <h1>The Maker's Market</h1>
+            </div>
+        </div>
+        <a href="sellerDashboard.html" class="back-button">Switch to Seller's Page</a>
+    </header>
+    <header class="header2">
+        <div class="menuTab">
+            <button class="menu-button" onclick="toggleMenu()">
+                <img src="icons/menu.png" alt="Menu" />
+            </button>
+            <div id="sidebar" class="menu-content">
+                <button class="close-menu" onclick="toggleMenu()">×</button>
+                <a href="homePage.php">Home</a>
+                <a href="wishlist.html">Wishlist</a>
+                <a href="cart.html">Cart</a>
+                <a href="orders.html">Orders</a>
+                <a href="reviews.html">Reviews</a>
+                <a href="profile.html">Profile</a>
+                <a href="logout.php">Logout</a>
+                <a href="about.php">About</a>
+                <a href="contact.php">Contact</a>
+            </div>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search by name..." />
+        </div>
+        <div class="right-buttons">
+            <button class="liked-button"><a href="wishlist.html"><img src="icons/liked.png" alt="Likes" /></a></button>
+            <button class="cart-button"><a href="cart.html"><img src="icons/cart.png" alt="Cart" /></a></button>
+            <button id="profileButton" class="profile-button" onclick="toggleProfile()">
+                <img src="icons/profile.png" alt="Profile" />
+            </button>
+            <div id="profileOpt" class="profileTab">
+                <div class="profile-content">
+                    <?php if ($isLoggedIn): ?>
+                    <a href="profile.html">My Profile</a>
+                    <a href="logout.php">Logout</a>
+                    <?php else: ?>
+                    <a href="index.html">Sign In</a>
+                    <a href="register.html">Register</a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <div class="main">
+        <section id="banner">
+            <div class="banner"><img src="imgs/banner3.png" alt="Banner" /></div>
+        </section>
+        <section class="filter-bar">
+            <select id="categoryFilter">
+                <option value="">All Categories</option>
+                <option value="Jewelry">Jewelry</option>
+                <option value="Home">Home</option>
+                <option value="Art">Art</option>
+            </select>
+            <input type="text" id="tagFilter" placeholder="Search by tag" />
+            <input type="number" id="minPrice" placeholder="Min Price" />
+            <input type="number" id="maxPrice" placeholder="Max Price" />
+        </section>
+        <section class="product-list">
+            <h2>Available Products</h2>
+            <div class="products" id="products-container"></div>
+        </section>
+    </div>
+    <!-- Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">×</span>
+            <h2>Seller Shop Info</h2>
+            <h3 id="modalShopName"></h3>
+            <img id="modalProductImage" src="" alt="Product Image" />
+            <p id="modalPrice"></p>
+            <p id="modalShopDesc"></p>
+            <button id="modalAddToCart">Add to Cart</button>
+        </div>
+    </div>
+    <footer>
+        <nav>
+            <a href="#">Stuff</a>
+            <a href="#">Stuff</a>
+            <a href="#">Stuff</a>
+            <a href="#">Stuff</a>
+        </nav>
+    </footer>
+    <script>
 // Define products as a global variable
 let products = [];
 let currentProduct = null;

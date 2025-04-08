@@ -161,19 +161,7 @@ body {
     width: 100%;
     height: auto;
 }
-/* -- */
 
-/*Area Below Slider*/
-
-/*.below{
-    margin-top: 30px;
-    display: grid;
-    grid-template-rows: 55% 45%;
-    width: 90%;
-    align-items: center;
-}*/
-
-/*Top Shops*/
 h3 {
     color: white;
 }
@@ -201,8 +189,6 @@ h3 {
     text-align: center;
     background-color: #ffffff;
     margin-top: 15px;
-    /*margin-left: 10px;
-    margin-right: 30px;*/
     height: auto;
     width: 100%;
 }
@@ -245,8 +231,6 @@ h3 {
     border-radius: 10px;
     text-align: center;
     background-color: #ffb1b1;
-    /*margin-left: 10px;
-    margin-right: 30px;*/
     margin-top: 15px;
     margin-bottom: 15px;
     height: auto;

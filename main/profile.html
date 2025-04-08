@@ -193,7 +193,7 @@
                     // Display the profile image
                     const profileImage = document.getElementById('profileImage');
                     if (data.profile_img) {
-                        const imageUrl = 'data:image/jpeg;base64,' + data.profile_img; // Assuming the profile image is stored as base64
+                        const imageUrl = 'data:image/jpeg;base64,' + data.profile_img;
                         profileImage.src = imageUrl;
                     } else {
                         profileImage.src = 'imgs/default-profile.png'; // Default image if no profile image is set

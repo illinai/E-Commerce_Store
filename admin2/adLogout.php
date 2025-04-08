@@ -115,16 +115,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_logout'])) {
     <form method="POST">
       <div class="logout-buttons">
         <button type="submit" name="confirm_logout" class="confirm-logout">Yes, Logout</button>
-        <a href="adProfile.html" class="cancel-logout">Cancel</a>
+        <a href="../main/profile.html" class="cancel-logout">Cancel</a>
       </div>
     </form>
   </section>
 
-<!--  <script>
-    function toggleMenu() {
-      const sidebar = document.getElementById("sidebar");
-      sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
-    }
-  </script> -->
 </body>
 </html>

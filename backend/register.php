@@ -23,6 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Hash the password securely
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
+        // Handle the profile image upload
+        $profile_img = null;
+        if (isset($_FILES['profile_img']) && $_FILES['profile_img']['error'] === UPLOAD_ERR_OK) {
+            // Get file details
+            $fileTmpPath = $_FILES['profile_img']['tmp_name'];
+            // Read the file content
+            $profile_img = file_get_contents($fileTmpPath); // Store the image as BLOB in the DB
+        }
+
         // Check if email already exists
         $sql = "SELECT * FROM users WHERE email=?";
         $stmt = $conn->prepare($sql);
@@ -36,11 +45,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             // Insert user into the database using prepared statement
-            $sql = "INSERT INTO users (email, password, first_name, last_name, role) VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO users (email, password, first_name, last_name, role, profile_img) VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
             $role = 'normal';  // Default role for a new user
-            $stmt->bind_param("sssss", $email, $hashed_password, $first_name, $last_name, $role);
             
+            // Bind parameters (profile_img is a BLOB, so it will be bound as a string)
+            $stmt->bind_param("sssssb", $email, $hashed_password, $first_name, $last_name, $role, $null);
+
+            // Bind the BLOB for profile_img
+            if ($profile_img) {
+                $stmt->send_long_data(5, $profile_img); // Send the BLOB data to column 5 (profile_img)
+            } else {
+                $null = null;  // If no image is uploaded, set profile_img as NULL
+            }
+
+            // Execute the query and check for success or failure
             if ($stmt->execute()) {
                 // Display a confirmation message
                 echo "Account created successfully!<br>";

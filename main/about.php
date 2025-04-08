@@ -1,3 +1,7 @@
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['user_id']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,15 +60,21 @@
       </button>
       <div id="sidebar" class="menu-content">
         <button class="close-menu" onclick="toggleMenu()">×</button>
-        <a href="homePage.php">Home</a>
-        <a href="wishlist.html">Wishlist</a>
-        <a href="cart.html">Cart</a>
-        <a href="orders.html">Orders</a>
-        <a href="profile.html">Profile</a>
-        <a href="logout.php">Logout</a>
-        <a href="reviews.html">Reviews</a>
-        <a href="about.html" class="active">About</a>
-        <a href="contact.html">Contact</a>
+        <?php if ($isLoggedIn): ?>
+          <a href="homePage.php">Home</a>
+          <a href="wishlist.html">Wishlist</a>
+          <a href="cart.html">Cart</a>
+          <a href="orders.html">Orders</a>
+          <a href="reviews.html">Reviews</a>
+          <a href="profile.html">Profile</a>
+          <a href="logout.php">Logout</a>
+        <?php else: ?>
+          <a href="public_home.php">Home</a>
+          <a href="index.html">Sign In</a>
+          <a href="register.html">Register</a>
+        <?php endif; ?>
+        <a href="about.php" class="active">About</a>
+        <a href="contact.php">Contact</a>
       </div>
     </div>
   </header>

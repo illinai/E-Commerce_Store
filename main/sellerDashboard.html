@@ -2,257 +2,251 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Seller Dashboard</title>
-    <link rel="stylesheet" href="css/seller.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seller Dashboard</title>
+  <link rel="stylesheet" href="css/seller.css" />
 </head>
 
 <body>
-    <header class="top-header">
-        <h1>Seller Dashboard</h1>
-        <nav>
-            <ul>
-                <li><a href="#dashboard" class="active">Dashboard</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#orders">Orders</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header class="top-header">
+    <h1>Seller Dashboard</h1>
+    <nav>
+      <ul>
+        <li><a href="#dashboard" class="active">Dashboard</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#orders">Orders</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <main class="main-content">
+  <main class="main-content">
+    <a href="homePage.php" class="back-button">Switch to Home Page</a>
 
-        <a href="homePage.php" class="back-button">Switch to Home Page</a>
+    <section id="dashboard" class="active-section">
+      <div class="dashboard-cards">
+        <div class="card">
+          <h3>Total Products</h3>
+          <p id="totalProducts">0</p>
+        </div>
+        <div class="card">
+          <h3>Total Orders</h3>
+          <p id="totalOrders">0</p>
+        </div>
+        <div class="card">
+          <h3>Total Revenue</h3>
+          <p>$<span id="totalRevenue">0.00</span></p>
+        </div>
+      </div>
+    </section>
 
-        <section id="dashboard" class="active-section">
-            <div class="dashboard-cards">
-                <div class="card">
-                    <h3>Total Products</h3>
-                    <p id="totalProducts">0</p>
-                </div>
-                <div class="card">
-                    <h3>Total Orders</h3>
-                    <p id="totalOrders">0</p>
-                </div>
-                <div class="card">
-                    <h3>Total Revenue</h3>
-                    <p>$<span id="totalRevenue">0.00</span></p>
-                </div>
-            </div>
-        </section>
+    <section id="products" class="hidden-section">
+      <div class="section-box">
+        <h2>Add Product</h2>
+        <form id="productForm" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="productName">Product Name</label>
+            <input type="text" id="productName" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="productDescription">Description</label>
+            <textarea id="productDescription" name="description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="productPrice">Price ($)</label>
+            <input type="number" id="productPrice" name="price" min="0.01" step="0.01" required />
+          </div>
+          <div class="form-group">
+            <label for="productQuantity">Quantity</label>
+            <input type="number" id="productQuantity" name="quantity" min="1" required />
+          </div>
+          <div class="form-group">
+            <label for="productTags">Tags</label>
+            <input type="text" id="productTags" name="tags" required />
+          </div>
+          <div class="form-group">
+            <label for="productImage">Upload Image</label>
+            <input type="file" id="productImage" name="image" accept="image/*" required />
+          </div>
+          <button type="submit" class="btn-primary">Add Product</button>
+          <div id="formFeedback"></div>
+        </form>
+      </div>
 
-        <section id="products" class="hidden-section">
-            <div class="section-box">
-                <h2>Add Product</h2>
-                <form id="productForm">
-                    <div class="form-group">
-                        <label for="productName">Product Name</label>
-                        <input type="text" id="productName" name="name" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="productDescription">Description</label>
-                        <textarea id="productDescription" name="description" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="productPrice">Price ($)</label>
-                        <input type="number" id="productPrice" name="price" min="0.01" step="0.01" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="productQuantity">Quantity</label>
-                        <input type="number" id="productQuantity" name="quantity" min="1" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="productTags">Tags</label>
-                        <input type="text" id="productTags" name="tags" required />
-                    </div>
-                    <button type="submit" class="btn-primary">Add Product</button>
-                    <div id="formFeedback"></div>
-                </form>
-            </div>
+      <div class="section-box">
+        <h2>Your Products</h2>
+        <div class="products-grid" id="productsGrid"></div>
+      </div>
+    </section>
 
-            <div class="section-box">
-                <h2>Your Products</h2>
-                <div class="products-grid" id="productsGrid"></div>
-            </div>
-        </section>
+    <section id="orders" class="hidden-section">
+      <div class="section-box">
+        <h2>Recent Orders</h2>
+        <div class="orders-list" id="ordersList"></div>
+      </div>
+    </section>
+  </main>
 
-        <section id="orders" class="hidden-section">
-            <div class="section-box">
-                <h2>Recent Orders</h2>
-                <div class="orders-list" id="ordersList"></div>
-            </div>
-        </section>
-    </main>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      initNavigation();
+      loadDashboardStats();
+      loadProducts();
+      setupProductForm();
+      loadOrders();
+    });
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            initNavigation();
-            loadDashboardStats();
-            loadProducts();
-            setupProductForm();
-            loadOrders();
+    function initNavigation() {
+      const navLinks = document.querySelectorAll(".top-header nav ul li a");
+      navLinks.forEach(link => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          navLinks.forEach(l => l.classList.remove("active"));
+          this.classList.add("active");
+
+          const targetId = this.getAttribute("href").substring(1);
+          document.querySelectorAll("main section").forEach(section => {
+            section.classList.add("hidden-section");
+            if (section.id === targetId) {
+              section.classList.remove("hidden-section");
+            }
+          });
+
+          if (targetId === 'orders') loadOrders();
         });
+      });
+    }
 
-        function initNavigation() {
-            const navLinks = document.querySelectorAll(".top-header nav ul li a");
-            navLinks.forEach(link => {
-                link.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    navLinks.forEach(l => l.classList.remove("active"));
-                    this.classList.add("active");
+    async function loadDashboardStats() {
+      try {
+        const response = await fetch("../backend/get_seller_stats.php");
+        const data = await response.json();
+        if (!data.success) throw new Error(data.error || "Failed to load stats");
 
-                    const targetId = this.getAttribute("href").substring(1);
-                    document.querySelectorAll("main section").forEach(section => {
-                        section.classList.add("hidden-section");
-                        if (section.id === targetId) {
-                            section.classList.remove("hidden-section");
-                        }
-                    });
+        document.getElementById("totalProducts").textContent = data.product_count || 0;
+        document.getElementById("totalRevenue").textContent = data.total_sales?.toFixed(2) || "0.00";
+        document.getElementById("totalOrders").textContent = data.order_count || 0;
+      } catch (error) {
+        console.error("Error loading dashboard stats:", error);
+      }
+    }
 
-                    if (targetId === 'orders') {
-                        loadOrders();
-                    }
-                });
-            });
+    async function loadProducts() {
+      try {
+        const response = await fetch("../backend/get_products.php");
+        const data = await response.json();
+        if (!data.success) throw new Error(data.error || "Failed to load products");
+
+        const container = document.getElementById("productsGrid");
+        container.innerHTML = "";
+
+        if (data.products.length === 0) {
+          container.innerHTML = '<div class="empty-state">No products added yet</div>';
+          return;
         }
 
-        async function loadDashboardStats() {
-            try {
-                const response = await fetch("../backend/get_seller_stats.php");
-                const data = await response.json();
-                if (!data.success) throw new Error(data.error || "Failed to load stats");
+        data.products.forEach(product => {
+          const card = document.createElement("div");
+          card.className = "product-card";
+          card.innerHTML = `
+            <div class="product-info">
+              <h3>${product.name}</h3>
+              <p class="product-price">$${parseFloat(product.price).toFixed(2)}</p>
+              <p>${product.description.substring(0, 60)}${product.description.length > 60 ? '...' : ''}</p>
+              <p>Quantity: ${product.quantity}</p>
+              <p>Tags: ${product.tags}</p>
+              <div class="product-actions">
+                <button class="btn-delete" onclick="deleteProduct(${product.id})">Delete</button>
+              </div>
+            </div>`;
+          container.appendChild(card);
+        });
+      } catch (error) {
+        console.error("Error loading products:", error);
+        document.getElementById("productsGrid").innerHTML = `<div class="empty-state">Error loading products: ${error.message}</div>`;
+      }
+    }
 
-                document.getElementById("totalProducts").textContent = data.product_count || 0;
-                document.getElementById("totalRevenue").textContent = data.total_sales?.toFixed(2) || "0.00";
-                document.getElementById("totalOrders").textContent = data.order_count || 0;
-            } catch (error) {
-                console.error("Error loading dashboard stats:", error);
-            }
+    function setupProductForm() {
+      const form = document.getElementById("productForm");
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const feedback = document.getElementById("formFeedback");
+        const submitBtn = form.querySelector("button[type='submit']");
+
+        feedback.textContent = "";
+        feedback.className = "feedback";
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Uploading...";
+
+        try {
+          const response = await fetch("../backend/add_product.php", {
+            method: "POST",
+            body: formData
+          });
+
+          const text = await response.text();
+          let result;
+
+          try {
+            result = JSON.parse(text);
+          } catch (e) {
+            throw new Error("Server did not return valid JSON:\n" + text);
+          }
+
+          if (!result.success) throw new Error(result.error || "Operation failed");
+
+          feedback.textContent = "Product added successfully!";
+          feedback.className = "feedback success";
+          form.reset();
+          loadProducts();
+          loadDashboardStats();
+        } catch (error) {
+          feedback.textContent = error.message;
+          feedback.className = "feedback error";
+          console.error("Error:", error);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Add Product";
+        }
+      });
+    }
+
+    window.deleteProduct = async function (productId) {
+      if (!confirm("Are you sure you want to delete this product?")) return;
+      try {
+        const response = await fetch(`../backend/delete_product.php?id=${productId}`);
+        const result = await response.json();
+        if (!result.success) throw new Error(result.error || "Failed to delete product");
+
+        alert("Product deleted successfully");
+        loadProducts();
+        loadDashboardStats();
+      } catch (error) {
+        alert(`Error: ${error.message}`);
+      }
+    };
+
+    async function loadOrders() {
+      try {
+        const response = await fetch("../backend/get_orders.php");
+        const data = await response.json();
+        if (!data.success) throw new Error(data.error || "Failed to load orders");
+
+        const ordersList = document.getElementById("ordersList");
+        ordersList.innerHTML = "";
+
+        if (data.orders.length === 0) {
+          ordersList.innerHTML = '<div class="empty-state">No orders yet.</div>';
+          return;
         }
 
-        async function loadProducts() {
-            try {
-                const response = await fetch("../backend/get_products.php");
-                const data = await response.json();
-                if (!data.success) throw new Error(data.error || "Failed to load products");
-
-                const products = data.products;
-                const container = document.getElementById("productsGrid");
-                container.innerHTML = "";
-
-                if (products.length === 0) {
-                    container.innerHTML = '<div class="empty-state">No products added yet</div>';
-                    return;
-                }
-
-                products.forEach(product => {
-                    const card = document.createElement("div");
-                    card.className = "product-card";
-                    card.innerHTML = `
-  <div class="product-info">
-    <h3>${product.name}</h3>
-    <p class="product-price">$${parseFloat(product.price).toFixed(2)}</p>
-    <p>${product.description.substring(0, 60)}${product.description.length > 60 ? '...' : ''}</p>
-    <p>Quantity: ${product.quantity}</p>
-    <p>Tags: ${product.tags}</p>
-    <div class="product-actions">
-      <button class="btn-delete" onclick="deleteProduct(${product.id})">Delete</button>
-    </div>
-  </div>`;
-
-                    container.appendChild(card);
-                });
-            } catch (error) {
-                console.error("Error loading products:", error);
-                document.getElementById("productsGrid").innerHTML = `<div class="empty-state">Error loading products: ${error.message}</div>`;
-            }
-        }
-
-        function setupProductForm() {
-            const form = document.getElementById("productForm");
-            form.addEventListener("submit", async function (e) {
-                e.preventDefault();
-
-                const formData = new FormData(form);
-                const feedback = document.getElementById("formFeedback");
-                const submitBtn = form.querySelector("button[type='submit']");
-
-                feedback.textContent = "";
-                feedback.className = "feedback";
-                submitBtn.disabled = true;
-                submitBtn.textContent = "Processing...";
-
-                const dataToSend = Object.fromEntries(formData);
-                const isEdit = !!dataToSend.id;
-                const url = isEdit ? "../backend/update_product.php" : "../backend/add_product.php";
-
-                try {
-                    const response = await fetch(url, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(dataToSend)
-                    });
-
-                    const result = await response.json();
-                    if (!result.success) throw new Error(result.error || "Operation failed");
-
-                    feedback.textContent = isEdit ? "Product updated successfully!" : "Product added successfully!";
-                    feedback.className = "feedback success";
-                    form.reset();
-                    loadProducts();
-                    loadDashboardStats();
-
-                    // Reset form state
-                    const hiddenId = document.getElementById("editProductId");
-                    if (hiddenId) hiddenId.remove();
-                    submitBtn.textContent = "Add Product";
-
-                } catch (error) {
-                    feedback.textContent = error.message;
-                    feedback.className = "feedback error";
-                    console.error("Error:", error);
-                } finally {
-                    submitBtn.disabled = false;
-                }
-            });
-        }
-
-        window.deleteProduct = async function (productId) {
-            if (!confirm("Are you sure you want to delete this product?")) return;
-            try {
-                const response = await fetch(`../backend/delete_product.php?id=${productId}`);
-                const result = await response.json();
-                if (!result.success) throw new Error(result.error || "Failed to delete product");
-
-                alert("Product deleted successfully");
-                loadProducts();
-                loadDashboardStats();
-            } catch (error) {
-                alert(`Error: ${error.message}`);
-            }
-        };
-
-        async function loadOrders() {
-            try {
-                const response = await fetch("../backend/get_orders.php");
-                const data = await response.json();
-                if (!data.success) throw new Error(data.error || "Failed to load orders");
-
-                const orders = data.orders;
-                const ordersList = document.getElementById("ordersList");
-                ordersList.innerHTML = "";
-
-                if (orders.length === 0) {
-                    ordersList.innerHTML = '<div class="empty-state">No orders yet.</div>';
-                    return;
-                }
-
-                orders.forEach(order => {
-                    const orderDiv = document.createElement("div");
-                    orderDiv.className = "order-item";
-                    orderDiv.innerHTML = `
+        data.orders.forEach(order => {
+          const orderDiv = document.createElement("div");
+          orderDiv.className = "order-item";
+          orderDiv.innerHTML = `
             <h3>Order #${order.id}</h3>
             <p>User ID: ${order.user_id}</p>
             <p>Total: $${order.total.toFixed(2)}</p>
@@ -261,31 +255,30 @@
             <button onclick="updateOrderStatus(${order.id}, 'shipped')">Mark as Shipped</button>
             <button onclick="updateOrderStatus(${order.id}, 'returned')">Mark as Returned</button>
           `;
-                    ordersList.appendChild(orderDiv);
-                });
-            } catch (error) {
-                console.error("Error loading orders:", error);
-            }
-        }
+          ordersList.appendChild(orderDiv);
+        });
+      } catch (error) {
+        console.error("Error loading orders:", error);
+      }
+    }
 
-        async function updateOrderStatus(orderId, status) {
-            try {
-                const response = await fetch("../backend/update_order_status.php", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ order_id: orderId, status: status }),
-                });
+    async function updateOrderStatus(orderId, status) {
+      try {
+        const response = await fetch("../backend/update_order_status.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ order_id: orderId, status: status }),
+        });
 
-                const result = await response.json();
-                if (!result.success) throw new Error(result.error || "Failed to update order status");
+        const result = await response.json();
+        if (!result.success) throw new Error(result.error || "Failed to update order status");
 
-                alert("Order status updated successfully");
-                loadOrders();
-            } catch (error) {
-                alert(`Error: ${error.message}`);
-            }
-        }
-    </script>
+        alert("Order status updated successfully");
+        loadOrders();
+      } catch (error) {
+        alert(`Error: ${error.message}`);
+      }
+    }
+  </script>
 </body>
-
 </html>

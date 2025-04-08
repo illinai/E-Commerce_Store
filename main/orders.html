@@ -1,72 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Orders</title>
-  <link rel="stylesheet" href="css/homePage.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Orders</title>
+    <link rel="stylesheet" href="css/homePage.css" />
+    <style>
+        .orders-container {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 20px;
+        }
+        
+        .orders-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .orders-header h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        
+        .order-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background: #f9f9f9;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .order-date {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .order-status {
+            font-weight: bold;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-shipped {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-returned {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .order-details {
+            padding: 20px;
+        }
+        
+        .seller-info {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .seller-info strong {
+            font-weight: 600;
+        }
+        
+        .order-items {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-name {
+            flex: 1;
+        }
+        
+        .item-quantity {
+            width: 80px;
+            text-align: center;
+        }
+        
+        .item-price {
+            width: 100px;
+            text-align: right;
+        }
+        
+        .order-total {
+            display: flex;
+            justify-content: flex-end;
+            font-weight: bold;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .back-to-shopping {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #1e88e5;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .order-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .order-item {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+            .item-quantity, .item-price {
+                width: 100%;
+                text-align: left;
+                margin-top: 5px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Title Header Section -->
-  <header class="header1">
-    <h1>The Maker's Market</h1>
-  </header>
+    <!-- Title Header Section -->
+    <header class="header1">
+        <div id="container">
+            <div id="shopName">
+                <h1>The Maker's Market</h1>
+            </div>
+        </div>
+    </header>
 
-  <!-- Navigation Header Section -->
-  <header class="header2">
-    <!-- Sidebar Menu -->
-    <div class="menuTab">
-      <button class="menu-button" onclick="toggleMenu()">
-        <img src="icons/menu.png" alt="Menu" />
-      </button>
-      <div id="sidebar" class="menu-content">
-        <button class="close-menu" onclick="toggleMenu()">×</button>
-        <a href="homePage.php">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="wishlist.html">Wishlist</a>
-        <a href="cart.html">Cart</a>
-        <a href="orders.html" class="active">Orders</a>
-        <a href="reviews.html">Reviews</a>
-        <a href="profile.html">Profile</a>
-        <a href="logout.php">Logout</a>
-      </div>
+    <!-- Navigation Header Section -->
+    <header class="header2">
+        <div class="menuTab">
+            <button class="menu-button" onclick="toggleMenu()">
+                <img src="icons/menu.png" alt="Menu" />
+            </button>
+            <div id="sidebar" class="menu-content">
+                <button class="close-menu" onclick="toggleMenu()">×</button>
+                <a href="homePage.php">Home</a>
+                <a href="wishlist.html">Wishlist</a>
+                <a href="cart.html">Cart</a>
+                <a href="orders.html">Orders</a>
+                <a href="profile.html">Profile</a>
+                <a href="logout.php">Logout</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+
+        <div class="right-buttons">
+            <button class="liked-button">
+                <a href="wishlist.html"><img src="icons/liked.png" alt="Likes" /></a>
+            </button>
+            <button class="cart-button">
+                <a href="cart.html"><img src="icons/cart.png" alt="Cart" /></a>
+            </button>
+        </div>
+    </header>
+
+    <div class="orders-container">
+        <div class="orders-header">
+            <h1>My Orders</h1>
+        </div>
+        
+        <div id="orders-list">
+            <!-- Orders will be loaded here -->
+            <div class="empty-state">
+                <p>Loading your orders...</p>
+            </div>
+        </div>
     </div>
 
-    <!-- Search Bar -->
-    <div class="search-bar">
-      <input type="text" placeholder="Search..." />
-    </div>
-
-    <!-- Right-side buttons -->
-    <div class="right-buttons">
-      <button class="liked-button">
-        <a href="wishlist.html"><img src="icons/liked.png" alt="Likes" /></a>
-      </button>
-      <button class="cart-button">
-        <a href="cart.html"><img src="icons/cart.png" alt="Cart" /></a>
-      </button>
-      <button class="profile-button">
-        <a href="profile.html"><img src="icons/profile.png" alt="Profile" /></a>
-      </button>
-    </div>
-  </header>
-
-  <!-- Orders Section -->
-  <section class="orders">
-    <h2>Your Orders</h2>
-    <div class="order-list" id="order-list">
-      <p>You have no orders yet.</p>
-    </div>
-  </section>
-
-  <!-- JavaScript -->
-  <script>
-    function toggleMenu() {
-      const sidebar = document.getElementById("sidebar");
-      sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
-    }
-  </script>
-  <script src="js/orders.js"></script>
+    <script>
+        // Function to toggle the menu
+        function toggleMenu() {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
+        }
+        
+        // Function to format date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+        
+        // Load orders on page load
+        document.addEventListener("DOMContentLoaded", async () => {
+            try {
+                // Fetch orders
+                const response = await fetch("../backend/get_orders.php");
+                const data = await response.json();
+                
+                if (!data.success) {
+                    throw new Error(data.error || "Failed to load orders");
+                }
+                
+                const ordersList = document.getElementById("orders-list");
+                
+                if (data.orders.length === 0) {
+                    ordersList.innerHTML = `
+                        <div class="empty-state">
+                            <p>You don't have any orders yet.</p>
+                            <a href="homePage.php" class="back-to-shopping">Start Shopping</a>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Clear loading message
+                ordersList.innerHTML = "";
+                
+                // Display orders
+                data.orders.forEach(order => {
+                    const statusClass = `status-${order.order_status.toLowerCase()}`;
+                    
+                    const orderCard = document.createElement("div");
+                    orderCard.className = "order-card";
+                    
+                    // Create order header
+                    const orderHeader = document.createElement("div");
+                    orderHeader.className = "order-header";
+                    orderHeader.innerHTML = `
+                        <div>
+                            <div>Order #${order.id}</div>
+                            <div class="order-date">${formatDate(order.created_at)}</div>
+                        </div>
+                        <div class="order-status ${statusClass}">${order.order_status}</div>
+                    `;
+                    
+                    // Create order details
+                    const orderDetails = document.createElement("div");
+                    orderDetails.className = "order-details";
+                    
+                    // Add seller information
+                    let detailsHTML = `
+                        <div class="seller-info">
+                            <strong>Seller:</strong> ${order.seller_name}
+                        </div>
+                        <div class="order-items">
+                    `;
+                    
+                    // Add order items
+                    order.items.forEach(item => {
+                        detailsHTML += `
+                            <div class="order-item">
+                                <div class="item-name">${item.product_name}</div>
+                                <div class="item-quantity">Qty: ${item.quantity}</div>
+                                <div class="item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                            </div>
+                        `;
+                    });
+                    
+                    // Add order total
+                    detailsHTML += `
+                        </div>
+                        <div class="order-total">
+                            Total: $${order.total.toFixed(2)}
+                        </div>
+                    `;
+                    
+                    orderDetails.innerHTML = detailsHTML;
+                    
+                    // Append all elements to the order card
+                    orderCard.appendChild(orderHeader);
+                    orderCard.appendChild(orderDetails);
+                    
+                    // Add the order card to the list
+                    ordersList.appendChild(orderCard);
+                });
+                
+            } catch (error) {
+                console.error("Error loading orders:", error);
+                document.getElementById("orders-list").innerHTML = `
+                    <div class="empty-state">
+                        <p>Error loading orders: ${error.message}</p>
+                        <a href="homePage.php" class="back-to-shopping">Back to Home</a>
+                    </div>
+                `;
+            }
+        });
+    </script>
 </body>
 </html>

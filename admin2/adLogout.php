@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_logout'])) {
             <div class="right-buttons">
                 <!--Profile-->
                 <button class="profile-button">
-                   <a href="adProfile.html"><img src="../main/icons/profile.png" alt="Profile"></a>
+                   <a href="../main/profile.html"><img src="../main/icons/profile.png" alt="Profile"></a>
                 </button>
             </div> 
         </header>

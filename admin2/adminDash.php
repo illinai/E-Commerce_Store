@@ -78,7 +78,7 @@ try{
                 </div>
             </div>
             <a href="../main/homePage.php" class="btn">Buyer's Dashboard</a>
-            <a href="../main/sellerPage.html" class="btn">Seller's Dashboard</a>
+            <a href="../main/sellerDashboard.html" class="btn">Seller's Dashboard</a>
 
         </header>
         <!---->

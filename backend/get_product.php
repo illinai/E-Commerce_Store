@@ -15,7 +15,7 @@ try {
             $row['quantity'] = (int)$row['quantity'];
             $row['tags'] = array_map('trim', explode(',', $row['tags']));
             $row['image'] = $row['image_path'] ?: 'imgs/default.png';
-            unset($row['image_path']); // Optionally remove this from final output
+            unset($row['image_path']);
             $products[] = $row;
         }
     }

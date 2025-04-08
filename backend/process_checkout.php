@@ -8,10 +8,6 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Add error logging for debugging
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
-
 $user_id = $_SESSION['user_id'];
 $fullname = $_POST['fullname'];
 $address = $_POST['address'];
@@ -99,9 +95,6 @@ try {
     
     // Log error
     error_log("Checkout error: " . $e->getMessage());
-    
-    // For debugging purposes, you can uncomment this to see the error
-    // echo "Error: " . $e->getMessage();
     
     // Redirect to error page
     header("Location: ../main/checkout.php?error=1");

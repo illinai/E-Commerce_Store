@@ -47,14 +47,13 @@ try {
         VALUES (?, ?, ?, ?, ?, ?, ?)
     ");
 
-    // Bind parameters - bind_param() needs all variables passed by reference!
     $stmt->bind_param("ssdissb", $name, $description, $price, $seller_id, $quantity, $tags, $image_blob_ref);
 
     // Send the image blob via reference
-    $image_blob_ref = null; // placeholder
+    $image_blob_ref = null;
     if ($image_blob !== null) {
-        $image_blob_ref = ''; // we send an empty string first
-        $stmt->send_long_data(6, $image_blob); // 6 = 7th parameter
+        $image_blob_ref = ''; // send an empty string first
+        $stmt->send_long_data(6, $image_blob);
     }
 
     if (!$stmt->execute()) {

@@ -179,7 +179,7 @@ function updateSummaryStats(data) {
     `;
 }
 
-// Search functionality - maintain compatibility with adminDash.js
+// Search functionality
 function performSearch() {
     const searchInput = document.getElementById('searchInput');
     const searchTerm = searchInput.value.trim();

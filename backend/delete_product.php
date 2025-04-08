@@ -1,5 +1,4 @@
 <?php
-// backend/delete_product.php (Updated with foreign key constraint check)
 header('Content-Type: application/json');
 require 'config.php';
 session_start();
@@ -31,7 +30,7 @@ try {
         exit;
     }
     
-    // If product is not in any orders, proceed with deletion
+    // If product is not in any orders, delete product
     $stmt = $conn->prepare("DELETE FROM products WHERE id = ? AND seller_id = ?");
     $stmt->bind_param("ii", $productId, $_SESSION['user_id']);
     if ($stmt->execute()) {

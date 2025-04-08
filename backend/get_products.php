@@ -11,7 +11,7 @@ try {
                 p.price, 
                 p.quantity, 
                 p.tags, 
-                p.image_url,  -- BLOB
+                p.image_url,
                 u.shop_name, 
                 u.shop_description
             FROM products p
@@ -45,8 +45,8 @@ try {
                 'price' => (float) $row['price'],
                 'quantity' => (int) ($row['quantity'] ?? 0),
                 'tags' => array_map('trim', explode(',', $row['tags'] ?? '')),
-                'image_url' => $base64Image, // Add this property correctly
-                'image' => $base64Image, // Keep the original for compatibility
+                'image_url' => $base64Image, 
+                'image' => $base64Image,
                 'shop_name' => htmlspecialchars($row['shop_name'] ?? ''),
                 'shop_description' => htmlspecialchars($row['shop_description'] ?? '')
             ];

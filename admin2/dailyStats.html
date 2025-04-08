@@ -1,85 +1,86 @@
 <!DOCTYPE html>
-<html lang="en"> 
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Daily Stats</title>
-        <link rel="stylesheet" href="css/adminDash.css">
-    </head>
-    <body>
-
-        <!--Title Header Section-->
-        <header class="header1">
-            <div id="container">
-                <div id="shopName">
-                    <h1>The Maker's Market</h1>
-                </div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Stats</title>
+    <link rel="stylesheet" href="css/adminDash.css">
+    <link rel="stylesheet" href="css/dailyStats.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!--Title Header Section-->
+    <header class="header1">
+        <div id="container">
+            <div id="shopName">
+                <h1>The Maker's Market</h1>
             </div>
-            <a href="../main/homePage.php" class="btn">Buyer's Dashboard</a>
-            <a href="../main/sellerPage.html" class="btn">Seller's Dashboard</a>
-
-        </header>
-        <!---->
-
-        <!--Navigation Header Section-->
-        <header class="header2">
-            <!--Menu-->
-            <div class="menuTab">
-                <button class="menu-button" onclick="toggleMenu">
-                    <img src="../main/icons/menu.png" alt="Menu">
-                </button>
-                <div class="menu-content">
-                    <a href="adminDash.php">Dashboard</a>
-                    <a href="#">Daily Stats</a>
-                    <a href="adLogout.php">Logout</a>
-                </div>
+        </div>
+        <a href="../main/homePage.php" class="btn">Buyer's Dashboard</a>
+        <a href="../main/sellerPage.html" class="btn">Seller's Dashboard</a>
+    </header>
+    <!---->
+    <!--Navigation Header Section-->
+    <header class="header2">
+         <!--Menu-->
+        <div class="menuTab">
+            <button class="menu-button" onclick="toggleMenu">
+                <img src="../main/icons/menu.png" alt="Menu">
+            </button>
+            <div class="menu-content">
+                <a href="adminDash.php">Dashboard</a>
+                <a href="#">Daily Stats</a>
+                <a href="adLogout.php">Logout</a>
             </div>
-            <!--Search Bar-->
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Search...">
-                <button id="searchButton">Search</button>
-                <!--<div class="search-results"></div>-->
-            </div>
-            <div class="right-buttons">
-                <!--Profile-->
-                <button class="profile-button">
-                   <a href="../main/profile.html"><img src="../main/icons/profile.png" alt="Profile"></a>
-                </button>
-            </div> 
-        </header>
-
-        <!-- Search Type Selector -->
-        <div class="search-type-container">
-            <label for="searchType">Search for:</label>
-            <select id="searchType">
-                <option value="users">Users</option>
-                <option value="products">Products</option>   
+        </div>
+        <!--Search Bar-->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search...">
+            <button id="searchButton">Search</button>
+        </div>
+        <div class="right-buttons">
+            <!--Profile-->
+            <button class="profile-button">
+                <a href="../main/profile.html"><img src="../main/icons/profile.png" alt="Profile"></a>
+            </button>
+        </div>
+    </header>
+    <!-- Search Type Selector -->
+    <div class="search-type-container">
+        <label for="searchType">Search for:</label>
+        <select id="searchType">
+            <option value="users">Users</option>
+            <option value="products">Products</option>
+        </select>
+    </div>
+    <!-- --- -->
+    <div class="main">
+        <div class="filter-container">
+            <label for="dateRange">Filter by:</label>
+            <select id="dateRange">
+                <option value="7days">Last 7 Days</option>
+                <option value="30days">Last 30 Days</option>
+                <option value="all">All Time</option>
             </select>
         </div>
-            <!-- --- -->
-
-        <div class="main">
-            <div class="filter-container">
-                <label for="dateRange">Filter by:</label>
-                <select id="dateRange">
-                    <option value="7days">Last 7 Days</option>
-                    <option value="30days">Last 30 Days</option>
-                    <option value="all">All Time</option>
-                </select>
-            </div>
-
-            <div class="card">
-                <h2>New User Registrations</h2>
-                <canvas id="userChart"></canvas>
-            </div>
+        <div class="card">
+            <h2>New User Registrations</h2>
+            <canvas id="userChart"></canvas>
+            <!-- Summary statistics will be inserted here by JavaScript -->
         </div>
-        <!-- Results Section -->
-        <div class="mainR">
-            <div id="resultsContainer">
-
-            </div>
+    </div>
+    <!-- Results Section -->
+    <div class="mainR">
+        <div id="resultsContainer">
         </div>
-
-        <script src="scripts/adminDash.js"></script>
-    </body>
+    </div>
+    
+    <!-- PHP code for getting user stats -->
+    <?php
+    // This is just a placeholder - the actual PHP code is in get_user_stats.php
+    ?>
+    
+    <script src="scripts/dailyStats.js"></script>
+</body>
 </html>

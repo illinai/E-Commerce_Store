@@ -1,0 +1,122 @@
+/* Chart styling */
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 20px;
+    position: relative;
+}
+
+.card h2 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+#userChart {
+    height: 350px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Filter container */
+.filter-container {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.filter-container label {
+    margin-right: 10px;
+    font-weight: 600;
+    color: #495057;
+}
+
+#dateRange {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: border-color 0.15s ease-in-out;
+}
+
+#dateRange:hover {
+    border-color: #adb5bd;
+}
+
+#dateRange:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Summary statistics */
+.stats-summary {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.summary-item {
+    text-align: center;
+    padding: 0 15px;
+}
+
+.summary-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.summary-label {
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+/* Error message */
+.error-message {
+    color: #dc3545;
+    text-align: center;
+    padding: 20px;
+    background-color: #f8d7da;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .filter-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filter-container label {
+        margin-bottom: 8px;
+    }
+    
+    .stats-summary {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .summary-item {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .summary-item:last-child {
+        border-bottom: none;
+    }
+}

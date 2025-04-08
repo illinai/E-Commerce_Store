@@ -104,10 +104,21 @@
         a:hover {
             text-decoration: underline;
         }
-    </style>
 
-    </style>
+        /* Profile image styling */
+        .profile-image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
+        .profile-image-container img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ff6b6b;
+        }
+    </style>
 </head>
 
 <body>
@@ -115,6 +126,11 @@
         <h2>Your Profile</h2>
 
         <div id="profileDisplay">
+            <!-- Profile Image Display -->
+            <div class="profile-image-container">
+                <img id="profileImage" src="imgs/default-profile.png" alt="Profile Image">
+            </div>
+
             <p><strong>First Name:</strong> <span id="displayFirstName"></span></p>
             <p><strong>Last Name:</strong> <span id="displayLastName"></span></p>
             <p><strong>Email:</strong> <span id="displayEmail"></span></p>
@@ -123,7 +139,7 @@
             <button id="editProfileButton" class="btn">Edit Profile</button>
         </div>
 
-        <form id="editProfileForm">
+        <form id="editProfileForm" enctype="multipart/form-data">
             <button type="button" id="backToProfile" class="back-btn">Back to Profile</button>
             <div class="input-group">
                 <label for="editFirstName">First Name</label>
@@ -150,12 +166,17 @@
                 <textarea id="editShopDescription" name="shop_description"></textarea>
             </div>
 
+            <!-- Profile Image Upload -->
+            <div class="input-group">
+                <label for="profile_img">Profile Image</label>
+                <input type="file" id="profile_img" name="profile_img" accept="image/*">
+            </div>
+
             <button type="submit" class="btn">Save Changes</button>
             <input type="hidden" name="action" value="update">
         </form>
 
         <a href="homePage.php" class="back-button">← Back to Home</a>
-
     </div>
 
     <script>
@@ -168,6 +189,15 @@
                     document.getElementById('displayEmail').textContent = data.email;
                     document.getElementById('displayShopName').textContent = data.shop_name || 'N/A';
                     document.getElementById('displayShopDescription').textContent = data.shop_description || 'N/A';
+
+                    // Display the profile image
+                    const profileImage = document.getElementById('profileImage');
+                    if (data.profile_img) {
+                        const imageUrl = 'data:image/jpeg;base64,' + data.profile_img; // Assuming the profile image is stored as base64
+                        profileImage.src = imageUrl;
+                    } else {
+                        profileImage.src = 'imgs/default-profile.png'; // Default image if no profile image is set
+                    }
 
                     document.getElementById('editFirstName').value = data.first_name;
                     document.getElementById('editLastName').value = data.last_name;

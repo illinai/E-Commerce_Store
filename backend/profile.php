@@ -41,8 +41,9 @@ try {
             throw new Exception('Not logged in', 401);
         }
 
-        $stmt = $conn->prepare("SELECT first_name, last_name, email, shop_name, shop_description 
-                              FROM users WHERE id = ?");
+        // Update SQL to include profile_img
+        $stmt = $conn->prepare("SELECT first_name, last_name, email, shop_name, shop_description, profile_img 
+                               FROM users WHERE id = ?");
         $stmt->bind_param("i", $_SESSION['user_id']);
         $stmt->execute();
         
@@ -51,7 +52,15 @@ try {
             throw new Exception('Profile not found', 404);
         }
 
-        echo json_encode($result->fetch_assoc());
+        // Fetch the result as an associative array
+        $user = $result->fetch_assoc();
+
+        // Convert the BLOB (profile_img) to base64 encoding
+        if ($user['profile_img']) {
+            $user['profile_img'] = base64_encode($user['profile_img']);
+        }
+
+        echo json_encode($user);
     }
 
     else {

@@ -8,11 +8,11 @@ ob_start();
 // Session configuration
 session_set_cookie_params([
     'lifetime' => 86400,
-    'path' => '/smann06/E-Commerce_Store/backup2/',
-    'domain' => '.ok.ubc.ca',
-    'secure' => true,
+    'path' => '/smann06/E-Commerce_Store/backup2/', // Exact deployment path
+    'domain' => '.ok.ubc.ca', // Top-level domain
+    'secure' => true, // REQUIRED for HTTPS
     'httponly' => true,
-    'samesite' => 'Lax'
+    'samesite' => 'Lax' // Balance security and functionality
 ]);
 session_start();
 
@@ -45,14 +45,34 @@ try {
         }
     }
 
-    // Prepare and execute update
-    $stmt = $conn->prepare("UPDATE users SET
-first_name = ?,
-last_name = ?,
-email = ?,
-shop_name = ?,
-shop_description = ?
-WHERE id = ?");
+    // Prepare and execute update query
+    $sql = "UPDATE users SET 
+                first_name = ?, 
+                last_name = ?, 
+                email = ?, 
+                shop_name = ?, 
+                shop_description = ?";
+    
+    // Check if a new profile image is uploaded
+    if (isset($_FILES['profile_img']) && $_FILES['profile_img']['error'] === UPLOAD_ERR_OK) {
+        // Get the uploaded file details
+        $fileTmpPath = $_FILES['profile_img']['tmp_name'];
+        $fileName = $_FILES['profile_img']['name'];
+        $fileSize = $_FILES['profile_img']['size'];
+        $fileType = $_FILES['profile_img']['type'];
+
+        // Read the file content
+        $profile_img = file_get_contents($fileTmpPath); // Store the image as BLOB in the DB
+
+        // Add profile_img field to the query
+        $sql .= ", profile_img = ?";
+    } else {
+        // If no image uploaded, set profile_img to NULL
+        $profile_img = null;
+    }
+
+    // Finish the query with the WHERE clause
+    $sql .= " WHERE id = ?";
 
     // Clean data
     $firstName = trim($input['first_name']);
@@ -61,16 +81,18 @@ WHERE id = ?");
     $shopName = !empty($input['shop_name']) ? trim($input['shop_name']) : null;
     $shopDesc = !empty($input['shop_description']) ? trim($input['shop_description']) : null;
 
-    $stmt->bind_param(
-        "sssssi",
-        $firstName,
-        $lastName,
-        $email,
-        $shopName,
-        $shopDesc,
-        $_SESSION['user_id']
-    );
+    // Prepare the statement
+    $stmt = $conn->prepare($sql);
 
+    // Bind parameters (include profile_img if it's uploaded)
+    if ($profile_img) {
+        $stmt->bind_param("ssssssi", $firstName, $lastName, $email, $shopName, $shopDesc, $profile_img, $_SESSION['user_id']);
+        $stmt->send_long_data(5, $profile_img); // Send the BLOB data to column 5 (profile_img)
+    } else {
+        $stmt->bind_param("sssssi", $firstName, $lastName, $email, $shopName, $shopDesc, $_SESSION['user_id']);
+    }
+
+    // Execute the query
     if (!$stmt->execute()) {
         throw new Exception('Database update failed: ' . $stmt->error, 500);
     }
@@ -88,10 +110,8 @@ WHERE id = ?");
         ]
     ]);
 } finally {
-    if (isset($stmt))
-        $stmt->close();
-    if (isset($conn))
-        $conn->close();
+    if (isset($stmt)) $stmt->close();
+    if (isset($conn)) $conn->close();
     ob_end_flush();
 }
 ?>

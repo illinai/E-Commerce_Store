@@ -77,6 +77,9 @@ try{
                     <h1>The Maker's Market</h1>
                 </div>
             </div>
+            <a href="../main/homePage.php" class="btn">Buyer's Dashboard</a>
+            <a href="../main/sellerPage.html" class="btn">Seller's Dashboard</a>
+
         </header>
         <!---->
 
@@ -89,6 +92,7 @@ try{
                 </button>
                 <div class="menu-content">
                     <a href="adminDash.php">Dashboard</a>
+                    <a href="dailyStats.html">Daily Stats</a>
                     <a href="adLogout.php">Logout</a>
                 </div>
             </div>
@@ -135,10 +139,7 @@ try{
                     <p><?php echo $productCount; ?></p>
                 </div>
             </div>
-            <div class="repList"> 
-                <p>Report Number: Username: Description</p> <!--format of reports-->
-                <!--Reports will show up as a list once database is created-->
-            </div>
+
         </div>
 
         <!-- Results Section -->

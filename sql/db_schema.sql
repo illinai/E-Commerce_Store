@@ -9,6 +9,7 @@ CREATE TABLE users (
  role ENUM('normal', 'admin') DEFAULT 'normal',
  shop_name VARCHAR(255),
  shop_description TEXT,
+ ability ENUM('enabled', 'disabled') DEFAULT 'enabled',
  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
